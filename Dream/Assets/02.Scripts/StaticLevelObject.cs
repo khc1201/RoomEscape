@@ -29,6 +29,11 @@ public class StaticLevelObject : MonoBehaviour
         
     }
 
+    public void SetActiveObject(bool isshow)
+    {
+        obj_object.SetActive(isshow);
+    }
+
     void InitObject()
     {
         if (m_isCeiling)
