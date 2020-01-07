@@ -10,11 +10,11 @@ public class LevelManager : MonoBehaviour
         if (singleton == null)
         {
             singleton = this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            DestroyImmediate(this);
+            DestroyImmediate(this.gameObject);
             return;
         }
     }
@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour
 
 
     #region 레벨 최적화
-    
+
 
     #endregion
 

@@ -8,7 +8,7 @@ public class CameraObj : MonoBehaviour
     [SerializeField]
     private Camera m_cam;
     [SerializeField]
-    private GameObject m_ui;
+    private CameraButtonUI m_ui;
 
     [Header("+ 방향 조작에 따른 카메라 이동")]
     public CameraObj m_dircamobj_forward;
@@ -16,14 +16,13 @@ public class CameraObj : MonoBehaviour
     public CameraObj m_dircamobj_back;
     public CameraObj m_dircamobj_right;
 
-    [Header("+ 보여야 하는 Object 리스트")]
-    public List<GameObject> m_showLevelObject;
-
+    [Header("+ 레벨 최적화 인덱스")]
+    public GameObject fortest;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_cam = transform.GetComponentInChildren<Camera>();
+        
     }
 
     public void SetActiveObject()
@@ -31,46 +30,35 @@ public class CameraObj : MonoBehaviour
 
     }
 
-    public void CameraMove(MoveDir direction)
+    private void OnDisable()
     {
-        switch (direction)
-        {
-            case MoveDir.Forward:
-                {
-                    if (m_dircamobj_forward == null)
-                    {
-                        Debug.LogError(string.Format($"{this.gameObject.name} 의 forward camera 가 null 입니다."));
-                        return;
-                    }
-                    break;
-                }
-            case MoveDir.Left:
-                {
-                    if (m_dircamobj_left == null)
-                    {
-                        Debug.LogError(string.Format($"{this.gameObject.name} 의 left camera 가 null 입니다."));
-                        return;
-                    }
-                    break;
-                }
-            case MoveDir.Back:
-                {
-                    if (m_dircamobj_back == null)
-                    {
-                        Debug.LogError(string.Format($"{this.gameObject.name} 의 back camera 가 null 입니다."));
-                        return;
-                    }
-                    break;
-                }
-            case MoveDir.Right:
-                {
-                    if (m_dircamobj_right == null)
-                    {
-                        Debug.LogError(string.Format($"{this.gameObject.name} 의 right camera 가 null 입니다."));
-                        return;
-                    }
-                    break;
-                }
-        }
+
+
+        SetEnable(false);
     }
+
+
+    private void OnEnable()
+    {
+        if(m_ui == null)    FindCameraButtonUI();
+        if(m_cam == null) FindCamera();
+
+        SetEnable(true);
+    }
+    private void SetEnable(bool isEnable)
+    {
+        m_ui.enabled = isEnable;
+        m_cam.enabled = isEnable;
+        m_cam.transform.GetComponent<AudioListener>().enabled = isEnable;
+    }
+
+    private void FindCameraButtonUI()
+    {
+        m_ui = (FindObjectOfType<CameraButtonCanvas>().gameObject.transform.Find("bui_" + this.gameObject.name)).transform.GetComponent<CameraButtonUI>();
+    }
+    private void FindCamera()
+    {
+        m_cam = transform.GetComponentInChildren<Camera>();
+    }
+
 }

@@ -8,9 +8,6 @@ public class CameraButtonUI : MonoBehaviour
     [SerializeField]
     List<Button> buttons;
 
-    public void OnEnable()
-    {
-        
-    }
+
 
 }
