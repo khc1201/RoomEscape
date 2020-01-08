@@ -24,9 +24,6 @@ public class CameraManager : MonoBehaviour
     {
         if (m_cameraParent == null) Debug.LogError(string.Format($"{this.gameObject.name} 의 m_cameraParent 가 null 값"));
 
-        //for test
-        Debug.Log("step 1");
-
         InitCameraList();
         ForTestCameraInit();
     }

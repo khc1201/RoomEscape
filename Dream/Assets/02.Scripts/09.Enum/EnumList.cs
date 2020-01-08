@@ -9,3 +9,10 @@ public enum MoveDir
     Back,
     Right
 }
+public enum enum_Language
+{
+    Korean,
+    English,
+    Chinese,
+    Japanese
+}
