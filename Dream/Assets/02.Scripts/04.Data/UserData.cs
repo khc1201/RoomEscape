@@ -19,6 +19,7 @@ public class UserData : MonoBehaviour
             DestroyImmediate(this);
         }
     }
+    private bool isForTestDeleteAllFile = false; // 테스트용 DeleteAllData 버튼을 누른 후 게임을 종료했을 때 마지막 씬이 저장되는 것을 방지.
 
     private void OnApplicationQuit()
     {
@@ -53,120 +54,68 @@ public class UserData : MonoBehaviour
         if  (ES3.KeyExists("streamdata") == false)
         {
             Debug.Log("streamdata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
-            return;
         }
-        else
-        {
-            /*
-            string jsonString = ES3.Load<string>("streamdata");
-
-            JsonData json = JsonMapper.ToObject(jsonString);
-
-            for (int i = 0; i < json.Count; i++)
-            {
-
-                JsonData item = json[i];
-                if (item.ToString() != "") list_completestream.Add(item.ToString());
-            }
-            */
-            list_completestream = ES3.Load<List<string>>("streamdata");
-
-            //for test
-            Debug.Log("LoadData_Stream 완료!");
-        }
-
+            list_completestream = ES3.Load<List<string>>("streamdata", "userdata.es3", defaultValue: new List<string>());
     }
     void LoadData_Cam()
     {
         if (ES3.KeyExists("nowcamera") == false)
         {
             Debug.Log("nowcamera에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
-            m_nowCam = "C000001";
-            return;
-        }
-        else {
-            m_nowCam = ES3.Load<string>("nowcamera");
             
-            //for test
-            Debug.Log("LoadData_Cam 완료! - " + m_nowCam);
         }
+        m_nowCam = ES3.Load<string>("nowcamera", "userdata.es3", defaultValue: "C000001");
+        
     }
 
     void LoadData_Option()
     {
-        m_optiondata = new OptionData();
         if (ES3.KeyExists("optiondata") == false)
         {
             Debug.Log("inventorydata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
-            return;
         }
-        else
-        {
-            /*
-            string jsonString = ES3.Load<string>("optiondata");
-
-            JsonData json = JsonMapper.ToObject(jsonString);
-            for (int i = 0; i < json.Count; i++)
-            {
-                JsonData item = json[i];
-
-                int language = int.Parse(item["language"].ToString());
-                float sound = float.Parse(item["sound"].ToString());
-                bool isrighthand = bool.Parse(item["isrighthand"].ToString());
-
-                m_optiondata.ChangeOption(language, sound, isrighthand);
-            }
-            */
-            m_optiondata = ES3.Load<OptionData>("optiondata");
-            //for test
-            Debug.Log("LoadData_Option 완료!");
-        }
+        m_optiondata = ES3.Load<OptionData>("optiondata", "optiondata.es3", defaultValue: new OptionData());
     }
 
     void SaveData()
     {
+        //for test
+        if (isForTestDeleteAllFile) return; 
+
         SaveData_Cam();
         SaveData_Stream();
         SaveData_Option();
     }
 
-    void SaveData_Cam()
+    public void SaveData_Cam()
     {
-
-        //for test
-        Debug.Log("Save Step 1");
-        ES3.Save<string>("nowcamera", m_nowCam);
+        ES3.Save<string>("nowcamera", m_nowCam, "userdata.es3");
     }
 
-    void SaveData_Stream()
+    public void SaveData_Stream()
     {
-
-        //for test
-        Debug.Log("Save Step 2");
-        /*
-        JsonData json_stream = JsonMapper.ToJson(list_completestream);
-        ES3.Save<JsonData>(json_stream.ToString(), "streamdata");
-        */
-        ES3.Save<List<string>>("streamdata", list_completestream);
+        ES3.Save<List<string>>("streamdata", list_completestream, "userdata.es3");
     }
 
-    void SaveData_Option()
+    public void SaveData_Option()
     {
 
-        //for test
-        Debug.Log("Save Step 3");
-        /*
-        JsonData json_option = JsonMapper.ToJson(m_optiondata);
-        ES3.Save<JsonData>(json_option.ToString(), "optiondata");
-        */
-        ES3.Save<OptionData>("optiondata", m_optiondata);
+        ES3.Save<OptionData>("optiondata", m_optiondata, "optiondata.es3");
     }
 
-    void DeleteAllData()
+    public void DeleteAllData()
     {
         ES3.DeleteKey("nowcamera");
         ES3.DeleteKey("streamdata");
         ES3.DeleteKey("optiondata");
+        ES3.DeleteFile("userdata.es3");
+        ES3.DeleteFile("optiondata.es3");
+    }
+
+    public void DeleteAllDataForTest()
+    {
+        DeleteAllData();
+        isForTestDeleteAllFile = true;
     }
 
     public void CompleteStream(string target)
