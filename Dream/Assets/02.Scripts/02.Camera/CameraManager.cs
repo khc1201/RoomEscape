@@ -65,6 +65,7 @@ public class CameraManager : MonoBehaviour
         }
         m_nowCamera.enabled = true;
         RefreshCameraMoveButtonUI();
+        LevelManager.singleton.InitLevelOptimization();
     }
 
     public void ChangeCamera(CameraObj precam, CameraObj nextcam)
@@ -75,6 +76,14 @@ public class CameraManager : MonoBehaviour
         RefreshCameraMoveButtonUI();
         UserData.singleton.SetNowCam(m_nowCamera.gameObject.name);
         //종료할때만 nowCamera 와 Data 정보들을 저장한다?
+
+        if(precam.m_levelOptimizationIndex != nextcam.m_levelOptimizationIndex)
+        {
+            //for test
+            Debug.Log(string.Format($"최적화 레벨 변경됨 : {precam.m_levelOptimizationIndex} -> {nextcam.m_levelOptimizationIndex}"));
+
+            LevelManager.singleton.ChangeLevelOptimization(nextcam.m_levelOptimizationIndex);
+        }
     }
 
     public void RefreshCameraMoveButtonUI()

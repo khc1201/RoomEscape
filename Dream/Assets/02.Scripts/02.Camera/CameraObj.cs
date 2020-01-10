@@ -17,17 +17,12 @@ public class CameraObj : MonoBehaviour
     public CameraObj m_dircamobj_right;
 
     [Header("+ 레벨 최적화 인덱스")]
-    public GameObject fortest;
+    public string m_levelOptimizationIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    public void SetActiveObject()
-    {
-
+        CheckLevelOptimizationIndex();
     }
 
     private void OnDisable()
@@ -59,4 +54,12 @@ public class CameraObj : MonoBehaviour
         m_cam = transform.GetComponentInChildren<Camera>();
     }
 
+    private void CheckLevelOptimizationIndex()
+    {
+        if(m_levelOptimizationIndex == null || m_levelOptimizationIndex == "")
+        {
+            Debug.LogError(this.gameObject.name + " 의 m_levelOptimizationIndex 가 정해지지 않았다");
+            return;
+        }
+    }
 }
