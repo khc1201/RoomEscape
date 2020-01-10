@@ -20,9 +20,14 @@ public class UserData : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        SaveData();
+    }
+
     public List<string> list_completestream;
     public OptionData m_optiondata;
-    public string m_nowCam = "C000001";
+    public string m_nowCam;
 
     private void Start()
     {
@@ -52,6 +57,7 @@ public class UserData : MonoBehaviour
         }
         else
         {
+            /*
             string jsonString = ES3.Load<string>("streamdata");
 
             JsonData json = JsonMapper.ToObject(jsonString);
@@ -62,6 +68,11 @@ public class UserData : MonoBehaviour
                 JsonData item = json[i];
                 if (item.ToString() != "") list_completestream.Add(item.ToString());
             }
+            */
+            list_completestream = ES3.Load<List<string>>("streamdata");
+
+            //for test
+            Debug.Log("LoadData_Stream 완료!");
         }
 
     }
@@ -70,23 +81,29 @@ public class UserData : MonoBehaviour
         if (ES3.KeyExists("nowcamera") == false)
         {
             Debug.Log("nowcamera에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
+            m_nowCam = "C000001";
             return;
         }
-
-        m_nowCam = ES3.Load<string>("nowcamera");
+        else {
+            m_nowCam = ES3.Load<string>("nowcamera");
+            
+            //for test
+            Debug.Log("LoadData_Cam 완료! - " + m_nowCam);
+        }
     }
 
     void LoadData_Option()
     {
         m_optiondata = new OptionData();
-        if (ES3.KeyExists("inventorydata") == false)
+        if (ES3.KeyExists("optiondata") == false)
         {
             Debug.Log("inventorydata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
             return;
         }
         else
         {
-            string jsonString = ES3.Load<string>("inventorydata");
+            /*
+            string jsonString = ES3.Load<string>("optiondata");
 
             JsonData json = JsonMapper.ToObject(jsonString);
             for (int i = 0; i < json.Count; i++)
@@ -99,31 +116,57 @@ public class UserData : MonoBehaviour
 
                 m_optiondata.ChangeOption(language, sound, isrighthand);
             }
+            */
+            m_optiondata = ES3.Load<OptionData>("optiondata");
+            //for test
+            Debug.Log("LoadData_Option 완료!");
         }
     }
 
     void SaveData()
     {
+        SaveData_Cam();
         SaveData_Stream();
         SaveData_Option();
-        SaveData_Cam();
     }
 
     void SaveData_Cam()
     {
-        ES3.Save<string>(m_nowCam, "nowcamera");
+
+        //for test
+        Debug.Log("Save Step 1");
+        ES3.Save<string>("nowcamera", m_nowCam);
     }
 
     void SaveData_Stream()
     {
+
+        //for test
+        Debug.Log("Save Step 2");
+        /*
         JsonData json_stream = JsonMapper.ToJson(list_completestream);
         ES3.Save<JsonData>(json_stream.ToString(), "streamdata");
+        */
+        ES3.Save<List<string>>("streamdata", list_completestream);
     }
 
     void SaveData_Option()
     {
+
+        //for test
+        Debug.Log("Save Step 3");
+        /*
         JsonData json_option = JsonMapper.ToJson(m_optiondata);
         ES3.Save<JsonData>(json_option.ToString(), "optiondata");
+        */
+        ES3.Save<OptionData>("optiondata", m_optiondata);
+    }
+
+    void DeleteAllData()
+    {
+        ES3.DeleteKey("nowcamera");
+        ES3.DeleteKey("streamdata");
+        ES3.DeleteKey("optiondata");
     }
 
     public void CompleteStream(string target)

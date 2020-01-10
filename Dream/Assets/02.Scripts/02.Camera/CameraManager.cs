@@ -25,7 +25,6 @@ public class CameraManager : MonoBehaviour
         if (m_cameraParent == null) Debug.LogError(string.Format($"{this.gameObject.name} 의 m_cameraParent 가 null 값"));
 
         InitCameraList();
-        ForTestCameraInit();
         InitCamera();
     }
     [Header("+ 초기화 정보")]
@@ -54,17 +53,20 @@ public class CameraManager : MonoBehaviour
             list_camobj.Add(e);
         }
     }
+
     private void InitCamera()
     {
-        CameraObj temp_initCam = list_camobj.Find(x => x.gameObject.name == UserData.singleton.m_nowCam);
-        if(temp_initCam == null)
+        m_nowCamera = list_camobj.Find(x => x.gameObject.name == UserData.singleton.m_nowCam);
+        
+        if(m_nowCamera == null)
         {
             Debug.LogError(string.Format($"{UserData.singleton.m_nowCam} 에 대한 카메라 정보를 list_camobj 에서 찾지 못했습니다."));
             return;
         }
-        temp_initCam.enabled = true;
+        m_nowCamera.enabled = true;
         RefreshCameraMoveButtonUI();
     }
+
     public void ChangeCamera(CameraObj precam, CameraObj nextcam)
     {
         precam.enabled = false;
@@ -74,10 +76,6 @@ public class CameraManager : MonoBehaviour
         UserData.singleton.SetNowCam(m_nowCamera.gameObject.name);
         //종료할때만 nowCamera 와 Data 정보들을 저장한다?
     }
-    private void ForTestCameraInit()
-    {
-        ChangeCamera(list_camobj[1], list_camobj[0]);
-    }
 
     public void RefreshCameraMoveButtonUI()
     {
@@ -86,6 +84,7 @@ public class CameraManager : MonoBehaviour
         m_btn_right.SetButton(m_nowCamera.m_dircamobj_right != null);
         m_btn_left.SetButton(m_nowCamera.m_dircamobj_left != null);
     }
+
     public void CameraMove(MoveDir direction)
     {
         switch (direction)
