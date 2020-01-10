@@ -32,8 +32,6 @@ public class CameraObj : MonoBehaviour
 
     private void OnDisable()
     {
-
-
         SetEnable(false);
     }
 
@@ -48,8 +46,8 @@ public class CameraObj : MonoBehaviour
     private void SetEnable(bool isEnable)
     {
         m_ui.enabled = isEnable;
-        m_cam.enabled = isEnable;
         m_cam.transform.GetComponent<AudioListener>().enabled = isEnable;
+        m_cam.enabled = isEnable;
     }
 
     private void FindCameraButtonUI()
