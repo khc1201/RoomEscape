@@ -53,7 +53,7 @@ public class UserData : MonoBehaviour
 
         if  (ES3.KeyExists("streamdata") == false)
         {
-            Debug.Log("streamdata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
+            if(DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("streamdata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
         }
             list_completestream = ES3.Load<List<string>>("streamdata", "userdata.es3", defaultValue: new List<string>());
     }
@@ -61,7 +61,7 @@ public class UserData : MonoBehaviour
     {
         if (ES3.KeyExists("nowcamera") == false)
         {
-            Debug.Log("nowcamera에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
+            if (DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("nowcamera에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
             
         }
         m_nowCam = ES3.Load<string>("nowcamera", "userdata.es3", defaultValue: "C000001");
@@ -72,7 +72,7 @@ public class UserData : MonoBehaviour
     {
         if (ES3.KeyExists("optiondata") == false)
         {
-            Debug.Log("inventorydata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
+            if (DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("inventorydata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
         }
         m_optiondata = ES3.Load<OptionData>("optiondata", "optiondata.es3", defaultValue: new OptionData());
     }

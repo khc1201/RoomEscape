@@ -23,4 +23,7 @@ public class DevDescriptionManager : MonoBehaviour
     {
         m_descriptions.Add(target);
     }
+
+    [Header("+ ForTest 전용 텍스트 출력 여부")]
+    public bool m_isFortestConsoleShow = true;
 }
