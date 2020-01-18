@@ -5,7 +5,6 @@ using UnityEngine;
 public class StreamDataManager : MonoBehaviour
 {
     public static StreamDataManager singleton;
-    public GameObject m_streamParent;
     private void Awake()
     {
         if (singleton == null)
@@ -22,22 +21,35 @@ public class StreamDataManager : MonoBehaviour
     public List<StreamData> list_streamData;
     public void Start()
     {
-        InitList();        
+        
     }
-    public void InitList()
+    public void InitStream()
     {
-        if(m_streamParent == null)
+        // 게임 시작 시 Stream 의 완료 상태를 변경
+        if(list_streamData == null)
         {
             Debug.LogError(string.Format($"{this.gameObject.name} 이 null 값 입니다."));
+            return;
         }
-        list_streamData = new List<StreamData>();
-        foreach(var e in m_streamParent.GetComponentsInChildren<StreamData>())
+        foreach(string s in UserData.singleton.list_completestream)
         {
-            list_streamData.Add(e);
+            (list_streamData.Find(x => x.m_index == s)).m_isComplete = true;
         }
+
+        StreamItemManager.singleton.InitItem();
     }
     public void CompleteStream(StreamData target)
     {
-        FindObjectOfType<UserData>().CompleteStream(target.m_index);
+
+        //for test
+        Debug.Log("STEP 2");
+        UserData.singleton.CompleteStream(target.m_index);
+
+
+        //for test
+        Debug.Log("STEP 5");
+        StreamItemManager.singleton.OnChangeStreamData();
+
+        target.m_isComplete = true;
     }
 }

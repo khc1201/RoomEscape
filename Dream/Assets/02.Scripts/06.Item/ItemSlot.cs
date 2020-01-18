@@ -51,9 +51,14 @@ public class ItemSlot : MonoBehaviour
     }
     public void AddItem(StreamItem target)
     {
+        if (target.Equals(null))
+        {
+            DeleteItem();
+            return;
+        }
         m_itemData = target;
         m_icon.enabled = true;
-        m_icon.sprite = m_itemData.m_icon.sprite;
+        m_icon.sprite = m_itemData.m_icon;
     }
     public void DeleteItem()
     {

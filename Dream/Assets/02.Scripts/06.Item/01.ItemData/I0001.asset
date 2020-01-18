@@ -15,7 +15,7 @@ MonoBehaviour:
   m_name: "\uACF5"
   m_desc: "\uC774\uAC83\uC744 \uC9D1\uC5B4\uC11C \uAC15\uC544\uC9C0\uB97C \uCE58\uC6B4\uB2E4"
   m_itemIndex: I0001
-  m_streamIndex_for_gatherItem: 
-  m_streamIndex_for_clearItem: 
-  m_icon: {fileID: 0}
+  m_streamIndex_for_gatherItem: STR000001
+  m_streamIndex_for_clearItem: STR000002
+  m_icon: {fileID: 21300000, guid: 859f8c53de384744288d9160a2fdffe4, type: 3}
   m_isHave: 0

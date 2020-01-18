@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class StreamItem : ScriptableObject
 {
     [Header("+ 개발자 메모용 : 프로그램에 미포함")]
-
     public string m_name; // 개발자 메모용1
     public string m_desc; // 개발자 메모용2
 
@@ -17,7 +16,7 @@ public class StreamItem : ScriptableObject
     public string m_streamIndex_for_clearItem;
 
     [Header("+ 아이템 아이콘")]
-    public Image m_icon;
+    public Sprite m_icon;
 
     [Header("+ 미입력 속성")]
     [SerializeField] private bool m_isHave = false;
@@ -54,4 +53,31 @@ public class StreamItem : ScriptableObject
         }
         return false;
     }
+
+    public void OnChangeStreamData()
+    {
+        //for test
+        Debug.Log("STEP 8");
+        if (UserData.singleton.list_completestream.Contains(m_streamIndex_for_gatherItem) 
+            && !(UserData.singleton.list_completestream.Contains(m_streamIndex_for_clearItem)))
+        {
+            m_isHave = true;
+        }
+        else
+        {
+            m_isHave = false;
+        }
+
+        //for test
+        Debug.Log("STEP 9");
+    }
+    public void ResetComplete()
+    {
+        m_isHave = false;
+    }
+    public bool GetIsHave()
+    {
+        return m_isHave;
+    }
+    
 }

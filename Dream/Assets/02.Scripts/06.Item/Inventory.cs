@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Inventory : MonoBehaviour
 {
@@ -11,11 +12,8 @@ public class Inventory : MonoBehaviour
     public ItemSlot m_slot_5;
 
     [SerializeField] List<ItemSlot> list_itemslots;
-    [Header("+ 모든 아이템의 목록")]
-    public List<StreamItem> list_streamItem;
-    
-
     public ItemSlot m_nowSelectedItem;
+    public List<StreamItem> list_nowItems;
 
     public void Start()
     {
@@ -65,5 +63,42 @@ public class Inventory : MonoBehaviour
         m_nowSelectedItem = target;
         
         m_nowSelectedItem.OnSelectItem();
+    }
+
+    public void RefreshNowItemList()
+    {
+        //for test
+        Debug.Log("STEP 10");
+        var temp_nowItem =
+            from nowItem
+            in StreamItemManager.singleton.list_streamItem
+            where nowItem.GetIsHave()
+            select nowItem;
+
+        //for test
+        Debug.Log("STEP 11");
+        list_nowItems = new List<StreamItem>();
+        foreach (StreamItem e in temp_nowItem)
+        {
+            list_nowItems.Add(e);
+        }
+        //for test
+        Debug.Log("STEP 12");
+        if (list_nowItems.Count > list_itemslots.Count)
+        {
+            Debug.LogError(string.Format($"list_nowItem 의 개수 = {list_nowItems.Count} > list_itemslots 의 개수 = {list_itemslots.Count}"));
+        }
+        //for test
+        Debug.Log("STEP 13");
+        foreach(var e in list_itemslots)
+        {
+            e.DeleteItem();
+        }
+        for (int i = 0;i< list_nowItems.Count; i++)
+        {
+            list_itemslots[i].AddItem(list_nowItems[i]);
+        }
+        //for test
+        Debug.Log("STEP 14");
     }
 }

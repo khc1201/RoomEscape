@@ -46,6 +46,8 @@ public class UserData : MonoBehaviour
         LoadData_Stream();
         LoadData_Option();
         LoadData_Cam();
+
+        StreamDataManager.singleton.InitStream();
     }
     void LoadData_Stream()
     {
@@ -110,6 +112,17 @@ public class UserData : MonoBehaviour
         ES3.DeleteKey("optiondata");
         ES3.DeleteFile("userdata.es3");
         ES3.DeleteFile("optiondata.es3");
+
+        foreach(var e in StreamDataManager.singleton.list_streamData)
+        {
+            e.ResetComplete();
+        }
+        foreach(var e in StreamItemManager.singleton.list_streamItem)
+        {
+            e.ResetComplete();
+        }
+
+        LoadData();
     }
 
     public void DeleteAllDataForTest()
@@ -120,6 +133,10 @@ public class UserData : MonoBehaviour
 
     public void CompleteStream(string target)
     {
+
+        //for test
+        Debug.Log("STEP 3");
+
         if (list_completestream.Contains(target))
         {
             Debug.LogError(string.Format($"{this.gameObject.name} 에서 실행된 {target} 은 이미 list_completestream 에 포함 된 항목"));
@@ -127,5 +144,8 @@ public class UserData : MonoBehaviour
         else list_completestream.Add(target);
 
         SaveData_Stream();
+        //for test
+        Debug.Log("STEP 4");
+
     }
 }

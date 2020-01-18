@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StreamData : MonoBehaviour
+[CreateAssetMenu]
+public class StreamData : ScriptableObject
 {
     //Save & Load 의 기준이 되는 데이터
     public string m_index = null;
@@ -13,11 +14,15 @@ public class StreamData : MonoBehaviour
     {
         if (m_index.Equals(null))
         {
-            Debug.LogError(string.Format($"{this.gameObject.name} 의 m_index 가 설정되어있지 않습니다."));
+            Debug.LogError(string.Format($"{this.name} 의 m_index 가 설정되어있지 않습니다."));
         }
-        this.gameObject.name = m_index;
+        this.name = m_index;
     }
-
+    
+    public void ResetComplete()
+    {
+        m_isComplete = false;
+    }
     public void CompleteStream()
     {
         FindObjectOfType<StreamDataManager>().CompleteStream(this);
