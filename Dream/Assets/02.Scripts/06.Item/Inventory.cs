@@ -57,6 +57,7 @@ public class Inventory : MonoBehaviour
         if (!target.IsExistItemData())
         {
             if(DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log(target.name + " 에 Item Data 가 존재하지 않습니다. 아무것도 선택하지 않습니다.");
+            m_nowSelectedItem = null;
             return;
         }
 
