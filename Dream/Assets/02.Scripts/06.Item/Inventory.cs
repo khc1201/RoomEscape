@@ -67,29 +67,25 @@ public class Inventory : MonoBehaviour
 
     public void RefreshNowItemList()
     {
-        //for test
-        Debug.Log("STEP 10");
+
         var temp_nowItem =
             from nowItem
             in StreamItemManager.singleton.list_streamItem
             where nowItem.GetIsHave()
             select nowItem;
 
-        //for test
-        Debug.Log("STEP 11");
+
         list_nowItems = new List<StreamItem>();
         foreach (StreamItem e in temp_nowItem)
         {
             list_nowItems.Add(e);
         }
-        //for test
-        Debug.Log("STEP 12");
+
         if (list_nowItems.Count > list_itemslots.Count)
         {
             Debug.LogError(string.Format($"list_nowItem 의 개수 = {list_nowItems.Count} > list_itemslots 의 개수 = {list_itemslots.Count}"));
         }
-        //for test
-        Debug.Log("STEP 13");
+
         foreach(var e in list_itemslots)
         {
             e.DeleteItem();
@@ -98,7 +94,5 @@ public class Inventory : MonoBehaviour
         {
             list_itemslots[i].AddItem(list_nowItems[i]);
         }
-        //for test
-        Debug.Log("STEP 14");
     }
 }

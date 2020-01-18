@@ -21,9 +21,6 @@ public class TestAddItem : MonoBehaviour
             return;
         }
 
-        //for test
-        Debug.Log("STEP 1");
-
         StreamDataManager.singleton.CompleteStream(addcompletestream);
     }
 

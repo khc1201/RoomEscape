@@ -31,8 +31,6 @@ public class StreamItemManager : MonoBehaviour
     public void OnChangeStreamData()
     {
 
-        //for test
-        Debug.Log("STEP 6");
         if (m_inventory == null)
         {
             DevDescriptionManager.singleton.LogNullError(this.gameObject, "m_inventory");
@@ -43,8 +41,7 @@ public class StreamItemManager : MonoBehaviour
             DevDescriptionManager.singleton.LogNullError(this.gameObject, "list_streamItem");
             return;
         }
-        //for test
-        Debug.Log("STEP 7");
+
         for (int i = 0; i < list_streamItem.Count; i++)
         {
             list_streamItem[i].OnChangeStreamData();

@@ -134,8 +134,6 @@ public class UserData : MonoBehaviour
     public void CompleteStream(string target)
     {
 
-        //for test
-        Debug.Log("STEP 3");
 
         if (list_completestream.Contains(target))
         {
@@ -144,8 +142,7 @@ public class UserData : MonoBehaviour
         else list_completestream.Add(target);
 
         SaveData_Stream();
-        //for test
-        Debug.Log("STEP 4");
+
 
     }
 }

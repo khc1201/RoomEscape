@@ -40,14 +40,10 @@ public class StreamDataManager : MonoBehaviour
     }
     public void CompleteStream(StreamData target)
     {
-
-        //for test
-        Debug.Log("STEP 2");
+        
         UserData.singleton.CompleteStream(target.m_index);
 
-
-        //for test
-        Debug.Log("STEP 5");
+        
         StreamItemManager.singleton.OnChangeStreamData();
 
         target.m_isComplete = true;

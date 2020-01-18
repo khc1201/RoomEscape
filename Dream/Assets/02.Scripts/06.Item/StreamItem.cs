@@ -12,8 +12,11 @@ public class StreamItem : ScriptableObject
 
     [Header("+ 입력해야 할 영역")]
     public string m_itemIndex;
-    public string m_streamIndex_for_gatherItem;
-    public string m_streamIndex_for_clearItem;
+    //public string m_streamIndex_for_gatherItem;
+    //public string m_streamIndex_for_clearItem;
+
+    public StreamData m_streamData_for_gatherItem;
+    public StreamData m_streamData_for_clearItem;
 
     [Header("+ 아이템 아이콘")]
     public Sprite m_icon;
@@ -32,14 +35,7 @@ public class StreamItem : ScriptableObject
         {
             Debug.LogError(this.name + "의 m_indexIndex 가 입력되지 않았습니다.");
         }
-        if (IsEmptyString(m_streamIndex_for_gatherItem))
-        {
-            Debug.LogError(this.name + "의 m_streamIndex_for_gatherItem 가 입력되지 않았습니다.");
-        }
-        if (IsEmptyString(m_streamIndex_for_clearItem))
-        {
-            Debug.LogError(this.name + "의 m_streamIndex_for_clearItem 가 입력되지 않았습니다.");
-        }
+        
         if (m_itemIndex == null)
         {
             Debug.LogError(this.name + "의 m_icon 이 null 입니다");
@@ -56,10 +52,8 @@ public class StreamItem : ScriptableObject
 
     public void OnChangeStreamData()
     {
-        //for test
-        Debug.Log("STEP 8");
-        if (UserData.singleton.list_completestream.Contains(m_streamIndex_for_gatherItem) 
-            && !(UserData.singleton.list_completestream.Contains(m_streamIndex_for_clearItem)))
+        if (UserData.singleton.list_completestream.Contains(m_streamData_for_gatherItem.m_index)
+            && !(UserData.singleton.list_completestream.Contains(m_streamData_for_clearItem.m_index)))
         {
             m_isHave = true;
         }
@@ -67,9 +61,6 @@ public class StreamItem : ScriptableObject
         {
             m_isHave = false;
         }
-
-        //for test
-        Debug.Log("STEP 9");
     }
     public void ResetComplete()
     {
