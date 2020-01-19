@@ -36,4 +36,5 @@ public class StreamData : ScriptableObject
         }
     }
 
+    public List<StreamObject> streamObjects;
 }

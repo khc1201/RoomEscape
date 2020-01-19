@@ -9,10 +9,23 @@ public enum MoveDir
     Back,
     Right
 }
+
 public enum enum_Language
 {
     Korean,
     English,
     Chinese,
     Japanese
+}
+
+public enum EVENT_TYPE
+{
+    Complete_StreamData
+};
+
+public enum enum_ObjectAction
+{
+    Show,
+    Hide,
+    Init
 }

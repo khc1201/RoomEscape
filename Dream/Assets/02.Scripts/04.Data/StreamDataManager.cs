@@ -42,10 +42,8 @@ public class StreamDataManager : MonoBehaviour
     {
         
         UserData.singleton.CompleteStream(target.m_index);
-
-        
         StreamItemManager.singleton.OnChangeStreamData();
-
+        EventManager.Singleton.PostNotification(EVENT_TYPE.Complete_StreamData, this, target);
         target.m_isComplete = true;
     }
 }
