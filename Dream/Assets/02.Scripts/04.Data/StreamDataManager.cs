@@ -33,7 +33,7 @@ public class StreamDataManager : MonoBehaviour
         }
         foreach(string s in UserData.singleton.list_completestream)
         {
-            (list_streamData.Find(x => x.m_index == s)).m_isComplete = true;
+            (list_streamData.Find(x => x.index == s)).InitStreamData(true);
         }
 
         StreamItemManager.singleton.InitItem();
@@ -41,9 +41,8 @@ public class StreamDataManager : MonoBehaviour
     public void CompleteStream(StreamData target)
     {
         
-        UserData.singleton.CompleteStream(target.m_index);
+        UserData.singleton.CompleteStream(target.index);
         StreamItemManager.singleton.OnChangeStreamData();
-        EventManager.Singleton.PostNotification(EVENT_TYPE.Complete_StreamData, this, target);
-        target.m_isComplete = true;
     }
+
 }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu]
-public class StreamItem : ScriptableObject
+public class StreamItem : MonoBehaviour
 {
     [Header("+ 개발자 메모용 : 프로그램에 미포함")]
     public string m_name; // 개발자 메모용1
@@ -52,8 +51,8 @@ public class StreamItem : ScriptableObject
 
     public void OnChangeStreamData()
     {
-        if (UserData.singleton.list_completestream.Contains(m_streamData_for_gatherItem.m_index)
-            && !(UserData.singleton.list_completestream.Contains(m_streamData_for_clearItem.m_index)))
+        if (UserData.singleton.list_completestream.Contains(m_streamData_for_gatherItem.index)
+            && !(UserData.singleton.list_completestream.Contains(m_streamData_for_clearItem.index)))
         {
             m_isHave = true;
         }

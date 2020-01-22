@@ -113,15 +113,6 @@ public class UserData : MonoBehaviour
         ES3.DeleteFile("userdata.es3");
         ES3.DeleteFile("optiondata.es3");
 
-        foreach(var e in StreamDataManager.singleton.list_streamData)
-        {
-            e.ResetComplete();
-        }
-        foreach(var e in StreamItemManager.singleton.list_streamItem)
-        {
-            e.ResetComplete();
-        }
-
         LoadData();
     }
 
