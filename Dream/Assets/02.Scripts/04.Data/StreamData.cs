@@ -9,7 +9,7 @@ public class StreamData : MonoBehaviour
     public string index = null;
     public string desc;
     [Header(" + 완료 되었는지?")]
-    public bool isComplete = false;
+    [SerializeField] private bool isComplete = false;
     [Header(" + 발동에 따른 스트림 오브젝트")]
     public List<StreamObject> streamObjects;
 
@@ -24,6 +24,7 @@ public class StreamData : MonoBehaviour
 
     public void CompleteStream()
     {
+        isComplete = true;
         StreamDataManager.singleton.CompleteStream(this);
         CompleteAction();
     }
@@ -46,6 +47,7 @@ public class StreamData : MonoBehaviour
     {
         if (_isComplete && streamObjects != null)
         {
+            isComplete = true;
             for(int i = 0; i < streamObjects.Count; i++)
             {
                 if (!(streamObjects[i].IsIgnoreOnLoad))

@@ -33,3 +33,9 @@ public enum enum_ObjectAction
     Hide = 52,
     Init = 53
 }
+
+public enum enum_AnswerType
+{
+    Default,
+    Number
+}
