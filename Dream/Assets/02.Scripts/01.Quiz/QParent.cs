@@ -80,6 +80,11 @@ public class QParent : MonoBehaviour
                     OnInput_AnswerIsNumber(inputNumber: childInput);
                     break;
                 }
+            case enum_AnswerType.Click:
+                {
+
+                    break;
+                }
         }
 
         CheckAnswer();
