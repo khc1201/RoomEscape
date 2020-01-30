@@ -48,6 +48,7 @@ public class UserData : MonoBehaviour
         LoadData_Cam();
 
         StreamDataManager.singleton.InitStream();
+        StringDataManager.singleton.LoadStringData();
     }
     void LoadData_Stream()
     {

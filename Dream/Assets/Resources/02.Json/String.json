@@ -1,0 +1,162 @@
+﻿[
+	{
+		"Index" : "//" ,
+		"Desc" : "시스템 메시지" ,
+		"Lang_1" : "" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Start_PlayButton" ,
+		"Desc" : "" ,
+		"Lang_1" : "시작" ,
+		"Lang_2" : "Play" ,
+		"Lang_3" : "시작" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Start_Option" ,
+		"Desc" : "" ,
+		"Lang_1" : "설정" ,
+		"Lang_2" : "Option" ,
+		"Lang_3" : "설정" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Start_Exit" ,
+		"Desc" : "" ,
+		"Lang_1" : "종료" ,
+		"Lang_2" : "Exit" ,
+		"Lang_3" : "종료" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Language_KOR" ,
+		"Desc" : "" ,
+		"Lang_1" : "한국어" ,
+		"Lang_2" : "한국어" ,
+		"Lang_3" : "한국어" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Language_ENG" ,
+		"Desc" : "" ,
+		"Lang_1" : "ENGLISH" ,
+		"Lang_2" : "ENGLISH" ,
+		"Lang_3" : "ENGLISH" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Language_CHN" ,
+		"Desc" : "" ,
+		"Lang_1" : "中國語" ,
+		"Lang_2" : "中國語" ,
+		"Lang_3" : "中國語" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Language_JPN" ,
+		"Desc" : "" ,
+		"Lang_1" : "이시국어" ,
+		"Lang_2" : "이시국어" ,
+		"Lang_3" : "이시국어" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Language_ESP" ,
+		"Desc" : "" ,
+		"Lang_1" : "스펜어" ,
+		"Lang_2" : "스펜어" ,
+		"Lang_3" : "스펜어" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Language_6" ,
+		"Desc" : "" ,
+		"Lang_1" : "희망어" ,
+		"Lang_2" : "희망어" ,
+		"Lang_3" : "희망어" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "//" ,
+		"Desc" : "" ,
+		"Lang_1" : "" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "//" ,
+		"Desc" : "" ,
+		"Lang_1" : "" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "//" ,
+		"Desc" : "일반 이야기" ,
+		"Lang_1" : "" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Name_Test_01" ,
+		"Desc" : "" ,
+		"Lang_1" : "테스트.. 메시지…" ,
+		"Lang_2" : "this… is… test… message…" ,
+		"Lang_3" : "테스트.. 메시지…" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Name_Test_02" ,
+		"Desc" : "" ,
+		"Lang_1" : "이걸로… 이어진다…" ,
+		"Lang_2" : "continue…" ,
+		"Lang_3" : "이걸로… 이어진다…" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	},
+	{
+		"Index" : "Str_Name_Test_03" ,
+		"Desc" : "" ,
+		"Lang_1" : "대화의… 종료…" ,
+		"Lang_2" : "End… of… message" ,
+		"Lang_3" : "대화의… 종료…" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" 
+	}
+]

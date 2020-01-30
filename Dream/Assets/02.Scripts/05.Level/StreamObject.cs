@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StreamObject : MonoBehaviour
-{ 
+{
+    [Header(" + 설명")]
+    public string descripiton;
+
     [Header(" + 대상 GameObject")]
     public List<GameObject> m_targetObject;
 
@@ -12,6 +15,11 @@ public class StreamObject : MonoBehaviour
 
     [Header(" + 초기화 시 무시되는 데이터인가?")]
     [SerializeField] private bool isIgnoreOnLoad = true;
+
+    [Header(" + StreamObject 이 Talk 일때")]
+    public List<string> dialogs;
+    public List<StreamData> streamData_onEndDialog;
+
     public bool IsIgnoreOnLoad
     {
         get
@@ -52,6 +60,11 @@ public class StreamObject : MonoBehaviour
 
         switch (m_objectAction)
         {
+            case enum_ObjectAction.Defalut:
+                {
+                    Debug.LogError(this.gameObject.name + "의 m_objectAction 이 설정되어있지 않다 (default)");
+                    break;
+                }
             case enum_ObjectAction.Hide:
                 {
                     ObjectAction_Hide();
@@ -69,10 +82,32 @@ public class StreamObject : MonoBehaviour
                     ObjectAction_Init();
                     break;
                 }
+
+            case enum_ObjectAction.Talk:
+                {
+                    ObjectAction_Talk();
+                    break;
+                }
                 
         }
     }
-    
+    private void ObjectAction_Talk()
+    {
+        Dialog.singleton.ShowDialog(this);
+    }
+
+    public void OjbectAction_Talk_onComplete()
+    {
+        if(streamData_onEndDialog != null)
+        {
+            foreach(var e in streamData_onEndDialog)
+            {
+                //for test
+                Debug.Log("talk 완료에 따라 " + e.index + " 의 complete 발동!");
+                e.CompleteStream();
+            }
+        }
+    }
 
     private void ObjectAction_Show()
     {
