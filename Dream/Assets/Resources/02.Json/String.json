@@ -1,7 +1,7 @@
 ﻿[
 	{
 		"Index" : "//" ,
-		"Desc" : "시스템 메시지" ,
+		"Desc" : "번역시 참고" ,
 		"Lang_1" : "" ,
 		"Lang_2" : "" ,
 		"Lang_3" : "" ,
@@ -145,7 +145,7 @@
 	},
 	{
 		"Index" : "//" ,
-		"Desc" : "일반 이야기" ,
+		"Desc" : "StreamObject 에서 Talk 를 사용하는 경우" ,
 		"Lang_1" : "" ,
 		"Lang_2" : "" ,
 		"Lang_3" : "" ,
@@ -192,7 +192,7 @@
 		"FontColor" : "" 
 	},
 	{
-		"Index" : "Str_Name_Step1_01" ,
+		"Index" : "Str_000003_01" ,
 		"Desc" : "" ,
 		"Lang_1" : "…" ,
 		"Lang_2" : "" ,
@@ -204,7 +204,7 @@
 		"FontColor" : "" 
 	},
 	{
-		"Index" : "Str_Name_Step1_02" ,
+		"Index" : "Str_000003_02" ,
 		"Desc" : "" ,
 		"Lang_1" : "으…" ,
 		"Lang_2" : "" ,
@@ -216,7 +216,7 @@
 		"FontColor" : "" 
 	},
 	{
-		"Index" : "Str_Name_Step1_03" ,
+		"Index" : "Str_000003_03" ,
 		"Desc" : "" ,
 		"Lang_1" : "멍멍!" ,
 		"Lang_2" : "" ,
@@ -228,7 +228,7 @@
 		"FontColor" : "1" 
 	},
 	{
-		"Index" : "Str_Name_Step1_04" ,
+		"Index" : "Str_000003_04" ,
 		"Desc" : "" ,
 		"Lang_1" : "기분 나쁜 꿈…" ,
 		"Lang_2" : "" ,
@@ -240,7 +240,7 @@
 		"FontColor" : "" 
 	},
 	{
-		"Index" : "Str_Name_Step1_05" ,
+		"Index" : "Str_000003_05" ,
 		"Desc" : "" ,
 		"Lang_1" : "멍!" ,
 		"Lang_2" : "" ,
@@ -252,9 +252,45 @@
 		"FontColor" : "1" 
 	},
 	{
-		"Index" : "Str_Name_Step1_06" ,
+		"Index" : "Str_000003_06" ,
 		"Desc" : "" ,
 		"Lang_1" : "그래, 그래, 이제 일어 날 거야!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000004_01" ,
+		"Desc" : "" ,
+		"Lang_1" : "멍~!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "dog_barkonce" ,
+		"FontColor" : "1" 
+	},
+	{
+		"Index" : "Str_000004_02" ,
+		"Desc" : "" ,
+		"Lang_1" : "네가 그러고 있으면 일어날 수가 없잖아…" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000004_03" ,
+		"Desc" : "" ,
+		"Lang_1" : "뭐가 필요한 거야? 장난감…?" ,
 		"Lang_2" : "" ,
 		"Lang_3" : "" ,
 		"Lang_4" : "" ,

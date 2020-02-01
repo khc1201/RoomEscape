@@ -125,21 +125,26 @@ public class StreamObject : MonoBehaviour
     private void ObjectAction_FadeIn()
     {
         FadeCanvas fadeCanvas = FindObjectOfType<FadeCanvas>();
-        fadeCanvas.StartFadeIn(isImmediately);
+        fadeCanvas.StartFadeIn(this);
         if (isplayafterComplete)
         {
-            StartCoroutine(DoEnd_Fade(fadeCanvas));
+            //StartCoroutine(DoEnd_Fade(fadeCanvas));
         }
     }
     private void ObjectAction_FadeOut()
     {
         FadeCanvas fadeCanvas = FindObjectOfType<FadeCanvas>();
-        fadeCanvas.StartFadeOut(isImmediately);
+        fadeCanvas.StartFadeOut(this);
         if (isplayafterComplete)
         {
-            StartCoroutine(DoEnd_Fade(fadeCanvas));
+            //StartCoroutine(DoEnd_Fade(fadeCanvas));
         }
     }
+    public void DoEnd_Fade()
+    {
+        isEnd = true;
+    }
+    /*
     IEnumerator DoEnd_Fade(FadeCanvas targetCanvas)
     {
         while (!isEnd)
@@ -149,11 +154,11 @@ public class StreamObject : MonoBehaviour
                 isEnd = true;
                 targetCanvas.IsEnd = false;
             }
-            yield return new WaitForSeconds(endCheckingTick * Time.deltaTime);
+            yield return new WaitForSeconds(endCheckingTick);
         }
         yield return null;
     }
-
+    */
     private void ObjectAction_PlaySE()
     {
         SoundEffectManager.singleton.PlaySoundEffect(targetSound.name);
@@ -174,7 +179,7 @@ public class StreamObject : MonoBehaviour
             {
                 isEnd = true;
             }
-            yield return new WaitForSeconds(endCheckingTick * Time.deltaTime);
+            yield return new WaitForSeconds(endCheckingTick);
         }
         yield return null;
     }

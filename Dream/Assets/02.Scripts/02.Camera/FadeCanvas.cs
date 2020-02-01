@@ -34,17 +34,18 @@ public class FadeCanvas : MonoBehaviour
         fadeImage.gameObject.SetActive(false);
     }
 
-    public void StartFadeIn(bool isImmediately)
+    public void StartFadeIn(StreamObject targetObject)
     {
         ShowFadeObject();
         fadeImage.canvasRenderer.SetAlpha(0.0f);
         isEnd = false;
 
-        if (isImmediately)
+        if (targetObject.isImmediately)
         {
             fadeImage.canvasRenderer.SetAlpha(1.0f);
             isFaded = true;
             isEnd = true;
+            targetObject.DoEnd_Fade();
             return;
         }
 
@@ -54,16 +55,17 @@ public class FadeCanvas : MonoBehaviour
             return;
         }
         fadeImage.CrossFadeAlpha(1.0f, fadeTime, false);
-        StartCoroutine(ChangeFadeStatus(true));
+        StartCoroutine(ChangeFadeStatus(true, targetObject));
     }
 
-    IEnumerator ChangeFadeStatus(bool isfaded)
+    IEnumerator ChangeFadeStatus(bool isfaded, StreamObject targetObject)
     {
         //yield return new WaitForSeconds(fadeTime* 10 * Time.deltaTime);
         yield return new WaitForSeconds(fadeTime + 0.5f);
 
         isFaded = isfaded;
         isEnd = true;
+        targetObject.DoEnd_Fade();
 
         if (!isFaded)
         {
@@ -71,14 +73,15 @@ public class FadeCanvas : MonoBehaviour
         }
     }
 
-    public void StartFadeOut(bool isImmediately)
+    public void StartFadeOut(StreamObject targetObject)
     {
         isEnd = false;
-        if (isImmediately)
+        if (targetObject.isImmediately)
         {
             fadeImage.canvasRenderer.SetAlpha(0f);
             isFaded = false;
             isEnd = true;
+            targetObject.DoEnd_Fade();
             return;
         }
         if (!isFaded)
@@ -88,6 +91,6 @@ public class FadeCanvas : MonoBehaviour
         }
 
         fadeImage.CrossFadeAlpha(0.0f, fadeTime, true);
-        StartCoroutine(ChangeFadeStatus(false));
+        StartCoroutine(ChangeFadeStatus(false, targetObject));
     }
 }
