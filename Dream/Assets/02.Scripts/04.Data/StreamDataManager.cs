@@ -19,10 +19,8 @@ public class StreamDataManager : MonoBehaviour
     }
 
     public List<StreamData> list_streamData;
-    public void Start()
-    {
-        
-    }
+    public StreamData initStreamOnFirstPlay;
+
     public void InitStream()
     {
         // 게임 시작 시 Stream 의 완료 상태를 변경
@@ -31,12 +29,30 @@ public class StreamDataManager : MonoBehaviour
             Debug.LogError(string.Format($"{this.gameObject.name} 이 null 값 입니다."));
             return;
         }
-        foreach(string s in UserData.singleton.list_completestream)
+        list_streamData = new List<StreamData>();
+        StreamData[] tempArr = this.GetComponentsInChildren<StreamData>();
+        for (int i = 0; i < tempArr.Length; i++)
+        {
+            list_streamData.Add(tempArr[i]);
+        }
+
+        foreach (string s in UserData.singleton.list_completestream)
         {
             (list_streamData.Find(x => x.index == s)).InitStreamData(true);
         }
 
+
+
+
         StreamItemManager.singleton.InitItem();
+
+        if (!initStreamOnFirstPlay.IsComplete && !UserData.singleton.list_completestream.Contains(initStreamOnFirstPlay.index))
+        {
+            //for test
+            Debug.Log("게임의 첫 시작이니, initStreamOnFirstPlay 발동!");
+            this.initStreamOnFirstPlay.CompleteStream();
+        }
+
     }
     public void CompleteStream(StreamData target)
     {

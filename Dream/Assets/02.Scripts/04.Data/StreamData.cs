@@ -10,8 +10,10 @@ public class StreamData : MonoBehaviour
     public string desc;
     [Header(" + 완료 되었는지?")]
     [SerializeField] private bool isComplete = false;
+    public bool IsComplete { get { return isComplete; } }
     [Header(" + 발동에 따른 스트림 오브젝트")]
     public List<StreamObject> streamObjects;
+    private int numNowObject = 0;
 
     public void Start()
     {
@@ -37,10 +39,48 @@ public class StreamData : MonoBehaviour
             return;
         }
 
+        StartAction();
+        /*
+        StartCoroutine()
+
+        for(int i = 0; i < streamObjects.Count; i++)
+        {
+
+        }
         foreach (var e in streamObjects)
         {
             e.DoAction();
         }
+        */
+    }
+
+    void StartAction()
+    {
+        numNowObject = 0;
+        StartCoroutine(DoAction(streamObjects[numNowObject]));
+    }
+
+    IEnumerator DoAction(StreamObject targetObject)
+    {
+        targetObject.DoAction();
+        if (targetObject.isplayafterComplete)
+        {
+            while (!targetObject.IsEnd)
+            {
+                yield return new WaitForSecondsRealtime(0.5f * Time.deltaTime);
+            }
+        }
+        if (numNowObject == streamObjects.Count)
+        {
+            //for test
+            Debug.Log("끝났으므로 반환");
+            yield return null;
+        }
+        //for test
+        Debug.Log(targetObject.name + "가 완료 됨! 다음으로 넘어가요! numNowObject =  " + numNowObject);
+
+        numNowObject++;
+        StartCoroutine(DoAction(streamObjects[numNowObject]));
     }
 
     public void InitStreamData(bool _isComplete = false)

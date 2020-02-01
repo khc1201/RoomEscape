@@ -7,7 +7,9 @@
 		"Lang_3" : "" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "SoundEffectManager 에 등록된 이름" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Start_PlayButton" ,
@@ -17,7 +19,9 @@
 		"Lang_3" : "시작" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Start_Option" ,
@@ -27,7 +31,9 @@
 		"Lang_3" : "설정" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Start_Exit" ,
@@ -37,7 +43,9 @@
 		"Lang_3" : "종료" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Language_KOR" ,
@@ -47,7 +55,9 @@
 		"Lang_3" : "한국어" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Language_ENG" ,
@@ -57,7 +67,9 @@
 		"Lang_3" : "ENGLISH" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Language_CHN" ,
@@ -67,7 +79,9 @@
 		"Lang_3" : "中國語" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Language_JPN" ,
@@ -77,7 +91,9 @@
 		"Lang_3" : "이시국어" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Language_ESP" ,
@@ -87,7 +103,9 @@
 		"Lang_3" : "스펜어" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Language_6" ,
@@ -97,7 +115,9 @@
 		"Lang_3" : "희망어" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "//" ,
@@ -107,7 +127,9 @@
 		"Lang_3" : "" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "//" ,
@@ -117,7 +139,9 @@
 		"Lang_3" : "" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "//" ,
@@ -127,7 +151,9 @@
 		"Lang_3" : "" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Name_Test_01" ,
@@ -137,7 +163,9 @@
 		"Lang_3" : "테스트.. 메시지…" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Name_Test_02" ,
@@ -147,7 +175,9 @@
 		"Lang_3" : "이걸로… 이어진다…" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	},
 	{
 		"Index" : "Str_Name_Test_03" ,
@@ -157,6 +187,80 @@
 		"Lang_3" : "대화의… 종료…" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
-		"Lang_6" : "" 
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_Name_Step1_01" ,
+		"Desc" : "" ,
+		"Lang_1" : "…" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_Name_Step1_02" ,
+		"Desc" : "" ,
+		"Lang_1" : "으…" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_Name_Step1_03" ,
+		"Desc" : "" ,
+		"Lang_1" : "멍멍!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "dog_barktwice" ,
+		"FontColor" : "1" 
+	},
+	{
+		"Index" : "Str_Name_Step1_04" ,
+		"Desc" : "" ,
+		"Lang_1" : "기분 나쁜 꿈…" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_Name_Step1_05" ,
+		"Desc" : "" ,
+		"Lang_1" : "멍!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "dog_barkonce" ,
+		"FontColor" : "1" 
+	},
+	{
+		"Index" : "Str_Name_Step1_06" ,
+		"Desc" : "" ,
+		"Lang_1" : "그래, 그래, 이제 일어 날 거야!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	}
 ]

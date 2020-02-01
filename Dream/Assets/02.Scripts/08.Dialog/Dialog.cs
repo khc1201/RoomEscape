@@ -45,6 +45,8 @@ public class Dialog : MonoBehaviour
 
         backGround = this.transform.GetChild(0).gameObject;
 
+        this.GetComponent<RectTransform>().localPosition = Vector3.zero;
+
         SetActiveDialog(false);
     }
 
@@ -96,13 +98,56 @@ public class Dialog : MonoBehaviour
             EndDialog();
             return;
         }
-        
+
+        ShowDialog_SetColor();
+        ShowDialog_PlaySoundEffect();
+
+
         textBox.DOText(GetDialog(StringDataManager.singleton.GetString(nowObject.dialogs[nowIndex])), 2.0f, false, ScrambleMode.None, null)
             .SetEase(Ease.Linear)
             .OnPlay(DisableButton)
             .OnComplete(ActiveButton);
 
         SetActiveDialog(true);
+
+    }
+    private void ShowDialog_PlaySoundEffect()
+    {
+        if(StringDataManager.singleton.GetString(nowObject.dialogs[nowIndex]).PlaySoundEffect != "")
+        {
+            SoundEffect tempSound = SoundEffectManager.singleton.list_soundEffect.Find(x => x.name == StringDataManager.singleton.GetString(nowObject.dialogs[nowIndex]).PlaySoundEffect);
+            if(tempSound == null)
+            {
+                Debug.LogError(tempSound + "가 SoundEffectManager 의 List 에 없다!");
+                return;
+            }
+            tempSound.sound.Play();
+        }
+
+    }
+
+    private void ShowDialog_SetColor()
+    {
+        switch (StringDataManager.singleton.GetString(nowObject.dialogs[nowIndex]).FontColor)
+        {
+            case "":
+                {
+                    // 흰 색
+                    textBox.color = Color.white; 
+                    break;
+                }
+            case "1":
+                {
+                    textBox.color = Color.yellow;
+                    break;
+                }
+            default:
+                {
+                    //for test
+                    Debug.LogError("현재 지정한 색상의 FontColor 가 없습니다. 여기서 case 를 추가할 것.");
+                    break;
+                }
+        }
 
     }
     public void DisableButton()

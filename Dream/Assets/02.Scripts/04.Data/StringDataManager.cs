@@ -42,7 +42,9 @@ public class StringDataManager : MonoBehaviour
                             lang_3: item["Lang_3"].ToString(),
                             lang_4: item["Lang_4"].ToString(),
                             lang_5: item["Lang_5"].ToString(),
-                            lang_6: item["Lang_6"].ToString()
+                            lang_6: item["Lang_6"].ToString(),
+                            soundEffect: item["PlaySoundEffect"].ToString(),
+                            color:item["FontColor"].ToString()
                         )
                     );
             }
@@ -54,7 +56,7 @@ public class StringDataManager : MonoBehaviour
         if (target == null)
         {
             Debug.LogError(index + "의 키가 존재하지 않음");
-            return new StringData("nullError", "?키없음_" + index, "?키없음_" + index, "?키없음_" + index, "?키없음_" + index, "?키없음_" + index, "?키없음_" + index);
+            return new StringData("nullError", "?키없음_" + index, "?키없음_" + index, "?키없음_" + index, "?키없음_" + index, "?키없음_" + index, "?키없음_" + index, "?키없음_" + index, "?키없음_" + index);
         }
         return target;
     }

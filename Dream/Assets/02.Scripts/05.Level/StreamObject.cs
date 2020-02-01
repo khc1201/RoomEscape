@@ -7,6 +7,11 @@ public class StreamObject : MonoBehaviour
     [Header(" + 설명")]
     public string descripiton;
 
+    [Header(" + 이것이 완료된 후에 다음 StreamObject 를 재생할 것인지?")]
+    public bool isplayafterComplete = true;
+    private bool isEnd = false;
+    public bool IsEnd { get { return isEnd; } }
+
     [Header(" + 대상 GameObject")]
     public List<GameObject> m_targetObject;
 
@@ -19,6 +24,10 @@ public class StreamObject : MonoBehaviour
     [Header(" + StreamObject 이 Talk 일때")]
     public List<string> dialogs;
     public List<StreamData> streamData_onEndDialog;
+
+    [Header(" + StreamObject 이 PlaySoundEffect 일 때")]
+    public SoundEffect targetSound;
+
 
     public bool IsIgnoreOnLoad
     {
@@ -88,9 +97,42 @@ public class StreamObject : MonoBehaviour
                     ObjectAction_Talk();
                     break;
                 }
-                
+
+            case enum_ObjectAction.PlaySoundEffect:
+                {
+                    ObjectAction_PlaySE();
+                    break;
+                }
         }
     }
+
+
+    private void ObjectAction_PlaySE()
+    {
+        SoundEffectManager.singleton.PlaySoundEffect(targetSound.name);
+
+        if (isplayafterComplete)
+        {
+            StartCoroutine(DoEnd_SE());
+        }
+        //for test
+        Debug.Log("소리 완료!");
+    }
+
+    IEnumerator DoEnd_SE()
+    {
+        while (!isEnd)
+        {
+            if (!SoundEffectManager.singleton.IsPlay(targetSound.name))
+            {
+                isEnd = true;
+            }
+            yield return new WaitForSeconds(0.5f * Time.deltaTime);
+        }
+        yield return null;
+    }
+
+
     private void ObjectAction_Talk()
     {
         Dialog.singleton.ShowDialog(this);
