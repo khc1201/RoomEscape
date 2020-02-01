@@ -175,6 +175,7 @@ public class Dialog : MonoBehaviour
         nowObject.OjbectAction_Talk_onComplete();
 
         nowIndex = 0;
+        nowObject.DoEnd_Talk();
         nowObject = null;
     }
 }

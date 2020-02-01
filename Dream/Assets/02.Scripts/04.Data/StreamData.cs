@@ -70,17 +70,20 @@ public class StreamData : MonoBehaviour
                 yield return new WaitForSecondsRealtime(0.5f * Time.deltaTime);
             }
         }
+
+        numNowObject++;
         if (numNowObject == streamObjects.Count)
         {
             //for test
             Debug.Log("끝났으므로 반환");
             yield return null;
         }
-        //for test
-        Debug.Log(targetObject.name + "가 완료 됨! 다음으로 넘어가요! numNowObject =  " + numNowObject);
-
-        numNowObject++;
-        StartCoroutine(DoAction(streamObjects[numNowObject]));
+        else
+        {
+            //for test
+            Debug.Log(targetObject.name + "가 완료 됨! 다음으로 넘어가요! numNowObject =  " + numNowObject);
+            StartCoroutine(DoAction(streamObjects[numNowObject]));
+        }
     }
 
     public void InitStreamData(bool _isComplete = false)

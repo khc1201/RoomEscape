@@ -17,6 +17,7 @@ public class StreamObject : MonoBehaviour
 
     [Header(" + StreamObject 행동")]
     public enum_ObjectAction m_objectAction;
+    public float endCheckingTick = 0.5f;
 
     [Header(" + 초기화 시 무시되는 데이터인가?")]
     [SerializeField] private bool isIgnoreOnLoad = true;
@@ -27,6 +28,9 @@ public class StreamObject : MonoBehaviour
 
     [Header(" + StreamObject 이 PlaySoundEffect 일 때")]
     public SoundEffect targetSound;
+
+    [Header(" + StreamObject 이 FadeIn / FadeOut 일 때")]
+    public bool isImmediately;
 
 
     public bool IsIgnoreOnLoad
@@ -103,9 +107,52 @@ public class StreamObject : MonoBehaviour
                     ObjectAction_PlaySE();
                     break;
                 }
+
+            case enum_ObjectAction.FadeIn:
+                {
+                    ObjectAction_FadeIn();
+                    break;
+                }
+
+            case enum_ObjectAction.FadeOut:
+                {
+                    ObjectAction_FadeOut();
+                    break;
+                }
         }
     }
 
+    private void ObjectAction_FadeIn()
+    {
+        FadeCanvas fadeCanvas = FindObjectOfType<FadeCanvas>();
+        fadeCanvas.StartFadeIn(isImmediately);
+        if (isplayafterComplete)
+        {
+            StartCoroutine(DoEnd_Fade(fadeCanvas));
+        }
+    }
+    private void ObjectAction_FadeOut()
+    {
+        FadeCanvas fadeCanvas = FindObjectOfType<FadeCanvas>();
+        fadeCanvas.StartFadeOut(isImmediately);
+        if (isplayafterComplete)
+        {
+            StartCoroutine(DoEnd_Fade(fadeCanvas));
+        }
+    }
+    IEnumerator DoEnd_Fade(FadeCanvas targetCanvas)
+    {
+        while (!isEnd)
+        {
+            if (targetCanvas.IsEnd)
+            {
+                isEnd = true;
+                targetCanvas.IsEnd = false;
+            }
+            yield return new WaitForSeconds(endCheckingTick * Time.deltaTime);
+        }
+        yield return null;
+    }
 
     private void ObjectAction_PlaySE()
     {
@@ -127,7 +174,7 @@ public class StreamObject : MonoBehaviour
             {
                 isEnd = true;
             }
-            yield return new WaitForSeconds(0.5f * Time.deltaTime);
+            yield return new WaitForSeconds(endCheckingTick * Time.deltaTime);
         }
         yield return null;
     }
@@ -135,8 +182,13 @@ public class StreamObject : MonoBehaviour
 
     private void ObjectAction_Talk()
     {
-        Dialog.singleton.ShowDialog(this);
+        Dialog.singleton.ShowDialog(this);        
     }
+    public void DoEnd_Talk()
+    {
+        isEnd = true;
+    }
+   
 
     public void OjbectAction_Talk_onComplete()
     {
