@@ -9,9 +9,9 @@ public class QInput : MonoBehaviour
     [Header("+ 버튼 클릭 시 입력되어야 하는 항목")]
     public string input;
 
-    [Header("+ 버튼 클릭 시 발동할 reactObject")]
-    public bool hasReactObject = false;
-    private List<ReactObject> reactObjects;
+    [Header("+ 버튼 클릭 시 발동할 reactObject 목록들")]
+    [SerializeField] private List<ReactObject> reactObjects;
+    private bool hasReactObject = false;
 
     [Header("+ 프로퍼티 (미입력 항목)")]
     [SerializeField] int index;
@@ -41,25 +41,25 @@ public class QInput : MonoBehaviour
             qButton.onClick.AddListener(OnButtonClick);
         }
 
-
-        if (this.GetComponent<ReactObject>() != null && !hasReactObject)
+        ReactObject tempObject = GetComponent<ReactObject>();
+        if(tempObject == null)
         {
-            Debug.LogError(this.gameObject.name + "의 ReactObject 는 존재하는데, hasReactObject 가 false 로 설정됨.");
+            Debug.Log(this.gameObject.name + "의 ReactObject 는 없음.");
         }
-
-        if (hasReactObject)
+        else
         {
-            reactObjects = new List<ReactObject>(); 
-            if(this.GetComponent<ReactObject>() == null)
+            ReactObject[] tempreactObjects = GetComponents<ReactObject>();
+            reactObjects = new List<ReactObject>();
+            for (int i = 0; i < tempreactObjects.Length; i++)
             {
-                Debug.LogError(this.gameObject.name + "의 hasReactObject 는 true 인데, 정작 ReactObject 가 없어서 초기화 실패");
-                return;
+                ReactObject temp = tempreactObjects[i];
+                if (temp.isStreamObject) Debug.LogError(temp.name + "의 isStreamObject 의 값이 true 이다. 어디에서 체크 된 것인지 확인 필요.");
+                temp.isQInputObject = true;
+                reactObjects.Add(temp);
             }
-            foreach(var e in this.GetComponents<ReactObject>())
-            {
-                reactObjects.Add(e);
-            }
+            hasReactObject = true;
         }
+        
     }
 
     public void OnButtonClick()
@@ -69,6 +69,8 @@ public class QInput : MonoBehaviour
         {
             for(int i = 0; i < reactObjects.Count; i++)
             {
+                //for test
+                Debug.Log("이 부분을 StreamObject 와 같은 내용으로 수정해야 한다. ReactObject 는 이제 더이상 Tweening 만 하지 않는다!");
                 reactObjects[i].OnReact();
             }
         }

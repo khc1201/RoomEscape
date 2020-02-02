@@ -62,7 +62,7 @@ public class StreamData : MonoBehaviour
 
     IEnumerator DoAction(StreamObject targetObject)
     {
-        targetObject.DoAction();
+        targetObject. DoAction();
         if (targetObject.isplayafterComplete)
         {
             while (!targetObject.IsEnd)

@@ -34,7 +34,7 @@ public class FadeCanvas : MonoBehaviour
         fadeImage.gameObject.SetActive(false);
     }
 
-    public void StartFadeIn(StreamObject targetObject)
+    public void StartFadeIn(ReactObject targetObject)
     {
         ShowFadeObject();
         fadeImage.canvasRenderer.SetAlpha(0.0f);
@@ -58,7 +58,7 @@ public class FadeCanvas : MonoBehaviour
         StartCoroutine(ChangeFadeStatus(true, targetObject));
     }
 
-    IEnumerator ChangeFadeStatus(bool isfaded, StreamObject targetObject)
+    IEnumerator ChangeFadeStatus(bool isfaded, ReactObject targetObject)
     {
         //yield return new WaitForSeconds(fadeTime* 10 * Time.deltaTime);
         yield return new WaitForSeconds(fadeTime + 0.5f);
@@ -73,7 +73,7 @@ public class FadeCanvas : MonoBehaviour
         }
     }
 
-    public void StartFadeOut(StreamObject targetObject)
+    public void StartFadeOut(ReactObject targetObject)
     {
         isEnd = false;
         if (targetObject.isImmediately)

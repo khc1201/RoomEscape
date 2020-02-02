@@ -10,7 +10,7 @@ public class Dialog : MonoBehaviour
     private Text textBox;
     private GameObject backGround;
     private int nowIndex = 0;
-    private StreamObject nowObject;
+    private ReactObject nowObject;
 
     public static Dialog singleton;
     private void Awake()
@@ -86,7 +86,7 @@ public class Dialog : MonoBehaviour
         return tempString;
     }
 
-    public void ShowDialog(StreamObject targetObject = null)
+    public void ShowDialog(ReactObject targetObject = null)
     {
         if(targetObject != null)
         {
@@ -103,7 +103,7 @@ public class Dialog : MonoBehaviour
         ShowDialog_PlaySoundEffect();
 
 
-        textBox.DOText(GetDialog(StringDataManager.singleton.GetString(nowObject.dialogs[nowIndex])), 2.0f, false, ScrambleMode.None, null)
+        textBox.DOText(GetDialog(StringDataManager.singleton.GetString(nowObject.dialogs[nowIndex])), 1.0f, false, ScrambleMode.None, null)
             .SetEase(Ease.Linear)
             .OnPlay(DisableButton)
             .OnComplete(ActiveButton);
