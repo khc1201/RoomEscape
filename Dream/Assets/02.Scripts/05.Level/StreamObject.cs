@@ -32,6 +32,6 @@ public class StreamObject : MonoBehaviour
 
     public void DoAction()
     {
-        reactObject.DoAction(isplayafterComplete);
+        reactObject.DoAction(isplayafterComplete,null,true);
     }
 }

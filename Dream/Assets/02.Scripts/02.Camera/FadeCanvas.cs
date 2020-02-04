@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class FadeCanvas : MonoBehaviour
 {
     RawImage fadeImage;
+    Color fadeinColor;
+    Color fadeoutColoor;
     bool isFaded = false;
     bool isEnd = false;
     public bool IsEnd { get { return isEnd; } set { isEnd = value; } }
     public float fadeTime = 3.0f;
+    ReactObject targetObj;
+
+    Tween twFadeIn;
+    Tween twFadeOut;
+
     private void Start()
     {
         InitFade();
@@ -20,7 +28,10 @@ public class FadeCanvas : MonoBehaviour
         fadeImage = this.GetComponentInChildren<RawImage>();
         fadeImage.gameObject.GetComponent<RectTransform>().localPosition = Vector3.zero;
         HideFadeObject();
-
+        fadeinColor = new Color(0f, 0f, 0f, 255f);
+        fadeoutColoor = new Color(0f, 0f, 0f, 0f);
+        //twFadeIn = fadeImage.DOFade(1, fadeTime).SetEase(Ease.Linear).OnStart(StartFadeIn_OnStart).OnComplete(StartFadeIn_OnEnd);
+        //twFadeOut = fadeImage.DOFade(0, fadeTime).SetEase(Ease.Linear).OnComplete(HideFadeObject);
     }
     private void ShowFadeObject()
     {
@@ -36,6 +47,22 @@ public class FadeCanvas : MonoBehaviour
 
     public void StartFadeIn(ReactObject targetObject)
     {
+        targetObj = targetObject;
+        if (targetObject.isImmediately)
+        {
+            //for test
+            Debug.Log(targetObject.gameObject.name + "의 isImmediately 가 true 이므로 즉시 실행");
+            twFadeIn = fadeImage.DOColor(fadeinColor, 0.1f).OnStart(StartFadeIn_OnStart).OnComplete(StartFadeIn_OnEnd);
+            //DOFade(1, 0.01f).OnStart(StartFadeIn_OnStart).OnComplete(StartFadeIn_OnEnd);
+        }
+        else
+        {
+            twFadeIn = fadeImage.DOColor(fadeinColor, fadeTime).SetEase(Ease.Linear).OnStart(StartFadeIn_OnStart).OnComplete(StartFadeIn_OnEnd);
+            //twFadeIn = fadeImage.DOFade(1, fadeTime).SetEase(Ease.Linear).OnStart(StartFadeIn_OnStart).OnComplete(StartFadeIn_OnEnd);
+        }
+        twFadeIn.Play();
+
+        /*
         ShowFadeObject();
         fadeImage.canvasRenderer.SetAlpha(0.0f);
         isEnd = false;
@@ -56,8 +83,25 @@ public class FadeCanvas : MonoBehaviour
         }
         fadeImage.CrossFadeAlpha(1.0f, fadeTime, false);
         StartCoroutine(ChangeFadeStatus(true, targetObject));
+        */
     }
-
+    private void StartFadeIn_OnStart()
+    {
+        //for test
+        Debug.Log("StartFadeIn 시작 시에 발동!");
+        ShowFadeObject();
+        fadeImage.canvasRenderer.SetAlpha(0.0f);
+        isEnd = false;
+    }
+    private void StartFadeIn_OnEnd()
+    {
+        //for test
+        Debug.Log("StartFadeIn 완료 시에 발동!");
+        isFaded = true;
+        isEnd = true;
+        targetObj.DoEnd_Fade();
+    }
+    /*
     IEnumerator ChangeFadeStatus(bool isfaded, ReactObject targetObject)
     {
         //yield return new WaitForSeconds(fadeTime* 10 * Time.deltaTime);
@@ -72,9 +116,12 @@ public class FadeCanvas : MonoBehaviour
             HideFadeObject();
         }
     }
+    */
 
     public void StartFadeOut(ReactObject targetObject)
     {
+        twFadeOut.Restart();
+
         isEnd = false;
         if (targetObject.isImmediately)
         {
@@ -91,6 +138,6 @@ public class FadeCanvas : MonoBehaviour
         }
 
         fadeImage.CrossFadeAlpha(0.0f, fadeTime, true);
-        StartCoroutine(ChangeFadeStatus(false, targetObject));
+        //StartCoroutine(ChangeFadeStatus(false, targetObject));
     }
 }

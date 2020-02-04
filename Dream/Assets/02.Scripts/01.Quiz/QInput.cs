@@ -12,6 +12,7 @@ public class QInput : MonoBehaviour
     [Header("+ 버튼 클릭 시 발동할 reactObject 목록들")]
     [SerializeField] private List<ReactObject> reactObjects;
     private bool hasReactObject = false;
+    public bool isSequencePlay = false;
 
     [Header("+ 프로퍼티 (미입력 항목)")]
     [SerializeField] int index;
@@ -44,7 +45,7 @@ public class QInput : MonoBehaviour
         ReactObject tempObject = GetComponent<ReactObject>();
         if(tempObject == null)
         {
-            Debug.Log(this.gameObject.name + "의 ReactObject 는 없음.");
+            //Debug.Log(this.gameObject.name + "의 ReactObject 는 없음.");
         }
         else
         {
@@ -70,8 +71,8 @@ public class QInput : MonoBehaviour
             for(int i = 0; i < reactObjects.Count; i++)
             {
                 //for test
-                Debug.Log("이 부분을 StreamObject 와 같은 내용으로 수정해야 한다. ReactObject 는 이제 더이상 Tweening 만 하지 않는다!");
-                reactObjects[i].OnReact();
+                //Debug.Log("이 부분을 StreamObject 와 같은 내용으로 수정해야 한다. ReactObject 는 이제 더이상 Tweening 만 하지 않는다!");
+                reactObjects[i].DoAction(_isplayafterComplete: isSequencePlay, _targetButton: qButton);
             }
         }
     }
