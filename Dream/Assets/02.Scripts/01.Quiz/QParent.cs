@@ -78,16 +78,22 @@ public class QParent : MonoBehaviour
             case enum_AnswerType.Number:
                 {
                     OnInput_AnswerIsNumber(inputNumber: childInput);
+                    CheckAnswer();
                     break;
                 }
             case enum_AnswerType.Click:
                 {
-
+                    // 클릭 시에는 아무것도 하지 않는다.
+                    break;
+                }
+            default:
+                {
+                    Debug.LogError(string.Format($"{answerType.ToString()}의 OnInput 이 구현되지 않았습니다. 구현해주세요."));
                     break;
                 }
         }
 
-        CheckAnswer();
+        
     }
     public void OnInput_AnswerIsNumber(string inputNumber)
     {

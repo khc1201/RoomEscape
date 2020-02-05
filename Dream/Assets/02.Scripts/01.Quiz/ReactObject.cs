@@ -11,7 +11,7 @@ public class ReactObject : MonoBehaviour
     [Header("+ 공통 프로퍼티")]
     [SerializeField] private bool isEnd = false;
     public bool IsEnd { get { return isEnd; } }
-    public bool isRepeat = false;
+    public bool isRepeat = false; // 어떻게든 버튼을 반복해서 조작할 수 있는 것인지?
     [SerializeField] private bool isExistButton = false;
     [SerializeField] private Button targetButton;
 
@@ -51,6 +51,11 @@ public class ReactObject : MonoBehaviour
     public bool isSequence = false; // 순서대로 발동 여부
     public float sequenceInterval = 0f;
     public Sequence seq;
+
+    [Header("+ Case : CameraMove")]
+    public CameraObj targetCamera;
+    [SerializeField] private CameraObj preCamera;
+
 
     [Header("+ QInput 에 종속된 데이터")]
     [HideInInspector] public bool isQInputObject = false;
@@ -182,6 +187,11 @@ public class ReactObject : MonoBehaviour
                     ObjectAction_Rotate(false);
                     break;
                 }
+            case enum_ObjectAction.CameraMove:
+                {
+                    ObjectAciton_CameraMove();
+                    break;
+                }
             default:
                 {
                     Debug.Log("해당 " + m_objectAction.ToString() + "은 아직 구현되지 않았습니다.");
@@ -207,8 +217,9 @@ public class ReactObject : MonoBehaviour
     private void DoEnd()
     {
         if(isStreamObject) isEnd = true;
-        if (isExistButton && isRepeat) targetButton.enabled = true;
+        if(isExistButton && isRepeat) targetButton.enabled = true;
     }
+
     #region ObjectAction - Init
     private void InitObjectAction()
     {
@@ -253,6 +264,11 @@ public class ReactObject : MonoBehaviour
                     Init_Fade();
                     break;
                 }
+            case enum_ObjectAction.CameraMove:
+                {
+                    Init_CameraMove();
+                    break;
+                }
 
         }
     }
@@ -260,7 +276,6 @@ public class ReactObject : MonoBehaviour
     {
         fadeCanvas = FindObjectOfType<FadeCanvas>();
     }
-
     private void Init_Tween()
     {
         if (tweenAnimations == null)
@@ -321,10 +336,21 @@ public class ReactObject : MonoBehaviour
         }
 
     }
+    private void Init_CameraMove()
+    {
+        if(targetCamera == null)
+        {
+            Debug.LogError(this.gameObject.name + "의 targetCamera 가 설정되어 있지 않습니다. null 입니다. 설정 필요.");
+        }
+    }
     #endregion
 
     #region ObjectAciton - DoAction
-
+    private void ObjectAciton_CameraMove()
+    {
+        preCamera = CameraManager.singleton.m_nowCamera;
+        CameraManager.singleton.ChangeCamera(preCamera, targetCamera);
+    }
     private void ObjectAction_Move(bool isBy)
     {
         if (isBy)

@@ -31,6 +31,7 @@ public enum enum_ObjectAction
     PlaySoundEffect,
     FadeIn,
     FadeOut,
+    CameraMove,
 
     //이 아래에서 부터는 Load 시에 수행 되어야하는 Action 이다.
     Show = 51,
