@@ -31,6 +31,7 @@ public class ReactObject : MonoBehaviour
 
     [Header("+ Case : FadeIn/FadeOut")]
     public bool isImmediately;
+    private FadeCanvas fadeCanvas;
 
     [Header("+ Case : MoveBy/MoveTo")]
     public Vector3 moveVector;
@@ -242,8 +243,24 @@ public class ReactObject : MonoBehaviour
                     Init_Tween();
                     break;
                 }
+            case enum_ObjectAction.FadeIn:
+                {
+                    Init_Fade();
+                    break;
+                }
+            case enum_ObjectAction.FadeOut:
+                {
+                    Init_Fade();
+                    break;
+                }
+
         }
     }
+    private void Init_Fade()
+    {
+        fadeCanvas = FindObjectOfType<FadeCanvas>();
+    }
+
     private void Init_Tween()
     {
         if (tweenAnimations == null)
@@ -433,7 +450,8 @@ public class ReactObject : MonoBehaviour
             //시퀀스인 경우, 순차적으로 발동한다.
             //for test
             Debug.Log("시퀀스인 경우 (구현 필요)");
-            //seq = new Sequence();
+            //seq = new Sequence()
+
             seq.PrependCallback(SetButton_Disable);
             for(int i = 0; i < tweenAnimations.Count; i++)
             {
@@ -445,7 +463,7 @@ public class ReactObject : MonoBehaviour
         }
         else
         {
-            //ㅅ퀀스가 아닌 경우에는 동시에 DoTween 을 발동한다.
+            //시퀀스가 아닌 경우에는 동시에 DoTween 을 발동한다.
             if (tweenAnimations.Count == 1)
             {
                 tweenAnimations[0].tween.OnStart(SetButton_Disable).OnComplete(DoEnd).Play();
@@ -489,29 +507,17 @@ public class ReactObject : MonoBehaviour
         }
     }
 
-
+    public void DoEnd_Fade()
+    {
+        DoEnd();
+    }
     private void ObjectAction_FadeIn()
     {
-        FadeCanvas fadeCanvas = FindObjectOfType<FadeCanvas>();
-        
         fadeCanvas.StartFadeIn(this);
-        if (isplayafterComplete)
-        {
-            //StartCoroutine(DoEnd_Fade(fadeCanvas));
-        }
     }
     private void ObjectAction_FadeOut()
     {
-        FadeCanvas fadeCanvas = FindObjectOfType<FadeCanvas>();
         fadeCanvas.StartFadeOut(this);
-        if (isplayafterComplete)
-        {
-            //StartCoroutine(DoEnd_Fade(fadeCanvas));
-        }
-    }
-    public void DoEnd_Fade()
-    {
-        isEnd = true;
     }
 
     private void ObjectAction_PlaySE()
