@@ -41,7 +41,9 @@ public enum enum_ObjectAction
     MoveBy = 55,
     MoveTo = 56,
     RotateBy = 57,
-    RotateTo = 58
+    RotateTo = 58,
+    MoveByButton = 59,
+    MoveToButton = 60
 }
 
 public enum enum_AnswerType

@@ -39,6 +39,10 @@ public class ReactObject : MonoBehaviour
     public Ease moveEase;
     private List<Vector3> beforemoveVector;
 
+    [Header("++ Case : MoveByButton/MoveToButton 위의 Move 와 프로퍼티를 공유")]
+    [SerializeField] private bool isButton = false;
+    [SerializeField] List<Button> moveButtonlist;
+
     [Header("+ Case : RotateBy/RotateTo")]
     public Vector3 rotateVector;
     public float rotateTime;
@@ -55,8 +59,7 @@ public class ReactObject : MonoBehaviour
     [Header("+ Case : CameraMove")]
     public CameraObj targetCamera;
     [SerializeField] private CameraObj preCamera;
-
-
+    
     [Header("+ QInput 에 종속된 데이터")]
     [HideInInspector] public bool isQInputObject = false;
     [Header("++ 역재생")]
@@ -192,6 +195,17 @@ public class ReactObject : MonoBehaviour
                     ObjectAciton_CameraMove();
                     break;
                 }
+            case enum_ObjectAction.MoveByButton:
+                {
+                    ObjectAction_MoveButton(true);
+                    break;
+                }
+
+            case enum_ObjectAction.MoveToButton:
+                {
+                    ObjectAction_MoveButton(false);
+                    break;
+                }
             default:
                 {
                     Debug.Log("해당 " + m_objectAction.ToString() + "은 아직 구현되지 않았습니다.");
@@ -204,20 +218,27 @@ public class ReactObject : MonoBehaviour
     //SetEnable_TargetButton() 구현이 필요함.
     private void SetButton_Disable()
     {
+        if (isButton)
+        {
+            for(int i = 0; i < moveButtonlist.Count; i++)
+            {
+                moveButtonlist[i].enabled = false;
+            }
+        }
         if (isExistButton && isRepeat) targetButton.enabled = false;
-        
     }
-    /*
-    private void SetButton_Enable()
-    {
-        if (isExistButton && isRepeat) targetButton.enabled = true;
-    }
-    */
 
     private void DoEnd()
     {
-        if(isStreamObject) isEnd = true;
+        if (isButton)
+        {
+            for (int i = 0; i < moveButtonlist.Count; i++)
+            {
+                moveButtonlist[i].enabled = true;
+            }
+        }
         if(isExistButton && isRepeat) targetButton.enabled = true;
+        if (isStreamObject) isEnd = true;
     }
 
     #region ObjectAction - Init
@@ -270,6 +291,17 @@ public class ReactObject : MonoBehaviour
                     break;
                 }
 
+            case enum_ObjectAction.MoveByButton:
+                {
+                    Init_Move(true, true);
+                    break;
+                }
+            case enum_ObjectAction.MoveToButton:
+                {
+                    Init_Move(false, true);
+                    break;
+                }
+
         }
     }
     private void Init_Fade()
@@ -284,9 +316,21 @@ public class ReactObject : MonoBehaviour
             return;
         }
     }
-    private void Init_Move(bool isBy)
+    private void Init_Move(bool isBy, bool _isButton = false)
     {
-
+        if (_isButton)
+        {
+            isButton = true;
+            moveButtonlist = new List<Button>();
+            for(int i = 0; i < m_targetObject.Count; i++)
+            {
+                moveButtonlist.Add(m_targetObject[i].gameObject.GetComponentInChildren<Button>());
+            }
+            if(moveButtonlist.Count == 0)
+            {
+                Debug.LogError(this.gameObject.name + "의 moveButtonlist 가 비어있다. isButton 이면, Button 은 있어야 하는걸!");
+            }
+        }
         if (moveVector == Vector3.zero)
         {
             Debug.Log(this.gameObject.name + "의 moveVector 가 설정되어있지 않음. 의도임?");
@@ -343,6 +387,7 @@ public class ReactObject : MonoBehaviour
             Debug.LogError(this.gameObject.name + "의 targetCamera 가 설정되어 있지 않습니다. null 입니다. 설정 필요.");
         }
     }
+    
     #endregion
 
     #region ObjectAciton - DoAction
@@ -350,6 +395,62 @@ public class ReactObject : MonoBehaviour
     {
         preCamera = CameraManager.singleton.m_nowCamera;
         CameraManager.singleton.ChangeCamera(preCamera, targetCamera);
+    }
+    private void ObjectAction_MoveButton(bool isBy)
+    {
+        if (isBy)
+        {
+            if (isReverse && isReverseActed)
+            {
+                for (int i = 0; i < moveButtonlist.Count; i++)
+                {
+                    moveButtonlist[i].GetComponent<RectTransform>().DOBlendableLocalMoveBy(-1 * moveVector, moveTime)
+                    //moveButtonlist[i].transform.DOBlendableLocalMoveBy(-1 * moveVector, moveTime)
+                        .SetEase(moveEase)
+                        .OnStart(SetButton_Disable)
+                        .OnComplete(DoEnd).Play();
+                }
+                isReverseActed = false;
+            }
+            else
+            {
+                for (int i = 0; i < moveButtonlist.Count; i++)
+                {
+                    moveButtonlist[i].GetComponent<RectTransform>().DOBlendableLocalMoveBy(moveVector, moveTime)
+                    //moveButtonlist[i].transform.DOBlendableLocalMoveBy(moveVector, moveTime)
+                        .SetEase(moveEase)
+                        .OnStart(SetButton_Disable)
+                        .OnComplete(DoEnd).Play();
+                }
+                if (isReverse) isReverseActed = true;
+            }
+        }
+
+        else
+        {
+            if (isReverse && isReverseActed)
+            {
+                for (int i = 0; i < m_targetObject.Count; i++)
+                {
+                    moveButtonlist[i].GetComponent<RectTransform>().DOLocalMove(beforemoveVector[i], moveTime)
+                        .SetEase(moveEase)
+                        .OnStart(SetButton_Disable)
+                        .OnComplete(DoEnd).Play();
+                }
+                isReverseActed = false;
+            }
+            else
+            {
+                for (int i = 0; i < m_targetObject.Count; i++)
+                {
+                    moveButtonlist[i].GetComponent<RectTransform>().DOLocalMove(moveVector, moveTime)
+                        .SetEase(moveEase)
+                        .OnStart(SetButton_Disable)
+                        .OnComplete(DoEnd).Play();
+                }
+                if (isReverse) isReverseActed = true;
+            }
+        }
     }
     private void ObjectAction_Move(bool isBy)
     {
@@ -460,7 +561,6 @@ public class ReactObject : MonoBehaviour
             }
         }
     }
-
     private void ObjectAction_DoTween()
     {
 
@@ -532,7 +632,6 @@ public class ReactObject : MonoBehaviour
 
         }
     }
-
     public void DoEnd_Fade()
     {
         DoEnd();
@@ -545,7 +644,6 @@ public class ReactObject : MonoBehaviour
     {
         fadeCanvas.StartFadeOut(this);
     }
-
     private void ObjectAction_PlaySE()
     {
         SoundEffectManager.singleton.PlaySoundEffect(targetSound.name);
@@ -557,7 +655,6 @@ public class ReactObject : MonoBehaviour
         //for test
         Debug.Log("소리 완료!");
     }
-
     IEnumerator DoEnd_SE()
     {
         while (!isEnd)
@@ -570,15 +667,14 @@ public class ReactObject : MonoBehaviour
         }
         yield return null;
     }
-
-
     private void ObjectAction_Talk()
     {
         Dialog.singleton.ShowDialog(this);
     }
     public void DoEnd_Talk()
     {
-        isEnd = true;
+        //isEnd = true;
+        DoEnd();
     }
 
 
