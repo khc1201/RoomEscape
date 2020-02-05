@@ -55,7 +55,7 @@ public class QParent : MonoBehaviour
         if (IsAnswer())
         {
             //for test
-            Debug.Log("정답 처리를 이곳에서 함");
+            //Debug.Log("정답 처리를 이곳에서 함");
 
             if (doNotifyOnAnswer_StreamData && onAnswerStreamDatas != null)
             {

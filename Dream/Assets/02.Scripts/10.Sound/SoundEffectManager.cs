@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SoundEffectManager : MonoBehaviour
 {
@@ -48,8 +49,9 @@ public class SoundEffectManager : MonoBehaviour
         }
 
         //for test
-        Debug.Log("음악 재생 : " + soundName);
+        //Debug.Log("음악 재생 : " + soundName);    
         tempTarget.sound.Play();
+    
     }
 
     public bool IsPlay(string soundName)
@@ -61,5 +63,11 @@ public class SoundEffectManager : MonoBehaviour
         }
 
         return tempTarget.sound.isPlaying;
+    }
+
+    public float GetPlayTime(SoundEffect soundEffect)
+    {
+        SoundEffect tempTarget = list_soundEffect.Find(x=> soundEffect);
+        return tempTarget.sound.clip.length;
     }
 }

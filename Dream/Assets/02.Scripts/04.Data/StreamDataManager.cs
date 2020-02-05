@@ -49,7 +49,7 @@ public class StreamDataManager : MonoBehaviour
         if (!initStreamOnFirstPlay.IsComplete && !UserData.singleton.list_completestream.Contains(initStreamOnFirstPlay.index))
         {
             //for test
-            Debug.Log("게임의 첫 시작이니, initStreamOnFirstPlay 발동!");
+            //Debug.Log("게임의 첫 시작이니, initStreamOnFirstPlay 발동!");
             this.initStreamOnFirstPlay.CompleteStream();
         }
 

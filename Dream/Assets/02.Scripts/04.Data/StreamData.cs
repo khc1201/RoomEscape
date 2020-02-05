@@ -81,7 +81,7 @@ public class StreamData : MonoBehaviour
         else
         {
             //for test
-            Debug.Log(targetObject.name + "가 완료 됨! 다음으로 넘어가요! numNowObject =  " + numNowObject);
+            //Debug.Log(targetObject.name + "가 완료 됨! 다음으로 넘어가요! numNowObject =  " + numNowObject);
             StartCoroutine(DoAction(streamObjects[numNowObject]));
         }
     }

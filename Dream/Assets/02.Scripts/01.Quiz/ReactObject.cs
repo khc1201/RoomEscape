@@ -20,7 +20,7 @@ public class ReactObject : MonoBehaviour
 
     [Header("+ ReactObject 행동")]
     public enum_ObjectAction m_objectAction;
-    public float endCheckingTick = 0.5f;
+    //public float endCheckingTick = 0.5f;
 
     [Header("+ Case : Talk")]
     public List<string> dialogs;
@@ -28,6 +28,7 @@ public class ReactObject : MonoBehaviour
 
     [Header("+ Case : PlaySoundEffect")]
     public SoundEffect targetSound;
+    [SerializeField] WaitForSeconds waitSEEndTime;
 
     [Header("+ Case : FadeIn/FadeOut")]
     public bool isImmediately;
@@ -55,6 +56,7 @@ public class ReactObject : MonoBehaviour
     public bool isSequence = false; // 순서대로 발동 여부
     public float sequenceInterval = 0f;
     public Sequence seq;
+    [SerializeField] WaitForSeconds waitTweenTime;
 
     [Header("+ Case : CameraMove")]
     public CameraObj targetCamera;
@@ -301,6 +303,11 @@ public class ReactObject : MonoBehaviour
                     Init_Move(false, true);
                     break;
                 }
+            case enum_ObjectAction.PlaySoundEffect:
+                {
+                    Init_SoundEffect();
+                    break;
+                }
 
         }
     }
@@ -315,6 +322,7 @@ public class ReactObject : MonoBehaviour
             Debug.LogError(this.gameObject.name + "의 ObjectAction_DoTween 을 실행했으나, tweenAnimation 이 할당되어있지 않다. null 값임");
             return;
         }
+        waitTweenTime = new WaitForSeconds(GetMaxTweenTime());
     }
     private void Init_Move(bool isBy, bool _isButton = false)
     {
@@ -387,7 +395,15 @@ public class ReactObject : MonoBehaviour
             Debug.LogError(this.gameObject.name + "의 targetCamera 가 설정되어 있지 않습니다. null 입니다. 설정 필요.");
         }
     }
-    
+    private void Init_SoundEffect()
+    {
+        if(targetSound != null)
+        {
+            Debug.LogError(this.gameObject.name + "의 SoundEffect 가 null 입니다.");
+            return;
+        }
+        waitSEEndTime = new WaitForSeconds(SoundEffectManager.singleton.GetPlayTime(targetSound));
+    }
     #endregion
 
     #region ObjectAciton - DoAction
@@ -563,7 +579,7 @@ public class ReactObject : MonoBehaviour
     }
     private void ObjectAction_DoTween()
     {
-
+        
         if (!isIgnoreOnLoad)
         {
             //for test
@@ -602,40 +618,32 @@ public class ReactObject : MonoBehaviour
                 {
                     tweenAnimations[i].tween.Play();
                 }
+                //for test
+                Debug.Log("Step 1");
                 StartCoroutine(DoEnd_TweenList());
             }
         }
 
         
-    }
+    }    
+
     IEnumerator DoEnd_TweenList()
-    {;   
-        while (!isEnd)
-        {
-            if (tweenAnimations.TrueForAll(x => x.tween.IsComplete()))
-            {
-                DoEnd();
-            }
-            else
-            {
-                yield return new WaitForSeconds(endCheckingTick);
-            }
-        }
+    {
+        yield return waitTweenTime;      
+        DoEnd();
         yield return null;
     }
-    private void DoInit_TweenList()
+
+    private float GetMaxTweenTime()
     {
-        //for test
-        Debug.Log("반복 가능 설정 여부에 따라 해당 Tween 을 반복 가능한 상태로 설정 (구현 필요)");
+        float[] tempArr = new float[tweenAnimations.Count];
         for(int i = 0; i < tweenAnimations.Count; i++)
         {
-
+            tempArr[i] = tweenAnimations[i].duration + tweenAnimations[i].delay;
         }
+        return Mathf.Max(tempArr);
     }
-    public void DoEnd_Fade()
-    {
-        DoEnd();
-    }
+
     private void ObjectAction_FadeIn()
     {
         fadeCanvas.StartFadeIn(this);
@@ -644,6 +652,11 @@ public class ReactObject : MonoBehaviour
     {
         fadeCanvas.StartFadeOut(this);
     }
+    public void DoEnd_Fade()
+    {
+        DoEnd();
+    }
+
     private void ObjectAction_PlaySE()
     {
         SoundEffectManager.singleton.PlaySoundEffect(targetSound.name);
@@ -652,28 +665,26 @@ public class ReactObject : MonoBehaviour
         {
             StartCoroutine(DoEnd_SE());
         }
+        else
+        {
+            DoEnd();
+        }
         //for test
-        Debug.Log("소리 완료!");
+        //Debug.Log("소리 완료!");
     }
     IEnumerator DoEnd_SE()
     {
-        while (!isEnd)
-        {
-            if (!SoundEffectManager.singleton.IsPlay(targetSound.name))
-            {
-                isEnd = true;
-            }
-            yield return new WaitForSeconds(endCheckingTick);
-        }
+        yield return waitSEEndTime;
+        DoEnd();
         yield return null;
     }
+
     private void ObjectAction_Talk()
     {
         Dialog.singleton.ShowDialog(this);
     }
     public void DoEnd_Talk()
     {
-        //isEnd = true;
         DoEnd();
     }
 
