@@ -12,8 +12,8 @@ public class ReactObject : MonoBehaviour
     [SerializeField] private bool isEnd = false;
     public bool IsEnd { get { return isEnd; } }
     public bool isRepeat = false; // 어떻게든 버튼을 반복해서 조작할 수 있는 것인지?
-    [SerializeField] private bool isExistButton = false;
-    [SerializeField] private Button targetButton;
+    private bool isExistButton = false;
+    private Button targetButton;
 
     [Header("+ 대상 GameObject")]
     public List<GameObject> m_targetObject;
@@ -41,8 +41,8 @@ public class ReactObject : MonoBehaviour
     private List<Vector3> beforemoveVector;
 
     [Header("++ Case : MoveByButton/MoveToButton 위의 Move 와 프로퍼티를 공유")]
-    [SerializeField] private bool isButton = false;
-    [SerializeField] List<Button> moveButtonlist;
+    private bool isButton = false;
+    List<Button> moveButtonlist;
 
     [Header("+ Case : RotateBy/RotateTo")]
     public Vector3 rotateVector;
@@ -56,11 +56,11 @@ public class ReactObject : MonoBehaviour
     public bool isSequence = false; // 순서대로 발동 여부
     public float sequenceInterval = 0f;
     public Sequence seq;
-    [SerializeField] WaitForSeconds waitTweenTime;
+    WaitForSeconds waitTweenTime;
 
     [Header("+ Case : CameraMove")]
     public CameraObj targetCamera;
-    [SerializeField] private CameraObj preCamera;
+    private CameraObj preCamera;
     
     [Header("+ QInput 에 종속된 데이터")]
     [HideInInspector] public bool isQInputObject = false;
@@ -72,7 +72,7 @@ public class ReactObject : MonoBehaviour
     [Header("++ 초기화 시 무시되는 데이터인가?")]
     [SerializeField] private bool isIgnoreOnLoad = true;
     [HideInInspector] public bool isStreamObject = false;
-    [SerializeField] private bool isStreamCompletedonLoad = false;
+    [SerializeField] private bool isStreamCompletedonLoad = false; // for test : 어디에 쓰는 거
     private bool isplayafterComplete = false;
 
 
@@ -86,16 +86,8 @@ public class ReactObject : MonoBehaviour
 
     public void Start()
     {
-        /*
-        if (!CheckValid())
-        {
-            DevDescriptionManager.singleton.LogNullError(this.gameObject, "CheckValid");
-            return;
-        }
-        */
         CheckIsIgnoreOnLoad();
-        InitObjectAction();
-        
+        InitObjectAction();  
     }
 
     public void DoAction(bool _isplayafterComplete, Button _targetButton = null, bool _isStreamObject = false, bool _isStreamObjectComplete = false)
