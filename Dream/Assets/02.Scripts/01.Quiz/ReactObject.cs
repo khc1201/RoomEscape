@@ -14,12 +14,14 @@ public class ReactObject : MonoBehaviour
     public bool isRepeat = false; // 어떻게든 버튼을 반복해서 조작할 수 있는 것인지?
     private bool isExistButton = false;
     private Button targetButton;
+    [SerializeField] WaitForSeconds waitTime;
+    private float tempTime;
 
     [Header("+ 대상 GameObject")]
-    public List<GameObject> m_targetObject;
+    public List<GameObject> targetObject;
 
     [Header("+ ReactObject 행동")]
-    public enum_ObjectAction m_objectAction;
+    public enum_ObjectAction objectAction;
     //public float endCheckingTick = 0.5f;
 
     [Header("+ Case : Talk")]
@@ -28,27 +30,22 @@ public class ReactObject : MonoBehaviour
 
     [Header("+ Case : PlaySoundEffect")]
     public SoundEffect targetSound;
-    [SerializeField] WaitForSeconds waitSEEndTime;
+    
 
     [Header("+ Case : FadeIn/FadeOut")]
     public bool isImmediately;
     private FadeCanvas fadeCanvas;
 
-    [Header("+ Case : MoveBy/MoveTo")]
-    public Vector3 moveVector;
-    public float moveTime;
-    public Ease moveEase;
-    private List<Vector3> beforemoveVector;
+    [Header("+ Case : MoveBy/MoveTo/RotateBy/RotateTo")]
+    public Vector3 reactVector;
+    public float reactTime;
+    public Ease reactEase;
+    private List<Vector3> beforereactVector;
 
     [Header("++ Case : MoveByButton/MoveToButton 위의 Move 와 프로퍼티를 공유")]
     private bool isButton = false;
     List<Button> moveButtonlist;
 
-    [Header("+ Case : RotateBy/RotateTo")]
-    public Vector3 rotateVector;
-    public float rotateTime;
-    public Ease rotateEase;
-    private List<Vector3> beforerotateVector;
 
 
     [Header("+ Case : DoTween")]
@@ -56,7 +53,6 @@ public class ReactObject : MonoBehaviour
     public bool isSequence = false; // 순서대로 발동 여부
     public float sequenceInterval = 0f;
     public Sequence seq;
-    WaitForSeconds waitTweenTime;
 
     [Header("+ Case : CameraMove")]
     public CameraObj targetCamera;
@@ -86,12 +82,14 @@ public class ReactObject : MonoBehaviour
 
     public void Start()
     {
+
         CheckIsIgnoreOnLoad();
         InitObjectAction();  
     }
 
     public void DoAction(bool _isplayafterComplete, Button _targetButton = null, bool _isStreamObject = false, bool _isStreamObjectComplete = false)
     {
+
         isplayafterComplete = _isplayafterComplete;
         if(_targetButton != null)
         {
@@ -109,11 +107,11 @@ public class ReactObject : MonoBehaviour
             }
         }
 
-        switch (m_objectAction)
+        switch (objectAction)
         {
             case enum_ObjectAction.Defalut:
                 {
-                    Debug.LogError(this.gameObject.name + "의 m_objectAction 이 설정되어있지 않다 (default)");
+                    Debug.LogError(this.gameObject.name + "의 objectAction 이 설정되어있지 않다 (default)");
                     break;
                 }
             case enum_ObjectAction.Hide:
@@ -202,7 +200,7 @@ public class ReactObject : MonoBehaviour
                 }
             default:
                 {
-                    Debug.Log("해당 " + m_objectAction.ToString() + "은 아직 구현되지 않았습니다.");
+                    Debug.Log("해당 " + objectAction.ToString() + "은 아직 구현되지 않았습니다.");
                     break;
                 }
                 
@@ -242,7 +240,7 @@ public class ReactObject : MonoBehaviour
         {
             Debug.LogError(this.gameObject.name + "설정 에러 : isReverse 는 체크가 되어있는데, isRepeat 가 체크되지 않았다.");
         }
-        switch (m_objectAction)
+        switch (objectAction)
         {
             case enum_ObjectAction.MoveTo:
                 {
@@ -314,7 +312,7 @@ public class ReactObject : MonoBehaviour
             Debug.LogError(this.gameObject.name + "의 ObjectAction_DoTween 을 실행했으나, tweenAnimation 이 할당되어있지 않다. null 값임");
             return;
         }
-        waitTweenTime = new WaitForSeconds(GetMaxTweenTime());
+        waitTime = new WaitForSeconds(GetMaxTweenTime());
     }
     private void Init_Move(bool isBy, bool _isButton = false)
     {
@@ -322,60 +320,60 @@ public class ReactObject : MonoBehaviour
         {
             isButton = true;
             moveButtonlist = new List<Button>();
-            for(int i = 0; i < m_targetObject.Count; i++)
+            for(int i = 0; i < targetObject.Count; i++)
             {
-                moveButtonlist.Add(m_targetObject[i].gameObject.GetComponentInChildren<Button>());
+                moveButtonlist.Add(targetObject[i].gameObject.GetComponentInChildren<Button>());
             }
             if(moveButtonlist.Count == 0)
             {
                 Debug.LogError(this.gameObject.name + "의 moveButtonlist 가 비어있다. isButton 이면, Button 은 있어야 하는걸!");
             }
         }
-        if (moveVector == Vector3.zero)
+        if (reactVector == Vector3.zero)
         {
-            Debug.Log(this.gameObject.name + "의 moveVector 가 설정되어있지 않음. 의도임?");
+            Debug.Log(this.gameObject.name + "의 reactVector 가 설정되어있지 않음. 의도임?");
         }
-        if (moveEase == null)
+        if (reactEase == null)
         {
-            Debug.Log(this.gameObject.name + "의 moveEase 가 설정되어있지 않음. 내 맘대로 linear 로 바꿀 거임.");
-            moveEase = Ease.Linear;
+            Debug.Log(this.gameObject.name + "의 reactEase 가 설정되어있지 않음. 내 맘대로 linear 로 바꿀 거임.");
+            reactEase = Ease.Linear;
         }
-        if (moveTime == 0f)
+        if (reactTime == 0f)
         {
-            Debug.Log(this.gameObject.name + "의 moveTime 이 0 임. 의도임?");
+            Debug.Log(this.gameObject.name + "의 reactTime 이 0 임. 의도임?");
         }
 
         if (!isBy)
         {
-            beforemoveVector = new List<Vector3>();
-            for (int i = 0; i < m_targetObject.Count; i++)
+            beforereactVector = new List<Vector3>();
+            for (int i = 0; i < targetObject.Count; i++)
             {
-                beforemoveVector.Add(m_targetObject[i].transform.localPosition);
+                beforereactVector.Add(targetObject[i].transform.localPosition);
             }
         }
     }
     private void Init_Rotate(bool isBy)
     {
-        if (rotateVector == Vector3.zero)
+        if (reactVector == Vector3.zero)
         {
-            Debug.Log(this.gameObject.name + "의 rotateVector 가 설정되어있지 않음. 의도임?");
+            Debug.Log(this.gameObject.name + "의 reactVector 가 설정되어있지 않음. 의도임?");
         }
-        if (rotateEase == null)
+        if (reactEase == null)
         {
-            Debug.Log(this.gameObject.name + "의 rotateEase 가 설정되어있지 않음. 내 맘대로 linear 로 바꿀 거임.");
-            rotateEase = Ease.Linear;
+            Debug.Log(this.gameObject.name + "의 reactEase 가 설정되어있지 않음. 내 맘대로 linear 로 바꿀 거임.");
+            reactEase = Ease.Linear;
         }
-        if (rotateTime == 0f)
+        if (reactTime == 0f)
         {
-            Debug.Log(this.gameObject.name + "의 rotateTime 이 0 임. 의도임?");
+            Debug.Log(this.gameObject.name + "의 reactTime 이 0 임. 의도임?");
         }
 
         if (!isBy)
         {
-            beforerotateVector = new List<Vector3>();
-            for (int i = 0; i < m_targetObject.Count; i++)
+            beforereactVector = new List<Vector3>();
+            for (int i = 0; i < targetObject.Count; i++)
             {
-                beforerotateVector.Add(m_targetObject[i].transform.localRotation.eulerAngles);
+                beforereactVector.Add(targetObject[i].transform.localRotation.eulerAngles);
             }
         }
 
@@ -389,12 +387,16 @@ public class ReactObject : MonoBehaviour
     }
     private void Init_SoundEffect()
     {
-        if(targetSound != null)
+        if(targetSound == null)
         {
             Debug.LogError(this.gameObject.name + "의 SoundEffect 가 null 입니다.");
             return;
         }
-        waitSEEndTime = new WaitForSeconds(SoundEffectManager.singleton.GetPlayTime(targetSound));
+        tempTime = SoundEffectManager.singleton.GetPlayTime(targetSound);
+        //for test
+        Debug.Log("tempTime = " + tempTime);
+        waitTime = new WaitForSeconds(tempTime);
+        
     }
     #endregion
 
@@ -412,9 +414,9 @@ public class ReactObject : MonoBehaviour
             {
                 for (int i = 0; i < moveButtonlist.Count; i++)
                 {
-                    moveButtonlist[i].GetComponent<RectTransform>().DOBlendableLocalMoveBy(-1 * moveVector, moveTime)
-                    //moveButtonlist[i].transform.DOBlendableLocalMoveBy(-1 * moveVector, moveTime)
-                        .SetEase(moveEase)
+                    moveButtonlist[i].GetComponent<RectTransform>().DOBlendableLocalMoveBy(-1 * reactVector, reactTime)
+                    //moveButtonlist[i].transform.DOBlendableLocalMoveBy(-1 * reactVector, reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -424,9 +426,9 @@ public class ReactObject : MonoBehaviour
             {
                 for (int i = 0; i < moveButtonlist.Count; i++)
                 {
-                    moveButtonlist[i].GetComponent<RectTransform>().DOBlendableLocalMoveBy(moveVector, moveTime)
-                    //moveButtonlist[i].transform.DOBlendableLocalMoveBy(moveVector, moveTime)
-                        .SetEase(moveEase)
+                    moveButtonlist[i].GetComponent<RectTransform>().DOBlendableLocalMoveBy(reactVector, reactTime)
+                    //moveButtonlist[i].transform.DOBlendableLocalMoveBy(reactVector, reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -438,10 +440,10 @@ public class ReactObject : MonoBehaviour
         {
             if (isReverse && isReverseActed)
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    moveButtonlist[i].GetComponent<RectTransform>().DOLocalMove(beforemoveVector[i], moveTime)
-                        .SetEase(moveEase)
+                    moveButtonlist[i].GetComponent<RectTransform>().DOLocalMove(beforereactVector[i], reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -449,10 +451,10 @@ public class ReactObject : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    moveButtonlist[i].GetComponent<RectTransform>().DOLocalMove(moveVector, moveTime)
-                        .SetEase(moveEase)
+                    moveButtonlist[i].GetComponent<RectTransform>().DOLocalMove(reactVector, reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -466,10 +468,10 @@ public class ReactObject : MonoBehaviour
         {
             if (isReverse && isReverseActed)
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    m_targetObject[i].transform.DOBlendableLocalMoveBy(-1 * moveVector, moveTime)
-                        .SetEase(moveEase)
+                    targetObject[i].transform.DOBlendableLocalMoveBy(-1 * reactVector, reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -477,10 +479,10 @@ public class ReactObject : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    m_targetObject[i].transform.DOBlendableLocalMoveBy(moveVector, moveTime)
-                        .SetEase(moveEase)
+                    targetObject[i].transform.DOBlendableLocalMoveBy(reactVector, reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -492,10 +494,10 @@ public class ReactObject : MonoBehaviour
         { 
             if (isReverse && isReverseActed)
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    m_targetObject[i].transform.DOLocalMove(beforemoveVector[i], moveTime)
-                        .SetEase(moveEase)
+                    targetObject[i].transform.DOLocalMove(beforereactVector[i], reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -503,10 +505,10 @@ public class ReactObject : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    m_targetObject[i].transform.DOLocalMove(moveVector, moveTime)
-                        .SetEase(moveEase)
+                    targetObject[i].transform.DOLocalMove(reactVector, reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -521,10 +523,10 @@ public class ReactObject : MonoBehaviour
         {
             if (isReverse && isReverseActed)
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    m_targetObject[i].transform.DOBlendableLocalRotateBy(-1 * rotateVector, rotateTime, RotateMode.LocalAxisAdd)
-                        .SetEase(rotateEase)
+                    targetObject[i].transform.DOBlendableLocalRotateBy(-1 * reactVector, reactTime, RotateMode.LocalAxisAdd)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -532,10 +534,10 @@ public class ReactObject : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    m_targetObject[i].transform.DOBlendableLocalRotateBy(rotateVector, rotateTime, RotateMode.LocalAxisAdd)
-                        .SetEase(rotateEase)
+                    targetObject[i].transform.DOBlendableLocalRotateBy(reactVector, reactTime, RotateMode.LocalAxisAdd)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -547,10 +549,10 @@ public class ReactObject : MonoBehaviour
 
             if (isReverse && isReverseActed)
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    m_targetObject[i].transform.DOLocalRotate(beforerotateVector[i], rotateTime)
-                        .SetEase(rotateEase)
+                    targetObject[i].transform.DOLocalRotate(beforereactVector[i], reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -558,10 +560,10 @@ public class ReactObject : MonoBehaviour
             }
             else
             {
-                for (int i = 0; i < m_targetObject.Count; i++)
+                for (int i = 0; i < targetObject.Count; i++)
                 {
-                    m_targetObject[i].transform.DOLocalRotate(rotateVector, rotateTime)
-                        .SetEase(rotateEase)
+                    targetObject[i].transform.DOLocalRotate(reactVector, reactTime)
+                        .SetEase(reactEase)
                         .OnStart(SetButton_Disable)
                         .OnComplete(DoEnd).Play();
                 }
@@ -621,7 +623,7 @@ public class ReactObject : MonoBehaviour
 
     IEnumerator DoEnd_TweenList()
     {
-        yield return waitTweenTime;      
+        yield return waitTime;      
         DoEnd();
         yield return null;
     }
@@ -666,7 +668,9 @@ public class ReactObject : MonoBehaviour
     }
     IEnumerator DoEnd_SE()
     {
-        yield return waitSEEndTime;
+        yield return waitTime;
+        //for test
+        Debug.Log("코루틴에서의 tempTime = " + tempTime);
         DoEnd();
         yield return null;
     }
@@ -696,7 +700,7 @@ public class ReactObject : MonoBehaviour
 
     private void ObjectAction_Show()
     {
-        foreach (var e in m_targetObject)
+        foreach (var e in targetObject)
         {
             e.SetActive(true);
         }
@@ -704,7 +708,7 @@ public class ReactObject : MonoBehaviour
 
     private void ObjectAction_Hide()
     {
-        foreach (var e in m_targetObject)
+        foreach (var e in targetObject)
         {
             e.SetActive(false);
         }
@@ -733,7 +737,7 @@ public class ReactObject : MonoBehaviour
             //for test
             //Debug.Log(this.gameObject.name + "의 속성이 StreamObject 에 종속된 데이터이므로, 선별적으로 값을 Ignore 한다.");
             //enum_ObjectAction 의 규칙 : 50 보다 작으면 Ignore 하는 데이터
-            isIgnoreOnLoad = (int)m_objectAction < 50 ? true : false;
+            isIgnoreOnLoad = (int)objectAction < 50 ? true : false;
         }
 
 
