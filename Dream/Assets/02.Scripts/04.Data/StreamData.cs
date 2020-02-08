@@ -22,6 +22,17 @@ public class StreamData : MonoBehaviour
             Debug.LogError(string.Format($"{this.name} 의 m_index 가 설정되어있지 않습니다."));
         }
         this.gameObject.name = index;
+        GetStreamObject();
+    }
+
+    void GetStreamObject()
+    {
+        StreamObject[] tempArr = this.GetComponentsInChildren<StreamObject>();
+        streamObjects = new List<StreamObject>();
+        for (int i = 0; i < tempArr.Length; i++)
+        {
+            streamObjects.Add(tempArr[i]);
+        }
     }
 
     public void CompleteStream()
