@@ -14,6 +14,7 @@ public class StreamData : MonoBehaviour
     [Header(" + 발동에 따른 스트림 오브젝트")]
     public List<StreamObject> streamObjects;
     private int numNowObject = 0;
+    private WaitForSeconds waitTimeTick;
 
     public void Start()
     {
@@ -23,6 +24,8 @@ public class StreamData : MonoBehaviour
         }
         this.gameObject.name = index;
         GetStreamObject();
+
+        waitTimeTick = new WaitForSeconds(0.5f * Time.deltaTime);
     }
 
     void GetStreamObject()
@@ -51,18 +54,6 @@ public class StreamData : MonoBehaviour
         }
 
         StartAction();
-        /*
-        StartCoroutine()
-
-        for(int i = 0; i < streamObjects.Count; i++)
-        {
-
-        }
-        foreach (var e in streamObjects)
-        {
-            e.DoAction();
-        }
-        */
     }
 
     void StartAction()
@@ -78,7 +69,7 @@ public class StreamData : MonoBehaviour
         {
             while (!targetObject.IsEnd)
             {
-                yield return new WaitForSecondsRealtime(0.5f * Time.deltaTime);
+                yield return waitTimeTick;
             }
         }
 
