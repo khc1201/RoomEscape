@@ -16,6 +16,8 @@ public class ReactObject : MonoBehaviour
     private Button targetButton;
     [SerializeField] WaitForSeconds waitTime;
     private float tempTime;
+    [HideInInspector] public bool isRecipt = false;
+    public List<StreamData> streamData_OnEnd;
 
     [Header("+ 대상 GameObject")]
     public List<GameObject> targetObject;
@@ -26,7 +28,7 @@ public class ReactObject : MonoBehaviour
 
     [Header("+ Case : Talk")]
     public List<string> dialogs;
-    public List<StreamData> streamData_onEndDialog;
+    
 
     [Header("+ Case : PlaySoundEffect")]
     public SoundEffect targetSound;
@@ -123,12 +125,6 @@ public class ReactObject : MonoBehaviour
             case enum_ObjectAction.Show:
                 {
                     ObjectAction_Show();
-                    break;
-                }
-
-            case enum_ObjectAction.Init:
-                {
-                    ObjectAction_Init();
                     break;
                 }
 
@@ -231,6 +227,22 @@ public class ReactObject : MonoBehaviour
         }
         if(isExistButton && isRepeat) targetButton.enabled = true;
         if (isStreamObject) isEnd = true;
+       
+        if(streamData_OnEnd != null)
+        {
+            if (isQInputObject)
+            {
+                foreach (var e in streamData_OnEnd)
+                {
+                    e.CompleteStream();
+                }
+            }
+            else if (isStreamObject)
+            {
+                Debug.LogError(this.gameObject.name + "의 종료시에 StreamData 가 설정되어 있으나, StreamObject 의 Object 는 다른 StreamObject 를 완료하여 발생할 수 없습니다.");
+                return;
+            }
+        }
     }
 
     #region ObjectAction - Init
@@ -684,12 +696,12 @@ public class ReactObject : MonoBehaviour
         DoEnd();
     }
 
-
+    /*
     public void OjbectAction_Talk_onComplete()
     {
-        if (streamData_onEndDialog != null)
+        if (streamData_OnEnd != null)
         {
-            foreach (var e in streamData_onEndDialog)
+            foreach (var e in streamData_OnEnd)
             {
                 //for test
                 Debug.Log("talk 완료에 따라 " + e.index + " 의 complete 발동!");
@@ -697,7 +709,7 @@ public class ReactObject : MonoBehaviour
             }
         }
     }
-
+    */
     private void ObjectAction_Show()
     {
         foreach (var e in targetObject)
@@ -714,13 +726,6 @@ public class ReactObject : MonoBehaviour
         }
     }
 
-    private void ObjectAction_Init()
-    {
-        //for test
-        Debug.Log("Init 을 구현해야 합니다! - 게임을 처음 켰을 때 Load 된 정보에 따라서 해당 프랍을 show / hide / move ... 시켜야 합니다");
-
-
-    }
     #endregion
 
 
