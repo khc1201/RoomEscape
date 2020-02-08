@@ -18,10 +18,17 @@ public enum enum_Language
     Japanese
 }
 
-public enum EVENT_TYPE
+public enum enum_EventType
 {
-    Complete_StreamData
+    Complete_StreamData,
+    Init_StreamData
 };
+
+public enum enum_ShowHide
+{
+    SHOW,
+    HIDE
+}
 
 public enum enum_ObjectAction
 {
@@ -36,7 +43,7 @@ public enum enum_ObjectAction
     //이 아래에서 부터는 Load 시에 수행 되어야하는 Action 이다.
     Show = 51,
     Hide = 52,
-    //Init = 53, 
+    CompleteStream = 53, 
     DoTween = 54, // QInput 인 경우에는 무시하도록 한다.
     MoveBy = 55,
     MoveTo = 56,

@@ -24,8 +24,8 @@ public class CameraManager : MonoBehaviour
     {
         if (m_cameraParent == null) Debug.LogError(string.Format($"{this.gameObject.name} 의 m_cameraParent 가 null 값"));
 
-        InitCameraList();
-        InitCamera();
+        //InitCameraList();
+        //InitCamera();
     }
     [Header("+ 초기화 정보")]
     public GameObject m_cameraParent;
@@ -41,7 +41,11 @@ public class CameraManager : MonoBehaviour
     public CameraMoveButton m_btn_back;
     public CameraMoveButton m_btn_right;
     public CameraMoveButton m_btn_left;
-
+    public void LoadCamera()
+    {
+        InitCameraList();
+        InitCamera();
+    }
     
     private void InitCameraList()
     {

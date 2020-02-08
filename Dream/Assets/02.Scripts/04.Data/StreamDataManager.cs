@@ -20,6 +20,7 @@ public class StreamDataManager : MonoBehaviour
 
     public List<StreamData> list_streamData;
     public StreamData initStreamOnFirstPlay;
+    public StreamData nowPlayingStream;
 
     public void InitStream()
     {
@@ -36,15 +37,17 @@ public class StreamDataManager : MonoBehaviour
             list_streamData.Add(tempArr[i]);
         }
 
+        
         foreach (string s in UserData.singleton.list_completestream)
         {
-            (list_streamData.Find(x => x.index == s)).InitStreamData(true);
+            //(list_streamData.Find(x => x.index == s)).InitStreamData(true);
+            //for test : 이곳에 완료 스트림을 체크하도록 수정
         }
+        
 
 
 
-
-        StreamItemManager.singleton.InitItem();
+       
 
         if (!initStreamOnFirstPlay.IsComplete && !UserData.singleton.list_completestream.Contains(initStreamOnFirstPlay.index))
         {

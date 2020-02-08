@@ -25,8 +25,8 @@ public class EventManager : MonoBehaviour
     private static EventManager singleton = null;
 
     // 리스너 오브젝트의 배열(모든 오브젝트가 이벤트 수신을 위해 등록이 되어있다)
-    private Dictionary<EVENT_TYPE, List<IListener>> Listeners =
-                                            new Dictionary<EVENT_TYPE, List<IListener>>();
+    private Dictionary<enum_EventType, List<IListener>> Listeners =
+                                            new Dictionary<enum_EventType, List<IListener>>();
     #endregion
 
     public void Awake()
@@ -47,7 +47,7 @@ public class EventManager : MonoBehaviour
      *  2. Listener : 이벤트를 수신할 오브젝트
      * 수정 : 17.03.07
      */
-    public void AddListener(EVENT_TYPE event_type, IListener Listener)
+    public void AddListener(enum_EventType event_type, IListener Listener)
     {
         List<IListener> ListenList = null; //이 이벤트를 수신할 리스너의 리스트, 왜 널 값으로 초기화 한거지?
         if (Listeners.TryGetValue(event_type, out ListenList)) // 이벤트 형식 키가 있는지 검사한다, 존재하면 이것을 리스트에 추가한다.
@@ -69,7 +69,7 @@ public class EventManager : MonoBehaviour
      *  3. Param : 선택 가능한 파라미터
      * 수정 : 17.03.07
      */
-    public void PostNotification(EVENT_TYPE event_type, Component Sender, object Param = null)
+    public void PostNotification(enum_EventType event_type, Component Sender, object Param = null)
     {
         //모든 리스너에게 알린다!
 
@@ -96,7 +96,7 @@ public class EventManager : MonoBehaviour
      * 기능 : 이벤트 종류와 리스너 항목을 딕셔너리에서 제거
      *  1. event_type : 삭제될 이벤트 타입
      */
-    public void RemoveEvent(EVENT_TYPE event_type)
+    public void RemoveEvent(enum_EventType event_type)
     {
         Listeners.Remove(event_type);
     }
@@ -104,9 +104,9 @@ public class EventManager : MonoBehaviour
     #region RemoveRedundancies : 딕셔너리에서 쓸모없는 항목을 제거
     public void RemoveRedundancies()
     {
-        Dictionary<EVENT_TYPE, List<IListener>> TmpListeners =
-                                             new Dictionary<EVENT_TYPE, List<IListener>>();
-        foreach (KeyValuePair<EVENT_TYPE, List<IListener>> Item in Listeners) // 리스트의 모든 리스너 오브젝트를 순회하며 null 오브젝트를 제거한다.
+        Dictionary<enum_EventType, List<IListener>> TmpListeners =
+                                             new Dictionary<enum_EventType, List<IListener>>();
+        foreach (KeyValuePair<enum_EventType, List<IListener>> Item in Listeners) // 리스트의 모든 리스너 오브젝트를 순회하며 null 오브젝트를 제거한다.
         {
             for (int i = Item.Value.Count - 1; i >= 0; i--)
             {

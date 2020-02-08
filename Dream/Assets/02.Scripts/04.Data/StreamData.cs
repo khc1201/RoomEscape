@@ -13,8 +13,9 @@ public class StreamData : MonoBehaviour
     public bool IsComplete { get { return isComplete; } }
     [Header(" + 발동에 따른 스트림 오브젝트")]
     public List<StreamObject> streamObjects;
-    private int numNowObject = 0;
+    private int numNowObject;
     private WaitForSeconds waitTimeTick;
+    public bool isCompleteOnStartAction = false;
 
     public void Start()
     {
@@ -41,11 +42,15 @@ public class StreamData : MonoBehaviour
     public void CompleteStream()
     {
         isComplete = true;
-        StreamDataManager.singleton.CompleteStream(this);
-        CompleteAction();
+        StartAction();
     }
 
     private void CompleteAction()
+    {
+        StreamDataManager.singleton.CompleteStream(this);
+    }
+
+    void StartAction()
     {
         if (streamObjects == null)
         {
@@ -53,18 +58,22 @@ public class StreamData : MonoBehaviour
             return;
         }
 
-        StartAction();
-    }
-
-    void StartAction()
-    {
         numNowObject = 0;
+        StreamDataManager.singleton.nowPlayingStream = this;
+
+        if (isCompleteOnStartAction)
+        {
+            CompleteAction();
+        }
+
         StartCoroutine(DoAction(streamObjects[numNowObject]));
     }
-
+    
     IEnumerator DoAction(StreamObject targetObject)
     {
         targetObject. DoAction();
+        ++numNowObject;
+
         if (targetObject.isplayafterComplete)
         {
             while (!targetObject.IsEnd)
@@ -73,11 +82,16 @@ public class StreamData : MonoBehaviour
             }
         }
 
-        numNowObject++;
+       
+        //for test
+        //Debug.Log(string.Format(numNowObject+ "번째 DoAction // streamObjects의 count 는 " + streamObjects.Count));
         if (numNowObject == streamObjects.Count)
         {
             //for test
-            Debug.Log("끝났으므로 반환");
+            //Debug.Log("끝났으므로 반환");
+            if (!isCompleteOnStartAction) CompleteAction();                
+            StreamDataManager.singleton.nowPlayingStream = null;
+            //CompleteAction();
             yield return null;
         }
         else
@@ -88,6 +102,7 @@ public class StreamData : MonoBehaviour
         }
     }
 
+    /*
     public void InitStreamData(bool _isComplete = false)
     {
         if (_isComplete && streamObjects != null)
@@ -102,5 +117,6 @@ public class StreamData : MonoBehaviour
             }
         }
     }
+    */
 
 }

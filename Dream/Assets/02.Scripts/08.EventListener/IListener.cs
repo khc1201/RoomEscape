@@ -3,5 +3,5 @@ using System.Collections;
 
 public interface IListener
 {
-    void OnEvent(EVENT_TYPE event_type, Component Sender, object Param = null);
+    void OnEvent(enum_EventType event_type, Component Sender, object Param = null);
 }

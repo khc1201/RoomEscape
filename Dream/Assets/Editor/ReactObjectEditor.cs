@@ -11,7 +11,7 @@ public class ReactObjectEditor : Editor
     private SerializedProperty p_targetObject;
     private SerializedProperty p_objectAction;
     private SerializedProperty p_dialogs;
-    private SerializedProperty p_streamData_OnEnd;    
+    //private SerializedProperty p_streamData_OnEnd;    
     private SerializedProperty p_targetSound;
     private SerializedProperty p_isImmediately;    
     private SerializedProperty p_reactVector;
@@ -27,6 +27,9 @@ public class ReactObjectEditor : Editor
     private SerializedProperty p_isStreamObject;
     private SerializedProperty p_animalType;
     private SerializedProperty p_isRecipt;
+    private SerializedProperty p_targetDatas;
+
+
 
     string content_repeat = "반복 여부 체크";
     string content_helbox;
@@ -40,7 +43,7 @@ public class ReactObjectEditor : Editor
         p_isRepeat = soTarget.FindProperty("isRepeat");
         p_targetObject = soTarget.FindProperty("targetObject");
         p_dialogs = soTarget.FindProperty("dialogs");
-        p_streamData_OnEnd = soTarget.FindProperty("streamData_OnEnd");
+        //p_streamData_OnEnd = soTarget.FindProperty("streamData_OnEnd");
         p_targetSound = soTarget.FindProperty("targetSound");
         p_isImmediately = soTarget.FindProperty("isImmediately");
         p_reactVector = soTarget.FindProperty("reactVector");
@@ -56,7 +59,7 @@ public class ReactObjectEditor : Editor
         p_isStreamObject = soTarget.FindProperty("isStreamObject");
         p_animalType = soTarget.FindProperty("animalType");
         p_isRecipt = soTarget.FindProperty("isRecipt");
-
+        p_targetDatas = soTarget.FindProperty("targetDatas");
     }
 
     public override void OnInspectorGUI()
@@ -146,6 +149,10 @@ public class ReactObjectEditor : Editor
                         break;
                     }
                 case enum_ObjectAction.MoveToButton:
+                    {
+                        break;
+                    }
+                case enum_ObjectAction.CompleteStream:
                     {
                         break;
                     }
@@ -280,12 +287,17 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     break;
                 }
+            case enum_ObjectAction.CompleteStream:
+                {
+                    DrawList(p_targetDatas, "대상이 되는 스트림 데이터", "스트림 데이터");
+                    break;
+                }
 
         }
 
         GuiLine();
-        GuiText("3. 완료시 발동할 StreaData");
-        DrawList(p_streamData_OnEnd,"", "StreamData ");
+        //GuiText("3. 완료시 발동할 StreaData");
+        //DrawList(p_streamData_OnEnd,"", "StreamData ");
         //GuiLine();
         //GuiText("4. 동물 타입");
         //EditorGUILayout.PropertyField(p_animalType, new GUIContent("동물의 종류"));

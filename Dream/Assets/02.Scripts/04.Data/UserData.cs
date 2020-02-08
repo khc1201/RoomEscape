@@ -48,7 +48,10 @@ public class UserData : MonoBehaviour
         LoadData_Cam();
 
         StreamDataManager.singleton.InitStream();
+        EventManager.Singleton.PostNotification(enum_EventType.Init_StreamData, this);
         StringDataManager.singleton.LoadStringData();
+        CameraManager.singleton.LoadCamera();
+        StreamItemManager.singleton.InitItem();
     }
     void LoadData_Stream()
     {
@@ -131,7 +134,11 @@ public class UserData : MonoBehaviour
         {
             Debug.LogError(string.Format($"{this.gameObject.name} 에서 실행된 {target} 은 이미 list_completestream 에 포함 된 항목"));
         }
-        else list_completestream.Add(target);
+        else
+        {
+            list_completestream.Add(target);
+            EventManager.Singleton.PostNotification(enum_EventType.Complete_StreamData, this, target);
+        }
 
         SaveData_Stream();
 
