@@ -171,9 +171,6 @@ public class Dialog : MonoBehaviour
     private void EndDialog()
     {
         SetActiveDialog(false);
-
-        nowObject.OjbectAction_Talk_onComplete();
-
         nowIndex = 0;
         nowObject.DoEnd_Talk();
         nowObject = null;

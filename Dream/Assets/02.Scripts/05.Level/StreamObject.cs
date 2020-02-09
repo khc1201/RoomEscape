@@ -10,7 +10,7 @@ public class StreamObject : MonoBehaviour
     [Header(" + 이것이 완료된 후에 다음 StreamObject 를 재생할 것인지?")]
     public bool isplayafterComplete = true;
     public bool IsEnd { get { return reactObject.IsEnd; } }
-    public bool IsIgnoreOnLoad { get { return reactObject.IsIgnoreOnLoad; } }
+    //public bool IsIgnoreOnLoad { get { return reactObject.IsIgnoreOnLoad; } }
 
 
     [Header(" + ReactObject")]
