@@ -12,6 +12,7 @@ public class FadeCanvas : MonoBehaviour
     public bool IsEnd { get { return isEnd; } set { isEnd = value; } }
     public float fadeTime = 3.0f;
     [SerializeField] ReactObject targetObj;
+    public bool IsFaded { get { return fadeImage.enabled; } }
 
     private void Start()
     {

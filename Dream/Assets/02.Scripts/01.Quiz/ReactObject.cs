@@ -8,7 +8,7 @@ public class ReactObject : MonoBehaviour
 {
 
 
-    [Header("+ 공통 프로퍼티")]
+    //[Header("+ 공통 프로퍼티")]
     [SerializeField] private bool isEnd = false;
     public bool IsEnd { get { return isEnd; } }
     public bool isRepeat = false; // 어떻게든 버튼을 반복해서 조작할 수 있는 것인지?
@@ -19,67 +19,65 @@ public class ReactObject : MonoBehaviour
     [HideInInspector] public bool isRecipt = false;
     //public List<StreamData> streamData_OnEnd;
 
-    [Header("+ 대상 GameObject")]
+    //[Header("+ 대상 GameObject")]
     public List<GameObject> targetObject;
 
-    [Header("+ ReactObject 행동")]
+    //[Header("+ ReactObject 행동")]
     public enum_ObjectAction objectAction;
     //public float endCheckingTick = 0.5f;
 
-    [Header("+ Case : Talk")]
+    //[Header("+ Case : Talk")]
     public List<string> dialogs;
     
 
-    [Header("+ Case : PlaySoundEffect")]
+   // [Header("+ Case : PlaySoundEffect")]
     public SoundEffect targetSound;
     
 
-    [Header("+ Case : FadeIn/FadeOut")]
+    //[Header("+ Case : FadeIn/FadeOut")]
     public bool isImmediately;
     private FadeCanvas fadeCanvas;
 
-    [Header("+ Case : MoveBy/MoveTo/RotateBy/RotateTo")]
+    //[Header("+ Case : MoveBy/MoveTo/RotateBy/RotateTo")]
     public Vector3 reactVector;
     public float reactTime;
     public Ease reactEase;
     private List<Vector3> beforereactVector;
 
-    [Header("++ Case : MoveByButton/MoveToButton 위의 Move 와 프로퍼티를 공유")]
+    //[Header("++ Case : MoveByButton/MoveToButton 위의 Move 와 프로퍼티를 공유")]
     private bool isButton = false;
     List<Button> moveButtonlist;
 
 
 
-    [Header("+ Case : DoTween")]
+    //[Header("+ Case : DoTween")]
     public List<DOTweenAnimation> tweenAnimations;
     public bool isSequence = false; // 순서대로 발동 여부
     public float sequenceInterval = 0f;
     public Sequence seq;
 
-    [Header("+ Case : CameraMove")]
+    //[Header("+ Case : CameraMove")]
     public CameraObj targetCamera;
     private CameraObj preCamera;
     
-    [Header("+ QInput 에 종속된 데이터")]
+    //[Header("+ QInput 에 종속된 데이터")]
     [HideInInspector] public bool isQInputObject = false;
-    [Header("++ 역재생")]
+    //[Header("++ 역재생")]
     public bool isReverse = false;
     public bool isReverseActed = false;
 
-    [Header("+ SteramObject 에 종속된 데이터")]
-    [Header("++ 초기화 시 무시되는 데이터인가?")]
+    //[Header("+ SteramObject 에 종속된 데이터")]
+    //[Header("++ 초기화 시 무시되는 데이터인가?")]
     //[SerializeField] private bool isIgnoreOnLoad = true;
     [HideInInspector] public bool isStreamObject = false;
     //[SerializeField] private bool isStreamCompletedonLoad = false; // for test : 어디에 쓰는 거
     private bool isplayafterComplete = false;
     public List<StreamData> targetDatas;
 
-
-    //public bool IsIgnoreOnLoad   {get{return isIgnoreOnLoad;}}
+    public AllButtonsLock targetLock;
 
     public void Start()
     {
-
         //CheckIsIgnoreOnLoad();
         InitObjectAction();  
     }
@@ -186,6 +184,16 @@ public class ReactObject : MonoBehaviour
             case enum_ObjectAction.CompleteStream:
                 {
                     ObjectAction_CompleteStream();
+                    break;
+                }
+            case enum_ObjectAction.AllButtonsActive:
+                {
+                    ObjectAciton_AllButtonsAcitve(true);
+                    break;
+                }
+            case enum_ObjectAction.AllButtonsDisable:
+                {
+                    ObjectAciton_AllButtonsAcitve(false);
                     break;
                 }
             default:
@@ -309,6 +317,25 @@ public class ReactObject : MonoBehaviour
                     Init_CompleteStream();
                     break;
                 }
+            case enum_ObjectAction.AllButtonsActive:
+                {
+                    Init_AllButtonsLock();
+                    break;
+                }
+            case enum_ObjectAction.AllButtonsDisable:
+                {
+                    Init_AllButtonsLock();
+                    break;
+                }
+        }
+    }
+    private void Init_AllButtonsLock()
+    {
+        targetLock = FindObjectOfType<AllButtonsLock>();
+        if(targetLock == null)
+        {
+            Debug.LogError(this.gameObject.name + "에서 targetLock 을 찾지 못했습니다. null 값입니다.");
+            return;
         }
     }
     private void Init_CompleteStream()
@@ -425,6 +452,11 @@ public class ReactObject : MonoBehaviour
     #endregion
 
     #region ObjectAciton - DoAction
+    private void ObjectAciton_AllButtonsAcitve(bool isActive)
+    {
+        targetLock.SetActive_LockImage(!isActive);
+        DoEnd();
+    }
     private void ObjectAction_CompleteStream()
     {
         foreach(var e in targetDatas)
@@ -602,6 +634,7 @@ public class ReactObject : MonoBehaviour
             }
         }
     }
+
     private void ObjectAction_DoTween()
     {
 
@@ -644,14 +677,12 @@ public class ReactObject : MonoBehaviour
 
         
     }    
-
     IEnumerator DoEnd_TweenList()
     {
         yield return waitTime;      
         DoEnd();
         yield return null;
     }
-
     private float GetMaxTweenTime()
     {
         float[] tempArr = new float[tweenAnimations.Count];
@@ -708,20 +739,6 @@ public class ReactObject : MonoBehaviour
         DoEnd();
     }
 
-    /*
-    public void OjbectAction_Talk_onComplete()
-    {
-        if (streamData_OnEnd != null)
-        {
-            foreach (var e in streamData_OnEnd)
-            {
-                //for test
-                Debug.Log("talk 완료에 따라 " + e.index + " 의 complete 발동!");
-                e.CompleteStream();
-            }
-        }
-    }
-    */
     private void ObjectAction_Show()
     {
         foreach (var e in targetObject)
@@ -730,7 +747,6 @@ public class ReactObject : MonoBehaviour
         }
         DoEnd();
     }
-
     private void ObjectAction_Hide()
     {
         foreach (var e in targetObject)
@@ -741,24 +757,5 @@ public class ReactObject : MonoBehaviour
     }
 
     #endregion
-
-    /*
-    private void CheckIsIgnoreOnLoad()
-    {
-        if (isQInputObject)
-        {
-            //for test
-            //Debug.Log(this.gameObject.name + "의 속성이 QInputObject 에 종속된 데이터이므로, 모든 값을 Ignore 한다.");
-            isIgnoreOnLoad = true;
-        }
-        else if(isStreamObject)
-        {
-            //for test
-            //Debug.Log(this.gameObject.name + "의 속성이 StreamObject 에 종속된 데이터이므로, 선별적으로 값을 Ignore 한다.");
-            //enum_ObjectAction 의 규칙 : 50 보다 작으면 Ignore 하는 데이터
-            isIgnoreOnLoad = (int)objectAction < 50 ? true : false;
-        }
-
-
-    }*/
+    
 }

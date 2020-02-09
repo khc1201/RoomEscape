@@ -39,6 +39,8 @@ public enum enum_ObjectAction
     FadeIn,
     FadeOut,
     CameraMove,
+    AllButtonsActive,
+    AllButtonsDisable,
 
     //이 아래에서 부터는 Load 시에 수행 되어야하는 Action 이다.
     Show = 51,
@@ -50,7 +52,7 @@ public enum enum_ObjectAction
     RotateBy = 57,
     RotateTo = 58,
     MoveByButton = 59,
-    MoveToButton = 60
+    MoveToButton = 60,
 }
 
 public enum enum_AnswerType
@@ -67,4 +69,12 @@ public enum enum_AnimalType
     Dog_Chihuahua,
     Cat_Normal,
     Error
+}
+
+public enum enum_ObjectType
+{
+    //Stream Show / Hide 를 위해서
+    Default,
+    GameObject,
+    Button
 }

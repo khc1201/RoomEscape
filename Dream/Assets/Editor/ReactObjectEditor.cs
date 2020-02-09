@@ -156,6 +156,16 @@ public class ReactObjectEditor : Editor
                     {
                         break;
                     }
+                case enum_ObjectAction.AllButtonsActive:
+                    {
+                        content_helbox = "모든 입력 버튼을 조작 가능으로 설정합니다.\n별도로 입력해야 할 프로퍼티는 없습니다.";
+                        break;
+                    }
+                case enum_ObjectAction.AllButtonsDisable:
+                    {
+                        content_helbox = "모든 입력 버튼을 조작 불가로 설정합니다.\n별도로 입력해야 할 프로퍼티는 없습니다.";
+                        break;
+                    }
 
             }
             EditorGUILayout.HelpBox(new GUIContent(content_helbox));
@@ -290,6 +300,14 @@ public class ReactObjectEditor : Editor
             case enum_ObjectAction.CompleteStream:
                 {
                     DrawList(p_targetDatas, "대상이 되는 스트림 데이터", "스트림 데이터");
+                    break;
+                }
+            case enum_ObjectAction.AllButtonsActive:
+                {
+                    break;
+                }
+            case enum_ObjectAction.AllButtonsDisable:
+                {
                     break;
                 }
 
