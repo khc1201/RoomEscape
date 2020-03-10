@@ -17,6 +17,10 @@ public class QParent : MonoBehaviour
     [Header("+ 현재 입력된 값 (미입력 영역)")]
     [SerializeField] string[] nowInput;
 
+    [Header("+ 체크할 아이템")]
+    public StreamItem checktargetItem;
+    
+
     public void Start()
     {
         if(answer == null)
@@ -24,8 +28,17 @@ public class QParent : MonoBehaviour
             Debug.LogError(this.gameObject.name + "의 answer 이 입력되지 않았습니다.");
             return;
         }
-
+        CheckValid();
         InitNowInput();
+    }
+
+    private void CheckValid()
+    {
+        if(answerType == enum_AnswerType.CheckItem && checktargetItem == null)
+        {
+            //에러 출력
+            Debug.LogError(this.gameObject.name + "의 answerType 이 CheckItem 인데 checktargetItem 이 null 입니다.");
+        }
     }
     private void InitNowInput()
     {
@@ -59,7 +72,7 @@ public class QParent : MonoBehaviour
 
             if (doNotifyOnAnswer_StreamData && onAnswerStreamDatas != null)
             {
-                for (int i = 0; i < onAnswerStreamDatas.Count; i++) onAnswerStreamDatas[i].CompleteStream();
+                CompleteStreamData();
             }
 
             return;
@@ -124,5 +137,18 @@ public class QParent : MonoBehaviour
         return -1;
     }
 
+    private void CompleteStreamData()
+    {
+        for (int i = 0; i < onAnswerStreamDatas.Count; i++) onAnswerStreamDatas[i].CompleteStream();
+    }
 
+    public void UseItem()
+    {
+        if(FindObjectOfType<Inventory>().m_nowSelectedItem.itemData == checktargetItem)
+        {
+            //for test
+            Debug.Log("선택된 아이템 합격, 스트림 데이터 발동!");
+            CompleteStreamData();
+        }
+    }
 }

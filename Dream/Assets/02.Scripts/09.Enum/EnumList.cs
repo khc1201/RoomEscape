@@ -59,7 +59,8 @@ public enum enum_AnswerType
 {
     Default,
     Number,
-    Click //의미 없이 그냥 클릭만 해서 react 를 유도하는 것
+    Click, //의미 없이 그냥 클릭만 해서 react 를 유도하는 것
+    CheckItem //아이템을 확인 후
 }
 
 public enum enum_AnimalType

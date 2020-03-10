@@ -9,7 +9,7 @@ public class ItemSlot : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private Image icon;
     [SerializeField] private Inventory inventory;
-    [SerializeField] private StreamItem itemData;
+    public StreamItem itemData;
 
     public void Start()
     {
