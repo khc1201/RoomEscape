@@ -75,9 +75,11 @@ public class QInput : MonoBehaviour
                 reactObjects[i].DoAction(_isplayafterComplete: isSequencePlay, _targetButton: qButton);
             }
         }
+        /*
         if(qParent.answerType == enum_AnswerType.CheckItem)
         {
             qParent.UseItem();
         }
+        */
     }
 }

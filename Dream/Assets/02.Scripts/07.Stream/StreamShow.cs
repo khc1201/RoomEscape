@@ -43,6 +43,7 @@ public class StreamShow : MonoBehaviour, IListener
 
     public void OnEvent(enum_EventType etype, Component sender, object param = null)
     {
+        /*
         if (etype == enum_EventType.Complete_StreamData)
         {
             
@@ -79,5 +80,6 @@ public class StreamShow : MonoBehaviour, IListener
                 }
             }
         }
+        */
     }
 }

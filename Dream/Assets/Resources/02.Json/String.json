@@ -298,5 +298,77 @@
 		"Lang_6" : "" ,
 		"PlaySoundEffect" : "" ,
 		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000001_01" ,
+		"Desc" : "" ,
+		"Lang_1" : "음… 이 공이면 되려나?" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000001_02" ,
+		"Desc" : "" ,
+		"Lang_1" : "멍!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "dog_barkonce" ,
+		"FontColor" : "1" 
+	},
+	{
+		"Index" : "Str_000001_03" ,
+		"Desc" : "" ,
+		"Lang_1" : "알았어, 보채지 말라구!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000002_01" ,
+		"Desc" : "" ,
+		"Lang_1" : "멍멍!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "dog_barktwice" ,
+		"FontColor" : "1" 
+	},
+	{
+		"Index" : "Str_000002_02" ,
+		"Desc" : "" ,
+		"Lang_1" : "그래… 즐거우면 되었다…" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000002_03" ,
+		"Desc" : "" ,
+		"Lang_1" : "나도 슬슬 일어나볼까?" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	}
 ]

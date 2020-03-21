@@ -42,6 +42,8 @@ public class StreamItemManager : MonoBehaviour
             return;
         }
 
+        //for test
+        Debug.Log("Step 1 - 스트림데이터 변함");
         for (int i = 0; i < list_streamItem.Count; i++)
         {
             list_streamItem[i].OnChangeStreamData();

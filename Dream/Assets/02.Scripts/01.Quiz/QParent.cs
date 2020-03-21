@@ -96,7 +96,12 @@ public class QParent : MonoBehaviour
                 }
             case enum_AnswerType.Click:
                 {
-                    // 클릭 시에는 아무것도 하지 않는다.
+                    OnInput_Click();
+                    break;
+                }
+            case enum_AnswerType.CheckItem:
+                {
+                    UseItem();
                     break;
                 }
             default:
@@ -107,6 +112,13 @@ public class QParent : MonoBehaviour
         }
 
         
+    }
+    private void OnInput_Click()
+    {
+        if (doNotifyOnAnswer_StreamData)
+        {
+            CompleteStreamData();
+        }
     }
     public void OnInput_AnswerIsNumber(string inputNumber)
     {
@@ -144,7 +156,13 @@ public class QParent : MonoBehaviour
 
     public void UseItem()
     {
-        if(FindObjectOfType<Inventory>().m_nowSelectedItem.itemData == checktargetItem)
+        StreamItem inventoryItem = FindObjectOfType<Inventory>().m_nowSelectedItem.itemData as StreamItem;
+        if (inventoryItem == null)
+        {
+            Debug.Log("선택된 아이템이 없습니다.");
+            return;
+        }
+        if (inventoryItem == checktargetItem)
         {
             //for test
             Debug.Log("선택된 아이템 합격, 스트림 데이터 발동!");
