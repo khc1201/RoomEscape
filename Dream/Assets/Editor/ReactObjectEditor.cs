@@ -9,6 +9,7 @@ public class ReactObjectEditor : Editor
 
     private SerializedProperty p_isRepeat;
     private SerializedProperty p_targetObject;
+    private SerializedProperty p_targetShowObject;
     private SerializedProperty p_objectAction;
     private SerializedProperty p_dialogs;
     //private SerializedProperty p_streamData_OnEnd;    
@@ -42,6 +43,7 @@ public class ReactObjectEditor : Editor
         p_objectAction = soTarget.FindProperty("objectAction");
         p_isRepeat = soTarget.FindProperty("isRepeat");
         p_targetObject = soTarget.FindProperty("targetObject");
+        p_targetShowObject = soTarget.FindProperty("targetShowObject");
         p_dialogs = soTarget.FindProperty("dialogs");
         //p_streamData_OnEnd = soTarget.FindProperty("streamData_OnEnd");
         p_targetSound = soTarget.FindProperty("targetSound");
@@ -210,15 +212,16 @@ public class ReactObjectEditor : Editor
             case enum_ObjectAction.Show:
                 {
                     //EditorGUILayout.PropertyField(p_targetObject);
-                    DrawList(p_targetObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
-
+                    //DrawList(p_targetObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
+                    DrawList(p_targetShowObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
                     break;
                 }
             case enum_ObjectAction.Hide:
                 {
 
                     //EditorGUILayout.PropertyField(p_targetObject);
-                    DrawList(p_targetObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
+                    //DrawList(p_targetObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
+                    DrawList(p_targetShowObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
                     break;
                 }
             case enum_ObjectAction.DoTween:

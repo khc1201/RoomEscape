@@ -21,6 +21,7 @@ public class ReactObject : MonoBehaviour
 
     //[Header("+ 대상 GameObject")]
     public List<GameObject> targetObject;
+    public List<StreamShowTarget> targetShowObject;
 
     //[Header("+ ReactObject 행동")]
     public enum_ObjectAction objectAction;
@@ -256,6 +257,16 @@ public class ReactObject : MonoBehaviour
         }
         switch (objectAction)
         {
+            case enum_ObjectAction.Show:
+                {
+                    Init_Show(true);
+                    break;
+                }
+            case enum_ObjectAction.Hide:
+                {
+                    Init_Show(false);
+                    break;
+                }
             case enum_ObjectAction.MoveTo:
                 {
                     Init_Move(false);
@@ -327,6 +338,22 @@ public class ReactObject : MonoBehaviour
                     Init_AllButtonsLock();
                     break;
                 }
+        }
+    }
+    private void Init_Show(bool isShow)
+    {
+        if(targetShowObject == null)
+        {
+            Debug.LogError(this.gameObject.name + "의 조건이 Show 이지만 아무런 TargetShowObject 가 설정되어 있지 않습니다.");
+            return;
+        }
+        foreach(var e in targetShowObject)
+        {
+            if(e.targetObject == null)
+            {
+                Debug.LogError(e.gameObject.name + "의 targetObject 가 null 입니다.");
+                
+            }
         }
     }
     private void Init_AllButtonsLock()
@@ -741,17 +768,29 @@ public class ReactObject : MonoBehaviour
 
     private void ObjectAction_Show()
     {
+        /*
         foreach (var e in targetObject)
         {
             e.SetActive(true);
+        }
+        */
+        foreach(var e in targetShowObject)
+        {
+            e.TargetShow(true);
         }
         DoEnd();
     }
     private void ObjectAction_Hide()
     {
+        /*
         foreach (var e in targetObject)
         {
             e.SetActive(false);
+        }
+        */
+        foreach(var e in targetShowObject)
+        {
+            e.TargetShow(false);
         }
         DoEnd();
     }

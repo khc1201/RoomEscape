@@ -286,6 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 805969061394005893}
   - component: {fileID: 805969061394005894}
+  - component: {fileID: 1064275171302836476}
   m_Layer: 5
   m_Name: QParent
   m_TagString: Untagged
@@ -331,6 +332,19 @@ MonoBehaviour:
   doNotifyOnAnswer_StreamData: 0
   onAnswerStreamDatas: []
   nowInput: []
+  checktargetItem: {fileID: 0}
+--- !u!114 &1064275171302836476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805969061394005895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd0e5800e012614680f64874c24ae7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &805969061580478064
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,31 +413,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEnd: 0
   isRepeat: 0
-  isExistButton: 0
-  targetButton: {fileID: 0}
-  m_targetObject: []
-  m_objectAction: 0
-  endCheckingTick: 0.5
+  isRecipt: 0
+  targetObject: []
+  objectAction: 0
   dialogs: []
-  streamData_onEndDialog: []
   targetSound: {fileID: 0}
   isImmediately: 0
-  moveVector: {x: 0, y: 0, z: 0}
-  moveTime: 0
-  moveEase: 0
-  isButton: 0
-  moveButtonlist: []
-  rotateVector: {x: 0, y: 0, z: 0}
-  rotateTime: 0
-  rotateEase: 0
+  reactVector: {x: 0, y: 0, z: 0}
+  reactTime: 0
+  reactEase: 0
   tweenAnimations: []
   isSequence: 0
   sequenceInterval: 0
   targetCamera: {fileID: 0}
-  preCamera: {fileID: 0}
   isQInputObject: 0
   isReverse: 0
   isReverseActed: 0
-  isIgnoreOnLoad: 1
   isStreamObject: 0
-  isStreamCompletedonLoad: 0
+  targetDatas: []
+  targetLock: {fileID: 0}

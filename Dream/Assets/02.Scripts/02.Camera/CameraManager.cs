@@ -37,10 +37,10 @@ public class CameraManager : MonoBehaviour
 
     [Header("+ 카메라 조이스틱 정보")]
     //카메라 조이스틱 정보
-    public CameraMoveButton m_btn_forward;
-    public CameraMoveButton m_btn_back;
-    public CameraMoveButton m_btn_right;
-    public CameraMoveButton m_btn_left;
+    public StreamShowTarget m_btn_forward;
+    public StreamShowTarget m_btn_back;
+    public StreamShowTarget m_btn_right;
+    public StreamShowTarget m_btn_left;
     public void LoadCamera()
     {
         InitCameraList();
@@ -99,10 +99,18 @@ public class CameraManager : MonoBehaviour
 
     public void RefreshCameraMoveButtonUI()
     {
+
+        m_btn_forward.TargetShow(m_nowCamera.m_dircamobj_forward != null ? true : false);
+        m_btn_back.TargetShow(m_nowCamera.m_dircamobj_back != null ? true : false);
+        m_btn_left.TargetShow(m_nowCamera.m_dircamobj_left != null ? true : false);
+        m_btn_right.TargetShow(m_nowCamera.m_dircamobj_right != null ? true : false);
+        
+        /*
         m_btn_forward.SetButton(m_nowCamera.m_dircamobj_forward != null);
         m_btn_back.SetButton(m_nowCamera.m_dircamobj_back != null);
         m_btn_right.SetButton(m_nowCamera.m_dircamobj_right != null);
         m_btn_left.SetButton(m_nowCamera.m_dircamobj_left != null);
+        */
     }
 
     public void CameraMove(MoveDir direction)

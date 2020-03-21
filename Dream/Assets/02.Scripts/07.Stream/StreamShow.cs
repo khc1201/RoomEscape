@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class StreamShow : MonoBehaviour, IListener
 {
+    public bool isStreamShowObject = false;
     public enum_ShowHide defaultOnLoad = enum_ShowHide.SHOW;
     public GameObject targetObject;
+    public QParent targetButton;
     //public StreamData streamData_for_ShowObject;
     //public StreamData streamData_for_HideObject;
     public List<StreamShowList> showList;
@@ -14,15 +16,17 @@ public class StreamShow : MonoBehaviour, IListener
 
     private void Start()
     {
-        if(targetObject == null)
+        if (isStreamShowObject)
         {
-            targetObject = this.transform.GetChild(0).gameObject;
-            //for test
-            Debug.Log("임시로 targetObject 를 첫 번째 자식으로 지정");
+            if (targetObject == null && targetButton == null)
+            {
+                //for test
+                Debug.LogError(this.gameObject.name + "의 target 이 아무것도 정해지지 않았습니다");
+            }
+            EventManager.Singleton.AddListener(enum_EventType.Complete_StreamData, this);
+            EventManager.Singleton.AddListener(enum_EventType.Init_StreamData, this);
+            SetObjectVisible(defaultOnLoad);
         }
-        EventManager.Singleton.AddListener(enum_EventType.Complete_StreamData, this);
-        EventManager.Singleton.AddListener(enum_EventType.Init_StreamData, this);
-        SetObjectVisible(defaultOnLoad);
     }
     // Start is called before the first frame update
 
@@ -35,7 +39,6 @@ public class StreamShow : MonoBehaviour, IListener
         }
         else
         {
-
             targetObject.SetActive(false);
         }
         
@@ -43,13 +46,21 @@ public class StreamShow : MonoBehaviour, IListener
 
     public void OnEvent(enum_EventType etype, Component sender, object param = null)
     {
-        /*
         if (etype == enum_EventType.Complete_StreamData)
         {
             
             if(param != null)
             {
                 targetStream = param as string;
+                if(targetStream == null)
+                {
+                    Debug.LogError(this.gameObject.name + "에서 OnEvent 를 실행 도중 param 이 null 이어서 실행 실패");
+                    return;
+                }
+
+                //for test
+                Debug.Log("targetStream = " + targetStream);
+
                 for (int i = showList.Count - 1 ; i >= 0; i--)
                 {
                     if (targetStream == showList[i].forStreamdata.index)
@@ -58,9 +69,7 @@ public class StreamShow : MonoBehaviour, IListener
                         return;
                     }
                 }
-
-                //for test
-                Debug.Log("찾으려고 했으나 못찾음");
+                
             }   
         }
         else if(etype == enum_EventType.Init_StreamData)
@@ -80,6 +89,6 @@ public class StreamShow : MonoBehaviour, IListener
                 }
             }
         }
-        */
+        
     }
 }
