@@ -144,4 +144,26 @@ public class UserData : MonoBehaviour
 
 
     }
+
+    public bool IsCompleteStream(StreamData targetData)
+    {
+
+        //for test
+        //Debug.Log(string.Format($"{targetData.index} 에 대한 IsCompleteStream 체크 시작"));
+
+        for (int i = list_completestream.Count - 1; i >= 0; i--)
+        {
+            //for test
+            //Debug.Log(string.Format($"{list_completestream[i]} 를 알아보자"));
+
+            if (list_completestream[i] == targetData.index)
+            {
+                //for test
+                //Debug.Log(string.Format($"{targetData.index} 가 list_completeStream[i]에 포함 된 것으로 밝혀져... 충격!"));
+
+                return true;
+            }
+        }
+        return false;
+    }
 }

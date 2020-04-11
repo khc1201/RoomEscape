@@ -14,6 +14,7 @@ public class CameraMoveButton : MonoBehaviour
     [Header("+ 클릭시 CameraManager 로 보낼 정보")]
     public MoveDir m_moveDir;
 
+    
     private void Start()
     {
         InitButton();
@@ -26,13 +27,14 @@ public class CameraMoveButton : MonoBehaviour
         m_cameraManager = FindObjectOfType<CameraManager>();
         m_image = transform.GetComponent<Image>();
     }
+
     public void SetButton(bool isTrue)
     {
         m_button.enabled = isTrue;
         m_text.SetActive(isTrue);
         m_image.enabled = isTrue;
     }
-
+    
     public void OnClickButton()
     {
         m_cameraManager.CameraMove(m_moveDir);

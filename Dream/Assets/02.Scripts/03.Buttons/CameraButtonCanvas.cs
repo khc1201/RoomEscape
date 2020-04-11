@@ -44,5 +44,7 @@ public class CameraButtonCanvas : MonoBehaviour
     {
         HideAllUI();
         (childObj.Find(x => x.name == "bui_" + nowCam.gameObject.name)).SetActive(true);
+        //for test
+
     }
 }

@@ -41,6 +41,7 @@ public class CameraManager : MonoBehaviour
     public StreamShowTarget m_btn_back;
     public StreamShowTarget m_btn_right;
     public StreamShowTarget m_btn_left;
+
     public void LoadCamera()
     {
         InitCameraList();
@@ -68,7 +69,7 @@ public class CameraManager : MonoBehaviour
             return;
         }
         m_nowCamera.enabled = true;
-        RefreshCameraMoveButtonUI();
+        RefreshCameraMoveButtonUI(isInit: true);
         RefreshCameraButtonsUI();
         LevelManager.singleton.InitLevelOptimization();
     }
@@ -97,14 +98,22 @@ public class CameraManager : MonoBehaviour
             //  m_nowCamera.gameObject.name
     }
 
-    public void RefreshCameraMoveButtonUI()
+    public void RefreshCameraMoveButtonUI(bool isInit = false)
     {
-
+        //for test
+        Debug.Log("Step 1");
+        
         m_btn_forward.TargetShow(m_nowCamera.m_dircamobj_forward != null ? true : false);
         m_btn_back.TargetShow(m_nowCamera.m_dircamobj_back != null ? true : false);
         m_btn_left.TargetShow(m_nowCamera.m_dircamobj_left != null ? true : false);
         m_btn_right.TargetShow(m_nowCamera.m_dircamobj_right != null ? true : false);
-        
+
+        m_btn_forward.TargetShowOnCameraMove(MoveDir.Forward, isInit);
+        m_btn_back.TargetShowOnCameraMove(MoveDir.Back, isInit);
+        m_btn_left.TargetShowOnCameraMove(MoveDir.Left, isInit);
+        m_btn_right.TargetShowOnCameraMove(MoveDir.Right, isInit);
+
+
         /*
         m_btn_forward.SetButton(m_nowCamera.m_dircamobj_forward != null);
         m_btn_back.SetButton(m_nowCamera.m_dircamobj_back != null);
