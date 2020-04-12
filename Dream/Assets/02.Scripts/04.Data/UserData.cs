@@ -13,11 +13,13 @@ public class UserData : MonoBehaviour
         {
             singleton = this;
             DontDestroyOnLoad(this.gameObject);
+            LoadData();
         }
         else
         {
             DestroyImmediate(this);
         }
+        
     }
     private bool isForTestDeleteAllFile = false; // 테스트용 DeleteAllData 버튼을 누른 후 게임을 종료했을 때 마지막 씬이 저장되는 것을 방지.
 
@@ -32,7 +34,8 @@ public class UserData : MonoBehaviour
 
     private void Start()
     {
-        LoadData();
+        StartCoroutine(DelayInit());
+        //InitData();
     }
     
     public void SetNowCam(string target)
@@ -47,6 +50,16 @@ public class UserData : MonoBehaviour
         LoadData_Option();
         LoadData_Cam();
 
+        
+    }
+    IEnumerator DelayInit()
+    {
+        yield return new WaitForEndOfFrame();
+        InitData();
+        yield return null;
+    }
+    void InitData()
+    {
         StreamDataManager.singleton.InitStream();
         EventManager.Singleton.PostNotification(enum_EventType.Init_StreamData, this);
         StringDataManager.singleton.LoadStringData();

@@ -6,6 +6,7 @@ public class StreamShowTarget : MonoBehaviour
 {
     public GameObject targetObject;
     public List<StreamShowList> streamList; // 이것을 List로 제어하는 이유는, 어떤 CompleteStream 이 가장 나중에 이루어졌을 지 모르기 때문에...
+
     private void Start()
     {
         if(this.transform.childCount != 1)
@@ -13,6 +14,7 @@ public class StreamShowTarget : MonoBehaviour
             Debug.LogError(this.gameObject.name + "의 targetObject의 개수가 1 이 아니다. 반드시 1이어야 함");
             return;
         }
+
         targetObject = this.transform.GetChild(0).gameObject;
 
         /*
@@ -27,7 +29,7 @@ public class StreamShowTarget : MonoBehaviour
         {
             TargetShowOnAction();
         }
-        
+
     }
 
     public void TargetShow(bool isShow)
@@ -41,85 +43,6 @@ public class StreamShowTarget : MonoBehaviour
     private void OnEnable()
     {
         TargetShowOnAction();
-    }
-
-    public void TargetShowOnCameraMove(MoveDir moveDir, bool isInit)
-    {
-
-            switch (moveDir)
-            {
-                case MoveDir.Forward:
-                    {
-                        
-                        if (CameraManager.singleton.m_nowCamera.m_dircamobj_forward != null)
-                        {
-
-                            //for test
-                            Debug.Log("Step 2-1");
-                            TargetShowOnAction();
-                        }
-                        else
-                        {
-                            TargetShow(false);
-                        }
-                        break;
-                    }
-                case MoveDir.Back:
-                    {
-                        if (CameraManager.singleton.m_nowCamera.m_dircamobj_back != null)
-                        {
-
-                            //for test
-                            Debug.Log("Step 2-2");
-                            TargetShowOnAction();
-                        }
-                        else
-                        {
-                            TargetShow(false);
-                        }
-                        break;
-                    }
-                case MoveDir.Right:
-                    {
-                        if (CameraManager.singleton.m_nowCamera.m_dircamobj_right != null)
-                        {
-
-                            //for test
-                            Debug.Log("Step 2-3");
-                            TargetShowOnAction();
-                        }
-                        else
-                        {
-                            TargetShow(false);
-                        }
-                        break;
-                    }
-                case MoveDir.Left:
-                    {
-                        if (CameraManager.singleton.m_nowCamera.m_dircamobj_left != null)
-                        {
-
-                            //for test
-                            Debug.Log("Step 2-4");
-                            TargetShowOnAction();
-                        }
-                        else
-                        {
-                            TargetShow(false);
-                        }
-                        break;
-                    }
-            }
-        
-        /*
-        else
-        {
-            //for test
-            Debug.Log("Step 2-5");
-            TargetShowOnAction();
-        }
-        */
-        
     }
 
     private void TargetShowOnAction()

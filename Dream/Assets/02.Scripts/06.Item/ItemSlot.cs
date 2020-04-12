@@ -63,6 +63,7 @@ public class ItemSlot : MonoBehaviour
     public void DeleteItem()
     {
         icon.enabled = false;
+        backGround.SetActive(false);
         itemData = null;
     }
 }
