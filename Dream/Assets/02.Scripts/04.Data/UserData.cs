@@ -83,7 +83,7 @@ public class UserData : MonoBehaviour
             if (DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("nowcamera에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
             
         }
-        m_nowCam = ES3.Load<string>("nowcamera", "userdata.es3", defaultValue: "C000001");
+        m_nowCam = ES3.Load<string>("nowcamera", "userdata.es3", defaultValue: "C013001");
         
     }
 
