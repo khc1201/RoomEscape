@@ -53,6 +53,7 @@ public enum enum_ObjectAction
     RotateTo = 58,
     MoveByButton = 59,
     MoveToButton = 60,
+    DoTweenPath = 61
 }
 
 public enum enum_AnswerType

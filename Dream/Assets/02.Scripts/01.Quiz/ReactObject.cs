@@ -57,6 +57,10 @@ public class ReactObject : MonoBehaviour
     public float sequenceInterval = 0f;
     public Sequence seq;
 
+    //[Header("+ Case : DoTweenPath")]
+    public DOTweenPath tweenPathAnimation;
+    
+
     //[Header("+ Case : CameraMove")]
     public CameraObj targetCamera;
     private CameraObj preCamera;
@@ -195,6 +199,11 @@ public class ReactObject : MonoBehaviour
             case enum_ObjectAction.AllButtonsDisable:
                 {
                     ObjectAciton_AllButtonsAcitve(false);
+                    break;
+                }
+            case enum_ObjectAction.DoTweenPath:
+                {
+                    ObjectAction_DoTweenPath();
                     break;
                 }
             default:
@@ -338,6 +347,11 @@ public class ReactObject : MonoBehaviour
                     Init_AllButtonsLock();
                     break;
                 }
+            case enum_ObjectAction.DoTweenPath:
+                {
+                    Init_TweenPath();
+                    break;
+                }
         }
     }
     private void Init_Show(bool isShow)
@@ -388,6 +402,15 @@ public class ReactObject : MonoBehaviour
         if (tweenAnimations == null)
         {
             Debug.LogError(this.gameObject.name + "의 ObjectAction_DoTween 을 실행했으나, tweenAnimation 이 할당되어있지 않다. null 값임");
+            return;
+        }
+        waitTime = new WaitForSeconds(GetMaxTweenTime());
+    }
+    private void Init_TweenPath()
+    {
+        if (tweenPathAnimation == null)
+        {
+            Debug.LogError(this.gameObject.name + "의 ObjectAction_DoTweenPath 를 실행했으나, tweenPathAnimation 이 할당되어있지 않다. null 값임");
             return;
         }
         waitTime = new WaitForSeconds(GetMaxTweenTime());
@@ -660,6 +683,11 @@ public class ReactObject : MonoBehaviour
                 if (isReverse) isReverseActed = true;
             }
         }
+    }
+
+    private void ObjectAction_DoTweenPath()
+    {
+        tweenPathAnimation.tween.OnStart(SetButton_Disable).OnComplete(DoEnd).Play();
     }
 
     private void ObjectAction_DoTween()

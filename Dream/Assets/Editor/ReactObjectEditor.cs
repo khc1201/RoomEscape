@@ -19,6 +19,7 @@ public class ReactObjectEditor : Editor
     private SerializedProperty p_reactTime;    
     private SerializedProperty p_reactEase;
     private SerializedProperty p_tweenAnimaitions;
+    private SerializedProperty p_tweenPathAnimation;
     private SerializedProperty p_isSequence;    
     private SerializedProperty p_sequenceInterval;    
     private SerializedProperty p_seq;    
@@ -51,7 +52,8 @@ public class ReactObjectEditor : Editor
         p_reactVector = soTarget.FindProperty("reactVector");
         p_reactTime = soTarget.FindProperty("reactTime");
         p_reactEase = soTarget.FindProperty("reactEase");
-        p_tweenAnimaitions = soTarget.FindProperty("tweenAnimaitions");
+        p_tweenAnimaitions = soTarget.FindProperty("tweenAnimations");
+        p_tweenPathAnimation = soTarget.FindProperty("tweenPathAnimation");
         p_isSequence = soTarget.FindProperty("isSequence");
         p_sequenceInterval = soTarget.FindProperty("sequenceInterval");
         p_seq = soTarget.FindProperty("seq");
@@ -155,6 +157,10 @@ public class ReactObjectEditor : Editor
                         break;
                     }
                 case enum_ObjectAction.CompleteStream:
+                    {
+                        break;
+                    }
+                case enum_ObjectAction.DoTweenPath:
                     {
                         break;
                     }
@@ -287,6 +293,11 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactTime);
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
+                    break;
+                }
+            case enum_ObjectAction.DoTweenPath:
+                {
+                    EditorGUILayout.PropertyField(p_tweenPathAnimation);
                     break;
                 }
             case enum_ObjectAction.MoveToButton:
