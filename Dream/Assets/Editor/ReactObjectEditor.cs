@@ -249,6 +249,7 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactTime);
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
+                    EditorGUILayout.PropertyField(p_isReverse);
                     break;
                 }
             case enum_ObjectAction.MoveTo:
@@ -260,6 +261,7 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactTime);
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
+                    EditorGUILayout.PropertyField(p_isReverse);
                     break;
                 }
             case enum_ObjectAction.RotateBy:
@@ -271,6 +273,7 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactTime);
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
+                    EditorGUILayout.PropertyField(p_isReverse);
                     break;
                 }
             case enum_ObjectAction.RotateTo:
@@ -282,6 +285,7 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactTime);
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
+                    EditorGUILayout.PropertyField(p_isReverse);
                     break;
                 }
             case enum_ObjectAction.MoveByButton:
@@ -293,6 +297,7 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactTime);
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
+                    EditorGUILayout.PropertyField(p_isReverse);
                     break;
                 }
             case enum_ObjectAction.DoTweenPath:
@@ -309,6 +314,7 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactTime);
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
+                    EditorGUILayout.PropertyField(p_isReverse);
                     break;
                 }
             case enum_ObjectAction.CompleteStream:
