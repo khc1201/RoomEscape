@@ -43,7 +43,13 @@ public class QParent : MonoBehaviour
     private void InitNowInput()
     {
         nowInput = new string[answer.Length];
+
+        if(answerType == enum_AnswerType.Match && (answer.Length != this.GetComponentsInChildren<QInput>().Length))
+        {
+            Debug.LogError(string.Format($"{this.gameObject.name} 의 answerType 은 Match 입니다. Match 는 반드시 정답의 숫자와 하위에 있는 QInput 의 개수가 동일해야 합니다. \n현재 정답의 숫자는 {answer.Length} 개이고, 하위에 있는 QInput 의 숫자는 {this.GetComponentsInChildren<QInput>().Length} 입니다."));
+        }
     }
+
     private bool IsAnswer()
     {
         if(answer.Length != nowInput.Length)
@@ -68,7 +74,7 @@ public class QParent : MonoBehaviour
         if (IsAnswer())
         {
             //for test
-            //Debug.Log("정답 처리를 이곳에서 함");
+            Debug.Log("정답 처리를 이곳에서 함");
 
             if (doNotifyOnAnswer_StreamData && onAnswerStreamDatas != null)
             {
@@ -77,6 +83,15 @@ public class QParent : MonoBehaviour
 
             return;
         }
+    }
+
+    public void OnInitMatch(int childIndex, string childInput)
+    {
+        if(nowInput == null || nowInput.Length == 0)
+        {
+            nowInput = new string[answer.Length];
+        }
+        nowInput[childIndex] = childInput;
     }
 
     public void OnInput(int childIndex, string childInput)
@@ -104,6 +119,12 @@ public class QParent : MonoBehaviour
                     UseItem();
                     break;
                 }
+            case enum_AnswerType.Match:
+                {
+                    OnInput_AnswerIsMatch(childIndex, childInput);
+                    CheckAnswer();
+                    break;
+                }
             default:
                 {
                     Debug.LogError(string.Format($"{answerType.ToString()}의 OnInput 이 구현되지 않았습니다. 구현해주세요."));
@@ -119,6 +140,10 @@ public class QParent : MonoBehaviour
         {
             CompleteStreamData();
         }
+    }
+    public void OnInput_AnswerIsMatch(int childIndex, string inputString)
+    {
+        nowInput[childIndex] = inputString;
     }
     public void OnInput_AnswerIsNumber(string inputNumber)
     {

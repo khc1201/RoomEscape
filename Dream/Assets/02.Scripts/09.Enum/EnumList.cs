@@ -60,6 +60,7 @@ public enum enum_AnswerType
 {
     Default,
     Number,
+    Match,
     Click, //의미 없이 그냥 클릭만 해서 react 를 유도하는 것
     CheckItem //아이템을 확인 후
 }
