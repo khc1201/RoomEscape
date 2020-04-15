@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QParent : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class QParent : MonoBehaviour
 
     [Header("+ 정답 입력")]
     public string[] answer;
+    public string answerString;
+    private string defaultAnswer = "*";
+    public Text answerText;
 
     [Header("+ 정답 시 발동할 StreamData")]
     public bool doNotifyOnAnswer_StreamData = false;
@@ -30,6 +34,47 @@ public class QParent : MonoBehaviour
         }
         CheckValid();
         InitNowInput();
+
+        
+    }
+    /*
+    private void OnEnable()
+    {
+        switch (answerType)
+        {
+            case enum_AnswerType.Number:
+                {
+                    if(nowInput == null || nowInput.Length == 0)
+                    {
+                        InitNowInput();
+                    }
+                    answerString = "";
+                    for(int i = 0; i < answer.Length; i++)
+                    {
+                        nowInput[i] = defaultAnswer;
+                        answerString += nowInput[i];
+                        break;
+                    }
+                    RefreshAnswerUI();
+                    break;
+                }
+        } 
+    }
+    */
+    private void RefreshAnswerUI()
+    {
+        answerString = "";
+        foreach(var e in nowInput)
+        {
+            answerString += e;
+        }
+        /*
+        for (int i = 0; i < nowInput.Length; i++)
+        {
+            answerString += nowInput[i];
+        }
+        */
+        answerText.text = answerString;
     }
 
     private void CheckValid()
@@ -48,6 +93,7 @@ public class QParent : MonoBehaviour
         {
             Debug.LogError(string.Format($"{this.gameObject.name} 의 answerType 은 Match 입니다. Match 는 반드시 정답의 숫자와 하위에 있는 QInput 의 개수가 동일해야 합니다. \n현재 정답의 숫자는 {answer.Length} 개이고, 하위에 있는 QInput 의 숫자는 {this.GetComponentsInChildren<QInput>().Length} 입니다."));
         }
+        //RefreshAnswerUI();
     }
 
     private bool IsAnswer()
@@ -106,6 +152,7 @@ public class QParent : MonoBehaviour
             case enum_AnswerType.Number:
                 {
                     OnInput_AnswerIsNumber(inputNumber: childInput);
+                    
                     CheckAnswer();
                     break;
                 }
@@ -144,6 +191,7 @@ public class QParent : MonoBehaviour
     public void OnInput_AnswerIsMatch(int childIndex, string inputString)
     {
         nowInput[childIndex] = inputString;
+        //RefreshAnswerUI();
     }
     public void OnInput_AnswerIsNumber(string inputNumber)
     {
@@ -160,7 +208,7 @@ public class QParent : MonoBehaviour
         {
             nowInput[nowIndex] = inputNumber;
         }
-        
+        RefreshAnswerUI();
     }
     private int GetIndexOfNowNumber()
     {
