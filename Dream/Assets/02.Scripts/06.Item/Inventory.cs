@@ -46,6 +46,7 @@ public class Inventory : MonoBehaviour
     {
         //완료된 streamdata 에 따라서 각 아이템을 로드 완료
     }
+    
 
     public void OnSelectItem(ItemSlot target)
     {

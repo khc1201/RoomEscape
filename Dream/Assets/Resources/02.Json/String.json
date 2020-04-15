@@ -370,5 +370,53 @@
 		"Lang_6" : "" ,
 		"PlaySoundEffect" : "" ,
 		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000005_01" ,
+		"Desc" : "" ,
+		"Lang_1" : "키보드가? 여기에…?" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000005_02" ,
+		"Desc" : "" ,
+		"Lang_1" : "일단 챙기자. 맞는 자리에 놓아야겠지." ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000006_01" ,
+		"Desc" : "" ,
+		"Lang_1" : "키보드는 설치했고… 컴퓨터만 켜면 되겠네." ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000006_02" ,
+		"Desc" : "" ,
+		"Lang_1" : "그런데 비밀 번호가 뭐였더라?" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
 	}
 ]

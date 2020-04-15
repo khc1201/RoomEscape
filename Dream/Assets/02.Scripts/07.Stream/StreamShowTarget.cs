@@ -5,6 +5,7 @@ using UnityEngine;
 public class StreamShowTarget : MonoBehaviour
 {
     public GameObject targetObject;
+    public bool isShowOnInit = true;
     public List<StreamShowList> streamList; // 이것을 List로 제어하는 이유는, 어떤 CompleteStream 이 가장 나중에 이루어졌을 지 모르기 때문에...
 
     private void Start()
@@ -27,6 +28,11 @@ public class StreamShowTarget : MonoBehaviour
         */
         if (this.transform.GetComponentInChildren<CameraMoveButton>() == null)
         {
+            if (!isShowOnInit)
+            {
+                TargetShow(false);
+            }
+
             TargetShowOnAction();
         }
 

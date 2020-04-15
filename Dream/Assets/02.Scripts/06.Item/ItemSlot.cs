@@ -64,6 +64,7 @@ public class ItemSlot : MonoBehaviour
     {
         icon.enabled = false;
         backGround.SetActive(false);
+        inventory.m_nowSelectedItem = null;
         itemData = null;
     }
 }
