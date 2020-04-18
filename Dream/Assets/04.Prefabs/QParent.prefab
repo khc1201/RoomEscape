@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: QInput
+  m_Text: 
 --- !u!1 &805969060123738994
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 393.6, y: 204.6}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &805969060123738993
 MonoBehaviour:
@@ -190,7 +190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -166, y: -266}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &805969060670815224
@@ -311,8 +311,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 297, y: 74}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1280, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &805969061394005894
 MonoBehaviour:
@@ -329,6 +329,8 @@ MonoBehaviour:
   answerType: 0
   answer:
   - 1
+  answerString: 
+  answerText: {fileID: 0}
   doNotifyOnAnswer_StreamData: 0
   onAnswerStreamDatas: []
   nowInput: []
@@ -345,6 +347,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd0e5800e012614680f64874c24ae7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetObject: {fileID: 0}
+  isShowOnInit: 1
+  streamList: []
 --- !u!1 &805969061580478064
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +401,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: 1
+  inputList: []
+  nowIdx: 0
   reactObjects: []
   isSequencePlay: 0
   index: 0
@@ -415,6 +422,7 @@ MonoBehaviour:
   isRepeat: 0
   isRecipt: 0
   targetObject: []
+  targetShowObject: []
   objectAction: 0
   dialogs: []
   targetSound: {fileID: 0}
@@ -425,6 +433,7 @@ MonoBehaviour:
   tweenAnimations: []
   isSequence: 0
   sequenceInterval: 0
+  tweenPathAnimation: {fileID: 0}
   targetCamera: {fileID: 0}
   isQInputObject: 0
   isReverse: 0
