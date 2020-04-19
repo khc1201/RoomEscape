@@ -220,6 +220,7 @@ public class ReactObjectEditor : Editor
                     //EditorGUILayout.PropertyField(p_targetObject);
                     //DrawList(p_targetObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
                     DrawList(p_targetShowObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
+                    EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     break;
                 }
             case enum_ObjectAction.Hide:
@@ -228,6 +229,7 @@ public class ReactObjectEditor : Editor
                     //EditorGUILayout.PropertyField(p_targetObject);
                     //DrawList(p_targetObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
                     DrawList(p_targetShowObject, "대상이 되는 게임 오브젝트", "게임 오브젝트 ");
+                    EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     break;
                 }
             case enum_ObjectAction.DoTween:

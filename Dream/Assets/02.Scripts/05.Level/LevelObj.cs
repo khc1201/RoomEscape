@@ -18,6 +18,7 @@ public class LevelObj : MonoBehaviour
         list_gameObject.Add(this.transform.Find("Wall").gameObject);
         list_gameObject.Add(this.transform.Find("Floor").gameObject);
         list_gameObject.Add(this.transform.Find("Object").gameObject);
+        list_gameObject.Add(this.transform.Find("Light").gameObject);
     }
 
     public void SetActiveObject(bool isActive)
