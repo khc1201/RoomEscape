@@ -396,6 +396,66 @@
 		"FontColor" : "" 
 	},
 	{
+		"Index" : "Str_000005_03" ,
+		"Desc" : "자신의 방에 있는 세계 지도를 보며" ,
+		"Lang_1" : "언젠가 여행을 할 수 있겠지… 하지만 지금은 필요 없어." ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000005_04" ,
+		"Desc" : "문이 잠겨있다." ,
+		"Lang_1" : "이상하네… 열리지 않아…" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000005_05" ,
+		"Desc" : "베란다 쪽으로 나가는 문." ,
+		"Lang_1" : "테라스로 나가면 추울 것 같아." ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000005_06" ,
+		"Desc" : "닫힌 블라인드를 보면서 하는 말." ,
+		"Lang_1" : "블라인드 열기 싫다…" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000005_07" ,
+		"Desc" : "침대를 보면서 하는 말" ,
+		"Lang_1" : "이제 일어나야지!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
 		"Index" : "Str_000006_01" ,
 		"Desc" : "" ,
 		"Lang_1" : "키보드는 설치했고… 컴퓨터만 켜면 되겠네." ,
@@ -420,6 +480,18 @@
 		"FontColor" : "" 
 	},
 	{
+		"Index" : "Str_000006_03" ,
+		"Desc" : "장롱위의 시계를 잡기 위해 안간힘" ,
+		"Lang_1" : "… … … 키가 안닿네…" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
 		"Index" : "Str_000007_01" ,
 		"Desc" : "" ,
 		"Lang_1" : "이 선들은 뭐지…?" ,
@@ -434,7 +506,7 @@
 	{
 		"Index" : "Str_000007_02" ,
 		"Desc" : "고래 소리가 들린 이후 지진이 나서 당황함" ,
-		"Lang_1" : "어…? 어…!" ,
+		"Lang_1" : "어…? 어…! 방금, 지진인가?" ,
 		"Lang_2" : "" ,
 		"Lang_3" : "" ,
 		"Lang_4" : "" ,
@@ -446,7 +518,7 @@
 	{
 		"Index" : "Str_000007_03" ,
 		"Desc" : "고래 소리가 들린 이후 지진이 나서 당황함" ,
-		"Lang_1" : "방금… 뭐야…? 지진?" ,
+		"Lang_1" : "뭔가 떨어지는 소리가 들렸는데…" ,
 		"Lang_2" : "" ,
 		"Lang_3" : "" ,
 		"Lang_4" : "" ,

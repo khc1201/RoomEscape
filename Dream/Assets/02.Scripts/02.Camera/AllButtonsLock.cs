@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AllButtonsLock : MonoBehaviour
 {
-    RawImage lockImage;
+    private RawImage lockImage;
     private bool isLocked = false;
     public bool IsLocked { get { return isLocked; } set { isLocked = value; } }
 

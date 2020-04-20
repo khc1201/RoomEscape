@@ -18,7 +18,6 @@ public class ReactObject : MonoBehaviour
     private float tempTime;
     [HideInInspector] public bool isRecipt = false;
     //public List<StreamData> streamData_OnEnd;
-
     //[Header("+ 대상 GameObject")]
     public List<GameObject> targetObject;
     public List<StreamShowTarget> targetShowObject;
@@ -80,10 +79,12 @@ public class ReactObject : MonoBehaviour
     public List<StreamData> targetDatas;
 
     public AllButtonsLock targetLock;
+    public bool isTargetLock = true; // 현재의 행동을 하는 동안 ButtonClick 을 잠글 것인지에 대한 값
 
     public void Start()
     {
         //CheckIsIgnoreOnLoad();
+        Init_AllButtonsLock();
         InitObjectAction();  
     }
 
@@ -101,6 +102,10 @@ public class ReactObject : MonoBehaviour
             this.isStreamObject = true;
         }
 
+        if (isTargetLock)
+        {
+            targetLock.SetActive_LockImage(true);
+        }
         switch (objectAction)
         {
             case enum_ObjectAction.Defalut:
@@ -238,23 +243,29 @@ public class ReactObject : MonoBehaviour
             }
         }
         if(isExistButton && isRepeat) targetButton.enabled = true;
-        if (isStreamObject) isEnd = true;
-       /*
-        if(streamData_OnEnd != null)
+
+        if (isTargetLock)
         {
-            if (isQInputObject)
-            {
-                foreach (var e in streamData_OnEnd)
-                {
-                    e.CompleteStream();
-                }
-            }
-            else if (isStreamObject)
-            {
-                Debug.LogError(this.gameObject.name + "의 종료시에 StreamData 가 설정되어 있으나, StreamObject 의 Object 는 다른 StreamObject 를 완료하여 발생할 수 없습니다.");
-                return;
-            }
-        }*/
+            targetLock.SetActive_LockImage(false);
+        }
+        if (isStreamObject) isEnd = true;
+        
+        /*
+         if(streamData_OnEnd != null)
+         {
+             if (isQInputObject)
+             {
+                 foreach (var e in streamData_OnEnd)
+                 {
+                     e.CompleteStream();
+                 }
+             }
+             else if (isStreamObject)
+             {
+                 Debug.LogError(this.gameObject.name + "의 종료시에 StreamData 가 설정되어 있으나, StreamObject 의 Object 는 다른 StreamObject 를 완료하여 발생할 수 없습니다.");
+                 return;
+             }
+         }*/
     }
 
     #region ObjectAction - Init
@@ -264,6 +275,8 @@ public class ReactObject : MonoBehaviour
         {
             Debug.LogError(this.gameObject.name + "설정 에러 : isReverse 는 체크가 되어있는데, isRepeat 가 체크되지 않았다.");
         }
+        
+
         switch (objectAction)
         {
             case enum_ObjectAction.Show:
@@ -518,6 +531,8 @@ public class ReactObject : MonoBehaviour
     {
         preCamera = CameraManager.singleton.m_nowCamera;
         CameraManager.singleton.ChangeCamera(preCamera, targetCamera);
+
+        DoEnd();
     }
     private void ObjectAction_MoveButton(bool isBy)
     {
@@ -692,7 +707,6 @@ public class ReactObject : MonoBehaviour
 
     private void ObjectAction_DoTween()
     {
-
         if (isSequence)
         {
             //시퀀스인 경우, 순차적으로 발동한다.

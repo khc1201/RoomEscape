@@ -30,6 +30,7 @@ public class ReactObjectEditor : Editor
     private SerializedProperty p_animalType;
     private SerializedProperty p_isRecipt;
     private SerializedProperty p_targetDatas;
+    private SerializedProperty p_isTargetLock;
 
 
 
@@ -40,7 +41,7 @@ public class ReactObjectEditor : Editor
     {
         objTarget = (ReactObject)target;
         soTarget = new SerializedObject(target);
-
+        p_isTargetLock = soTarget.FindProperty("isTargetLock");
         p_objectAction = soTarget.FindProperty("objectAction");
         p_isRepeat = soTarget.FindProperty("isRepeat");
         p_targetObject = soTarget.FindProperty("targetObject");
@@ -197,6 +198,7 @@ public class ReactObjectEditor : Editor
             case enum_ObjectAction.PlaySoundEffect:
                 {
                     EditorGUILayout.PropertyField(p_targetSound, new GUIContent("실행할 SoundEffect 대상"));
+                    
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     break;
                 }
@@ -241,6 +243,8 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_isSequence, new GUIContent("시퀀스 여부"));
                     EditorGUILayout.PropertyField(p_sequenceInterval, new GUIContent("시퀀스 사이 간격(초)"));
                     //EditorGUILayout.PropertyField(p_seq);
+
+                    EditorGUILayout.PropertyField(p_isTargetLock, new GUIContent("실행 중 버튼 잠금 여부"));
                     break;
                 }
             case enum_ObjectAction.MoveBy:
@@ -252,6 +256,8 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     EditorGUILayout.PropertyField(p_isReverse);
+
+                    EditorGUILayout.PropertyField(p_isTargetLock, new GUIContent("실행 중 버튼 잠금 여부"));
                     break;
                 }
             case enum_ObjectAction.MoveTo:
@@ -264,6 +270,8 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     EditorGUILayout.PropertyField(p_isReverse);
+
+                    EditorGUILayout.PropertyField(p_isTargetLock, new GUIContent("실행 중 버튼 잠금 여부"));
                     break;
                 }
             case enum_ObjectAction.RotateBy:
@@ -276,6 +284,8 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     EditorGUILayout.PropertyField(p_isReverse);
+
+                    EditorGUILayout.PropertyField(p_isTargetLock, new GUIContent("실행 중 버튼 잠금 여부"));
                     break;
                 }
             case enum_ObjectAction.RotateTo:
@@ -288,6 +298,8 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     EditorGUILayout.PropertyField(p_isReverse);
+
+                    EditorGUILayout.PropertyField(p_isTargetLock, new GUIContent("실행 중 버튼 잠금 여부"));
                     break;
                 }
             case enum_ObjectAction.MoveByButton:
@@ -300,11 +312,14 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     EditorGUILayout.PropertyField(p_isReverse);
+
+                    EditorGUILayout.PropertyField(p_isTargetLock, new GUIContent("실행 중 버튼 잠금 여부"));
                     break;
                 }
             case enum_ObjectAction.DoTweenPath:
                 {
                     EditorGUILayout.PropertyField(p_tweenPathAnimation);
+                    EditorGUILayout.PropertyField(p_isTargetLock, new GUIContent("실행 중 버튼 잠금 여부"));
                     break;
                 }
             case enum_ObjectAction.MoveToButton:
@@ -317,6 +332,8 @@ public class ReactObjectEditor : Editor
                     EditorGUILayout.PropertyField(p_reactEase);
                     EditorGUILayout.PropertyField(p_isRepeat, new GUIContent(content_repeat));
                     EditorGUILayout.PropertyField(p_isReverse);
+
+                    EditorGUILayout.PropertyField(p_isTargetLock, new GUIContent("실행 중 버튼 잠금 여부"));
                     break;
                 }
             case enum_ObjectAction.CompleteStream:
