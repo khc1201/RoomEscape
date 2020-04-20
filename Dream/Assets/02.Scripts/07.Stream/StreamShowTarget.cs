@@ -56,7 +56,7 @@ public class StreamShowTarget : MonoBehaviour
         //for test
         //Debug.Log(this.gameObject.name + "의 OnEnable 에 따라서 TargetShow를 판단해보자!");
 
-        if (streamList == null)
+        if (streamList == null || streamList.Count == 0)
         {
             Debug.Log(this.gameObject.name + "에는 streamList 가 설정되어 있지 않음. return.");
             return;

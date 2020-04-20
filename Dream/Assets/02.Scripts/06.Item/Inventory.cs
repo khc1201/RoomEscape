@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] List<ItemSlot> list_itemslots;
     public ItemSlot m_nowSelectedItem;
     public List<StreamItem> list_nowItems;
+    
 
     public void Start()
     {

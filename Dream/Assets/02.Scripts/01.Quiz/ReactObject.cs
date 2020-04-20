@@ -235,6 +235,12 @@ public class ReactObject : MonoBehaviour
 
     private void DoEnd()
     {
+
+        if (isTargetLock)
+        {
+            targetLock.SetActive_LockImage(false);            
+        }
+
         if (isButton)
         {
             for (int i = 0; i < moveButtonlist.Count; i++)
@@ -243,11 +249,6 @@ public class ReactObject : MonoBehaviour
             }
         }
         if(isExistButton && isRepeat) targetButton.enabled = true;
-
-        if (isTargetLock)
-        {
-            targetLock.SetActive_LockImage(false);
-        }
         if (isStreamObject) isEnd = true;
         
         /*
@@ -374,6 +375,7 @@ public class ReactObject : MonoBehaviour
             Debug.LogError(this.gameObject.name + "의 조건이 Show 이지만 아무런 TargetShowObject 가 설정되어 있지 않습니다.");
             return;
         }
+        /*
         foreach(var e in targetShowObject)
         {
             if(e.targetObject == null)
@@ -382,6 +384,7 @@ public class ReactObject : MonoBehaviour
                 
             }
         }
+        */
     }
     private void Init_AllButtonsLock()
     {

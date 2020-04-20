@@ -80,6 +80,20 @@ public class QInput : MonoBehaviour
         
     }
 
+    public void DoReact()
+    {
+        for (int i = 0; i < reactObjects.Count; i++)
+        {
+            //for test
+            //Debug.Log("이 부분을 StreamObject 와 같은 내용으로 수정해야 한다. ReactObject 는 이제 더이상 Tweening 만 하지 않는다!");
+
+            //for test
+            Debug.Log(string.Format($"answerType = {qParent.answerType} // isReactObjectDontHaveItem = {qParent.isReactObjectDontHaveItem}"));
+
+            reactObjects[i].DoAction(_isplayafterComplete: isSequencePlay, _targetButton: qButton);
+        }
+    }
+
     public void OnButtonClick()
     {
         if (qParent.answerType == enum_AnswerType.Match)
@@ -97,14 +111,17 @@ public class QInput : MonoBehaviour
             
         }
 
+        if(qParent.answerType == enum_AnswerType.CheckItem)
+        {
+            return;
+        }
+
         if (hasReactObject)
         {
-            for (int i = 0; i < reactObjects.Count; i++)
-            {
-                //for test
-                //Debug.Log("이 부분을 StreamObject 와 같은 내용으로 수정해야 한다. ReactObject 는 이제 더이상 Tweening 만 하지 않는다!");
-                reactObjects[i].DoAction(_isplayafterComplete: isSequencePlay, _targetButton: qButton);
-            }
+            
+
+            DoReact();
+            
         }
         /*
         if(qParent.answerType == enum_AnswerType.CheckItem)

@@ -9,6 +9,7 @@ public class QParent : MonoBehaviour
     public enum_AnswerType answerType = enum_AnswerType.Default;
 
     [Header("+ 정답 입력")]
+    private QChild qChild;
     public string[] answer;
     public string answerString;
     private string defaultAnswer = "*";
@@ -23,7 +24,10 @@ public class QParent : MonoBehaviour
 
     [Header("+ 체크할 아이템")]
     public StreamItem checktargetItem;
-    
+
+    [Header("++ 체크할 아이템이 없다면 reactObject 를 발동할 것인지?")]
+    public bool isReactObjectDontHaveItem = true;
+
 
     public void Start()
     {
@@ -34,8 +38,12 @@ public class QParent : MonoBehaviour
         }
         CheckValid();
         InitNowInput();
-
+        FindQInput();
         
+    }
+    public void FindQInput()
+    {
+        qChild = GetComponentInChildren<QChild>();
     }
     /*
     private void OnEnable()
@@ -228,14 +236,28 @@ public class QParent : MonoBehaviour
     }
 
     public void UseItem()
-    {
-        StreamItem inventoryItem = FindObjectOfType<Inventory>().m_nowSelectedItem.itemData as StreamItem;
-        if (inventoryItem == null)
+    { 
+        StreamItem inventoryItem;
+        try
+        {
+            inventoryItem = FindObjectOfType<Inventory>().m_nowSelectedItem.itemData as StreamItem;
+        }
+        catch(System.Exception exception)
         {
             Debug.Log("선택된 아이템이 없습니다.");
+            if (isReactObjectDontHaveItem)
+            {
+                foreach (var e in qChild.qInputs)
+                {
+                    e.DoReact();
+                }
+            }
             return;
         }
-        if (inventoryItem == checktargetItem)
+        
+
+        
+        if (FindObjectOfType<Inventory>().m_nowSelectedItem.itemData as StreamItem == checktargetItem)
         {
             //for test
             Debug.Log("선택된 아이템 합격, 스트림 데이터 발동!");

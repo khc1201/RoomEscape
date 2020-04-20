@@ -336,6 +336,18 @@
 		"FontColor" : "" 
 	},
 	{
+		"Index" : "Str_000001_04" ,
+		"Desc" : "공이 필요하다는 것을 알려준다." ,
+		"Lang_1" : "장난감이 필요한 것 맞지?" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
 		"Index" : "Str_000002_01" ,
 		"Desc" : "" ,
 		"Lang_1" : "멍멍!" ,
@@ -492,6 +504,18 @@
 		"FontColor" : "" 
 	},
 	{
+		"Index" : "Str_000006_04" ,
+		"Desc" : "컴퓨터에 키보드가 없는 것을 본다." ,
+		"Lang_1" : "키보드가 어디갔지?" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
 		"Index" : "Str_000007_01" ,
 		"Desc" : "" ,
 		"Lang_1" : "이 선들은 뭐지…?" ,
@@ -543,6 +567,18 @@
 		"Index" : "Str_000008_02" ,
 		"Desc" : "떨어진 시계를 줏으며" ,
 		"Lang_1" : "부서지진 않는 것 같다." ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_000008_03" ,
+		"Desc" : "시계가 하나 없는 것을 본다." ,
+		"Lang_1" : "이 부분이 비어있는 것 같다." ,
 		"Lang_2" : "" ,
 		"Lang_3" : "" ,
 		"Lang_4" : "" ,
