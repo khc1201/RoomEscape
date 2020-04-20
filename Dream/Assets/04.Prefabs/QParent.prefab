@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 805969060670815225}
   - component: {fileID: 805969060670815226}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ClickButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,6 +335,7 @@ MonoBehaviour:
   onAnswerStreamDatas: []
   nowInput: []
   checktargetItem: {fileID: 0}
+  isReactObjectDontHaveItem: 1
 --- !u!114 &1064275171302836476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,3 +442,4 @@ MonoBehaviour:
   isStreamObject: 0
   targetDatas: []
   targetLock: {fileID: 0}
+  isTargetLock: 1
