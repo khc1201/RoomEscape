@@ -18,6 +18,13 @@ public class MotionTarget : MonoBehaviour
         InitTime();
     }
 
+    private void OnEnable()
+    {
+        InitController();
+        InitMotion();
+        InitTime();
+    }
+
     private void InitController()
     {
         this.controller = GetComponent<Animator>();
