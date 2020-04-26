@@ -31,6 +31,8 @@ public class ReactObjectEditor : Editor
     private SerializedProperty p_isRecipt;
     private SerializedProperty p_targetDatas;
     private SerializedProperty p_isTargetLock;
+    private SerializedProperty p_motionTarget;
+    private SerializedProperty p_motionType;
 
 
 
@@ -65,7 +67,9 @@ public class ReactObjectEditor : Editor
         p_animalType = soTarget.FindProperty("animalType");
         p_isRecipt = soTarget.FindProperty("isRecipt");
         p_targetDatas = soTarget.FindProperty("targetDatas");
-    }
+        p_motionTarget = soTarget.FindProperty("motionTarget");
+        p_motionType = soTarget.FindProperty("motionType");
+}
 
     public override void OnInspectorGUI()
     {
@@ -175,6 +179,10 @@ public class ReactObjectEditor : Editor
                         content_helbox = "모든 입력 버튼을 조작 불가로 설정합니다.\n별도로 입력해야 할 프로퍼티는 없습니다.";
                         break;
                     }
+                case enum_ObjectAction.SetMotion:
+                    {
+                        break;
+                    }
 
             }
             EditorGUILayout.HelpBox(new GUIContent(content_helbox));
@@ -210,6 +218,13 @@ public class ReactObjectEditor : Editor
             case enum_ObjectAction.FadeOut:
                 {
                     EditorGUILayout.PropertyField(p_isImmediately);
+                    break;
+                }
+            case enum_ObjectAction.SetMotion:
+                {
+                    EditorGUILayout.PropertyField(p_motionTarget);
+                    EditorGUILayout.PropertyField(p_motionType);
+
                     break;
                 }
             case enum_ObjectAction.CameraMove:

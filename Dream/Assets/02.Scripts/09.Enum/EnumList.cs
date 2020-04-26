@@ -53,7 +53,8 @@ public enum enum_ObjectAction
     RotateTo = 58,
     MoveByButton = 59,
     MoveToButton = 60,
-    DoTweenPath = 61
+    DoTweenPath = 61,
+    SetMotion = 62
 }
 
 public enum enum_AnswerType
@@ -80,4 +81,15 @@ public enum enum_ObjectType
     Default,
     GameObject,
     Button
+}
+
+public enum enum_MotionType
+{
+    Idle,
+    Walk,
+    Special_1,
+    Special_2,
+    Special_3,
+    Run,
+    SitDown
 }

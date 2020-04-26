@@ -81,6 +81,11 @@ public class ReactObject : MonoBehaviour
     public AllButtonsLock targetLock;
     public bool isTargetLock = true; // 현재의 행동을 하는 동안 ButtonClick 을 잠글 것인지에 대한 값
 
+    //SetMotion 전용
+    public MotionTarget motionTarget;
+    public enum_MotionType motionType;
+    
+
     public void Start()
     {
         //CheckIsIgnoreOnLoad();
@@ -118,7 +123,11 @@ public class ReactObject : MonoBehaviour
                     ObjectAction_Hide();
                     break;
                 }
-
+            case enum_ObjectAction.SetMotion:
+                {
+                    StartCoroutine(ObjectAction_SetMotion());
+                    break;
+                }
             case enum_ObjectAction.Show:
                 {
                     ObjectAction_Show();
@@ -218,6 +227,14 @@ public class ReactObject : MonoBehaviour
                 }
                 
         }
+    }
+
+    private IEnumerator ObjectAction_SetMotion()
+    {
+        motionTarget.SetMotion(motionType);
+        yield return waitTime;
+        DoEnd();
+        yield return null;
     }
 
     //SetEnable_TargetButton() 구현이 필요함.
@@ -366,8 +383,26 @@ public class ReactObject : MonoBehaviour
                     Init_TweenPath();
                     break;
                 }
+            case enum_ObjectAction.SetMotion:
+                {
+                    Init_SetMotion();
+                    break;
+                }
         }
     }
+
+    private void Init_SetMotion()
+    {
+        if(motionTarget == null)
+        {
+            Debug.LogError(this.gameObject.name + "의 타입이 SetMotion 이지만 타겟이 null 임");
+            return;
+        }
+
+        //for test : 클립의 시간을 구하는 방법을 몰라서 임시로 3초로 설정
+        waitTime = new WaitForSeconds(0.1f);
+    }
+
     private void Init_Show(bool isShow)
     {
         if(targetShowObject == null)
