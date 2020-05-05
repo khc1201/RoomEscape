@@ -23,7 +23,9 @@ public class AllButtonsLock : MonoBehaviour
 
     public void SetActive_LockImage(bool isAcitve)
     {
-        isLocked = isAcitve;
+        //for test
+        Debug.Log("Step 4 / isActive = " + isAcitve);
+        isLocked = !isAcitve;
         lockImage.enabled = isAcitve;
     }
 }

@@ -90,7 +90,7 @@ public class ReactObject : MonoBehaviour
     {
         //CheckIsIgnoreOnLoad();
         Init_AllButtonsLock();
-        InitObjectAction();  
+        InitObjectAction();
     }
 
     public void DoAction(bool _isplayafterComplete, Button _targetButton = null, bool _isStreamObject = false)

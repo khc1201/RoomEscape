@@ -85,6 +85,16 @@ public class QParent : MonoBehaviour
         answerText.text = answerString;
     }
 
+
+    private void QInputButtonLock(bool isLock)
+    {
+        foreach(var e in qChild.qInputs)
+        {
+            e.SetButtonLock(!isLock);
+        }
+        DefaultData.singleton.allButtonLock.SetActive_LockImage(isLock);
+    }
+
     private void CheckValid()
     {
         if(answerType == enum_AnswerType.CheckItem && checktargetItem == null)
@@ -101,7 +111,14 @@ public class QParent : MonoBehaviour
         {
             Debug.LogError(string.Format($"{this.gameObject.name} 의 answerType 은 Match 입니다. Match 는 반드시 정답의 숫자와 하위에 있는 QInput 의 개수가 동일해야 합니다. \n현재 정답의 숫자는 {answer.Length} 개이고, 하위에 있는 QInput 의 숫자는 {this.GetComponentsInChildren<QInput>().Length} 입니다."));
         }
-        //RefreshAnswerUI();
+
+        /*
+        for(int i = 0; i < nowInput.Length; i++)
+        {
+            nowInput[i] = defaultAnswer;
+        }
+        RefreshAnswerUI();
+        */
     }
 
     private bool IsAnswer()
@@ -123,19 +140,53 @@ public class QParent : MonoBehaviour
 
         return true;
     }
-    private void CheckAnswer()
+
+    public void CheckAnswer_Match()
     {
         if (IsAnswer())
         {
-            //for test
-            Debug.Log("정답 처리를 이곳에서 함");
+            if (doNotifyOnAnswer_StreamData && onAnswerStreamDatas != null)
+            {
+                CompleteStreamData();
+            }
+        }
+    }
+
+    private IEnumerator CheckAnswer_Number()
+    {
+        //for test
+        Debug.Log(string.Format($"Step 2 // 코루틴 시작 / 모든 버튼 잠금 시작"));
+
+        QInputButtonLock(true);
+
+        yield return DefaultData.singleton.qParentNumberCheckDelay;
+
+        if (IsAnswer())
+        {
+            if (answerType == enum_AnswerType.Number)
+            {
+                Color tempAnswerTextColor = answerText.color;
+                answerText.color = Color.blue;
+                yield return DefaultData.singleton.qParentNumberCheckDelay;
+            }
+            QInputButtonLock(false);
 
             if (doNotifyOnAnswer_StreamData && onAnswerStreamDatas != null)
             {
                 CompleteStreamData();
             }
-
-            return;
+        }
+        else
+        {
+            if (answerType == enum_AnswerType.Number)
+            {
+                Color tempAnswerTextColor = answerText.color;
+                answerText.color = Color.red;
+                yield return DefaultData.singleton.qParentNumberCheckDelay;
+                answerText.color = tempAnswerTextColor;
+                OnInput_ClearNumber();
+                QInputButtonLock(false);
+            }
         }
     }
 
@@ -159,9 +210,15 @@ public class QParent : MonoBehaviour
                 }
             case enum_AnswerType.Number:
                 {
+                    //for test
+                    Debug.Log(string.Format($"Step 0 // 버튼 입력 / 정답의 개수 = " + answer.Length + " // nowIndex = " + GetIndexOfNowNumber()));
                     OnInput_AnswerIsNumber(inputNumber: childInput);
-                    
-                    CheckAnswer();
+                    if (GetIndexOfNowNumber() == -1)
+                    {
+                        //for test
+                        Debug.Log(string.Format($"Step 1 // answer.Length = {answer.Length} 그리고 nowIndex = {GetIndexOfNowNumber()} 이므로 답 체크 시작"));
+                        StartCoroutine(CheckAnswer_Number());
+                    }
                     break;
                 }
             case enum_AnswerType.Click:
@@ -177,7 +234,7 @@ public class QParent : MonoBehaviour
             case enum_AnswerType.Match:
                 {
                     OnInput_AnswerIsMatch(childIndex, childInput);
-                    CheckAnswer();
+                    CheckAnswer_Match();
                     break;
                 }
             default:
@@ -201,13 +258,21 @@ public class QParent : MonoBehaviour
         nowInput[childIndex] = inputString;
         //RefreshAnswerUI();
     }
+    public void OnInput_ClearNumber()
+    {
+        for(int i = 0; i<nowInput.Length; i++)
+        {
+            nowInput[i] = defaultAnswer;
+        }
+        RefreshAnswerUI();
+    }
     public void OnInput_AnswerIsNumber(string inputNumber)
     {
         int nowIndex = GetIndexOfNowNumber();
         if (nowIndex == -1)
         {
             //for test
-            Debug.Log(this.gameObject.name + "의 GetIndexOfNowNumber 가 -1 이다. 그에따른 처리 필요.");
+            //Debug.Log(this.gameObject.name + "의 GetIndexOfNowNumber 가 -1 이다. 그에따른 처리 필요.");
 
             InitNowInput();
             OnInput_AnswerIsNumber(inputNumber);

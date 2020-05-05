@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class QInput : MonoBehaviour
 {
+    [Header("+ ClearButton 인가?")]
+    public bool isClearButton = false;
+
     [Header("+ Number 일 경우 - 버튼 클릭 시 입력되어야 하는 항목")]
     public string input;
 
@@ -17,6 +20,8 @@ public class QInput : MonoBehaviour
     [SerializeField] private List<ReactObject> reactObjects;
     private bool hasReactObject = false;
     public bool isSequencePlay = false;
+    private bool isEndSequencePlay = false;
+    private WaitForSeconds waitTimeTick;
 
     [Header("+ 프로퍼티 (미입력 항목)")]
     [SerializeField] int index;
@@ -75,12 +80,37 @@ public class QInput : MonoBehaviour
             hasReactObject = true;
         }
 
-        
+        waitTimeTick = new WaitForSeconds(0.5f * Time.deltaTime);
 
-        
+        if (isClearButton)
+        {
+            if(!(input == null || input == "" || inputList.Count == 0))
+            {
+                Debug.LogError(this.gameObject.name + " 의 isClearButton 이 true 인데 불필요한 값이 입력되어 있습니다.");
+            }
+
+            if(qParent.answerType != enum_AnswerType.Number)
+            {
+                Debug.LogError(this.gameObject.name + "의 isClearButton 이 true 인데 qParent 의 AnswerType 이 Number 가 아닙니다.");
+            }
+
+        }
     }
 
     public void DoReact()
+    {
+        if (!isSequencePlay)
+        {
+            DoReactNotSequence();
+        }
+        else
+        {
+            DoReactNotSequence();
+            //구현 실패로 우선 주석 처리
+            //StartCoroutine(DoReactSequence());
+        }
+    }
+    private void DoReactNotSequence()
     {
         for (int i = 0; i < reactObjects.Count; i++)
         {
@@ -91,6 +121,33 @@ public class QInput : MonoBehaviour
             Debug.Log(string.Format($"answerType = {qParent.answerType} // isReactObjectDontHaveItem = {qParent.isReactObjectDontHaveItem}"));
 
             reactObjects[i].DoAction(_isplayafterComplete: isSequencePlay, _targetButton: qButton);
+        }
+    }
+
+    IEnumerator DoReactSequence()
+    {
+        for (int i = 0; i < reactObjects.Count; i++)
+        {
+            reactObjects[i].DoAction(_isplayafterComplete:true);
+            while (!isEndSequencePlay)
+            {
+                if (reactObjects[i].IsEnd)
+                {
+                    break;
+                }
+                yield return waitTimeTick;
+            }
+        }
+
+        isEndSequencePlay = true;
+        yield return null;
+    }
+
+    public void SetButtonLock(bool isEnable)
+    {
+        if (qButton != null)
+        {
+            qButton.enabled = isEnable;
         }
     }
 
@@ -107,8 +164,14 @@ public class QInput : MonoBehaviour
         }
         else
         {
-            qParent.OnInput(childIndex: index, childInput: input);
-            
+            if (!isClearButton)
+            {
+                qParent.OnInput(childIndex: index, childInput: input);
+            }
+            else
+            {
+                qParent.OnInput_ClearNumber();
+            }
         }
 
         if(qParent.answerType == enum_AnswerType.CheckItem)
