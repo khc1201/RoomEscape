@@ -11,6 +11,7 @@ public class Dialog : MonoBehaviour
     private GameObject backGround;
     private int nowIndex = 0;
     private ReactObject nowObject;
+    private Color dogYellow;
 
     public static Dialog singleton;
     private void Awake()
@@ -31,9 +32,13 @@ public class Dialog : MonoBehaviour
     public void Start()
     {
         InitDialog();
+        InitColor();
     }
 
-    
+    private void InitColor()
+    {
+        dogYellow = new Color(183f/255, 115f/255, 0f);
+    }
 
     private void InitDialog()
     {
@@ -133,18 +138,19 @@ public class Dialog : MonoBehaviour
             case "":
                 {
                     // 흰 색
-                    textBox.color = Color.white; 
+                    textBox.color = Color.black; 
                     break;
                 }
             case "1":
                 {
-                    textBox.color = Color.yellow;
+                    textBox.color = dogYellow;
                     break;
                 }
             default:
                 {
                     //for test
                     Debug.LogError("현재 지정한 색상의 FontColor 가 없습니다. 여기서 case 를 추가할 것.");
+                    textBox.color = Color.black;
                     break;
                 }
         }
