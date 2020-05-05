@@ -19,6 +19,31 @@ public class CameraObj : MonoBehaviour
     [Header("+ 레벨 최적화 인덱스")]
     public string m_levelOptimizationIndex;
 
+    private void Awake()
+    {
+        FindCamera();
+        CameraResolution();
+    }
+
+    void CameraResolution()
+    {
+
+        Rect rect = m_cam.rect;
+        float scaleHeight = ((float)Screen.width / Screen.height) / ((float)16 / 9);
+        float scaleWidth = 1f / scaleHeight;
+        if(scaleHeight < 1)
+        {
+            rect.height = scaleHeight;
+            rect.y = (1f - scaleHeight) / 2f;
+        }
+        else
+        {
+            rect.width = scaleWidth;
+            rect.x = (1f - scaleWidth) / 2f;
+        }
+        m_cam.rect = rect;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,11 +58,12 @@ public class CameraObj : MonoBehaviour
 
     private void OnEnable()
     {
-        if(m_ui == null)    FindCameraButtonUI();
+        if(m_ui == null)  FindCameraButtonUI();
         if(m_cam == null) FindCamera();
 
         SetEnable(true);
     }
+
     private void SetEnable(bool isEnable)
     {
         m_ui.enabled = isEnable;
