@@ -54,7 +54,7 @@ public class MotionTarget : MonoBehaviour
                 {
 
                     //for test
-                    Debug.Log(string.Format($"{i}번째 tempClips인 {tempClips[i]} //// {j}번째 mTypes인 {mTypes[j]} 를 비교하여 tempClips의 시간인 {tempClips[i].length} 를 더한다"));
+                    //Debug.Log(string.Format($"{i}번째 tempClips인 {tempClips[i]} //// {j}번째 mTypes인 {mTypes[j]} 를 비교하여 tempClips의 시간인 {tempClips[i].length} 를 더한다"));
                     
 
                     mTimes[j] += tempClips[i].averageDuration;

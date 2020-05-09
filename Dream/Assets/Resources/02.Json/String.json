@@ -49,7 +49,7 @@
 	},
 	{
 		"Index" : "Str_Language_KOR" ,
-		"Desc" : "" ,
+		"Desc" : "한국어" ,
 		"Lang_1" : "한국어" ,
 		"Lang_2" : "한국어" ,
 		"Lang_3" : "한국어" ,
@@ -61,7 +61,7 @@
 	},
 	{
 		"Index" : "Str_Language_ENG" ,
-		"Desc" : "" ,
+		"Desc" : "영어" ,
 		"Lang_1" : "ENGLISH" ,
 		"Lang_2" : "ENGLISH" ,
 		"Lang_3" : "ENGLISH" ,
@@ -73,7 +73,7 @@
 	},
 	{
 		"Index" : "Str_Language_CHN" ,
-		"Desc" : "" ,
+		"Desc" : "중국어" ,
 		"Lang_1" : "中國語" ,
 		"Lang_2" : "中國語" ,
 		"Lang_3" : "中國語" ,
@@ -85,7 +85,7 @@
 	},
 	{
 		"Index" : "Str_Language_JPN" ,
-		"Desc" : "" ,
+		"Desc" : "일본어" ,
 		"Lang_1" : "이시국어" ,
 		"Lang_2" : "이시국어" ,
 		"Lang_3" : "이시국어" ,
@@ -97,7 +97,7 @@
 	},
 	{
 		"Index" : "Str_Language_ESP" ,
-		"Desc" : "" ,
+		"Desc" : "스페인어" ,
 		"Lang_1" : "스펜어" ,
 		"Lang_2" : "스펜어" ,
 		"Lang_3" : "스펜어" ,
@@ -109,10 +109,46 @@
 	},
 	{
 		"Index" : "Str_Language_6" ,
-		"Desc" : "" ,
+		"Desc" : "그다음은 무슨언어냐" ,
 		"Lang_1" : "희망어" ,
 		"Lang_2" : "희망어" ,
 		"Lang_3" : "희망어" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_Sys_ADShowForHint" ,
+		"Desc" : "광고를 시청 후에 힌트를 보시겠습니까?" ,
+		"Lang_1" : "광고를 시청한 후에 힌트를 보시겠습니까?" ,
+		"Lang_2" : "Do You Want to watch AD for hint?" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_Sys_Yes" ,
+		"Desc" : "예" ,
+		"Lang_1" : "예" ,
+		"Lang_2" : "Yes" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_Sys_No" ,
+		"Desc" : "아니오" ,
+		"Lang_1" : "아니오" ,
+		"Lang_2" : "No" ,
+		"Lang_3" : "" ,
 		"Lang_4" : "" ,
 		"Lang_5" : "" ,
 		"Lang_6" : "" ,
@@ -658,5 +694,65 @@
 		"Lang_6" : "" ,
 		"PlaySoundEffect" : "dog_barkonce" ,
 		"FontColor" : "1" 
+	},
+	{
+		"Index" : "//" ,
+		"Desc" : "" ,
+		"Lang_1" : "" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "//" ,
+		"Desc" : "힌트 목록" ,
+		"Lang_1" : "" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "//" ,
+		"Desc" : "" ,
+		"Lang_1" : "" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "" 
+	},
+	{
+		"Index" : "Str_Hint_000001" ,
+		"Desc" : "이동 방법에 대한 힌트" ,
+		"Lang_1" : "좌측 하단의 방향키를 눌러 옆을 보십시오!" ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "2" 
+	},
+	{
+		"Index" : "Str_Hint_000002" ,
+		"Desc" : "아이템을 사용하는 방법에 대한 힌트" ,
+		"Lang_1" : "화면 하단의 아이템 목록에서 사용할 아이템을 클릭한 후,\n사용하려는 곳을 클릭 하면 아이템을 사용할 수 있습니다." ,
+		"Lang_2" : "" ,
+		"Lang_3" : "" ,
+		"Lang_4" : "" ,
+		"Lang_5" : "" ,
+		"Lang_6" : "" ,
+		"PlaySoundEffect" : "" ,
+		"FontColor" : "2" 
 	}
 ]

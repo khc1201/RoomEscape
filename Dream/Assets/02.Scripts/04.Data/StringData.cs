@@ -34,8 +34,7 @@ public class StringData
         //타겟 스트링에 대해 기존 Tag 를 실제 적용되는 스트링으로 변환하는 작업을 한다.
         string tempString = target;
         tempString.Replace("\\n", "\n");
-        //for test
-        Debug.Log(tempString);
+
         return tempString;
     }
 }

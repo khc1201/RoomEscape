@@ -58,8 +58,8 @@ public class StreamShowTarget : MonoBehaviour
 
         if (streamList == null || streamList.Count == 0)
         {
-            Debug.Log(this.gameObject.name + "에는 streamList 가 설정되어 있지 않음. return.");
-            return;
+            //Debug.Log(this.gameObject.name + "에는 streamList 가 설정되어 있지 않음..");
+            //return;
         }
         
 

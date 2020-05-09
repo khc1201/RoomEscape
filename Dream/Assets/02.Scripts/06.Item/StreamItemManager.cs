@@ -6,6 +6,7 @@ public class StreamItemManager : MonoBehaviour
 {
     public static StreamItemManager singleton;
     public Inventory m_inventory;
+
     private void Awake()
     {
         if(singleton == null)
@@ -47,5 +48,6 @@ public class StreamItemManager : MonoBehaviour
             list_streamItem[i].OnChangeStreamData();
         }
         m_inventory.RefreshNowItemList();
+        Hint.HintManager.singleton.OnChangeStreamData();
     }
 }

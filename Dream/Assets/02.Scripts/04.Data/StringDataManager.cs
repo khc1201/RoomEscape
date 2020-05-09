@@ -50,6 +50,52 @@ public class StringDataManager : MonoBehaviour
             }
         }
     }
+    public string GetText(string index)
+    {
+        StringData target = stringDatas.Find(x => x.Index == index);
+        string tempString = "?키없음_" + index;
+        if (target == null)
+        {
+            Debug.LogError(index + "의 키가 존재하지 않음");
+            return tempString;
+        }
+
+        switch (UserData.singleton.m_optiondata.language)
+        {
+            case 0:
+                {
+                    tempString = target.Lang_1;
+                    break;
+                }
+            case 1:
+                {
+                    tempString = target.Lang_2;
+                    break;
+                }
+            case 2:
+                {
+                    tempString = target.Lang_3;
+                    break;
+                }
+            case 3:
+                {
+                    tempString = target.Lang_4;
+                    break;
+                }
+            case 4:
+                {
+                    tempString = target.Lang_5;
+                    break;
+                }
+            case 5:
+                {
+                    tempString = target.Lang_6;
+                    break;
+                }
+        }
+        return tempString;
+
+    }
     public StringData GetString(string index)
     {
         StringData target = stringDatas.Find(x => x.Index == index);

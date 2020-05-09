@@ -22,6 +22,7 @@ public class DefaultData : MonoBehaviour
     // 공통으로 저장하는 데이터이다.
     public WaitForSeconds qParentNumberCheckDelay;
     public AllButtonsLock allButtonLock;
+    public WaitForSeconds forTestADWaitTime;
 
     private void Start()
     {
@@ -32,5 +33,6 @@ public class DefaultData : MonoBehaviour
     {
         qParentNumberCheckDelay = new WaitForSeconds(0.5f);
         allButtonLock = FindObjectOfType<AllButtonsLock>();
+        forTestADWaitTime = new WaitForSeconds(3.0f);
     }
 }
