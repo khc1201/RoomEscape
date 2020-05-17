@@ -21,7 +21,8 @@ public enum enum_Language
 public enum enum_EventType
 {
     Complete_StreamData,
-    Init_StreamData
+    Init_StreamData,
+    Change_Language
 };
 
 public enum enum_ShowHide

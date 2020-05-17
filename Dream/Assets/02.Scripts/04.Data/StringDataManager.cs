@@ -22,6 +22,7 @@ public class StringDataManager : MonoBehaviour
 
     [SerializeField] private List<StringData> stringDatas;
     private string datapath = "02.Json/String";
+    public bool isLoaded = false;
     public void LoadStringData()
     {
         TextAsset stringTextAsset = Resources.Load(datapath) as TextAsset;
@@ -49,6 +50,7 @@ public class StringDataManager : MonoBehaviour
                     );
             }
         }
+        isLoaded = true;
     }
     public string GetText(string index)
     {

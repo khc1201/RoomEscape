@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using LitJson;
 
 
@@ -13,6 +14,8 @@ public class UserData : MonoBehaviour
         {
             singleton = this;
             DontDestroyOnLoad(this.gameObject);
+            //for test
+            Debug.Log(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
             LoadData();
         }
         else
@@ -37,7 +40,12 @@ public class UserData : MonoBehaviour
         StartCoroutine(DelayInit());
         //InitData();
     }
-    
+    private void OnLevelWasLoaded(int level)
+    {
+
+                    StartCoroutine(DelayInit());
+    }
+
     public void SetNowCam(string target)
     {
         m_nowCam = target;
@@ -55,16 +63,31 @@ public class UserData : MonoBehaviour
     IEnumerator DelayInit()
     {
         yield return new WaitForEndOfFrame();
+        
         InitData();
         yield return null;
     }
     void InitData()
     {
-        StreamDataManager.singleton.InitStream();
-        EventManager.Singleton.PostNotification(enum_EventType.Init_StreamData, this);
-        StringDataManager.singleton.LoadStringData();
-        CameraManager.singleton.LoadCamera();
-        StreamItemManager.singleton.InitItem();
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "MainScene":
+                {
+                    if (StringDataManager.singleton.isLoaded == false) StringDataManager.singleton.LoadStringData();
+                    
+                    break;
+                }
+            case "GameScene":
+                {
+                    StreamDataManager.singleton.InitStream();
+                    EventManager.Singleton.PostNotification(enum_EventType.Init_StreamData, this);
+                    if (StringDataManager.singleton.isLoaded == false) StringDataManager.singleton.LoadStringData();
+                    CameraManager.singleton.LoadCamera();
+                    StreamItemManager.singleton.InitItem();
+                    break;
+                }
+        }
     }
     void LoadData_Stream()
     {
@@ -72,15 +95,15 @@ public class UserData : MonoBehaviour
 
         if  (ES3.KeyExists("streamdata") == false)
         {
-            if(DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("streamdata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
+            //if(DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("streamdata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
         }
-            list_completestream = ES3.Load<List<string>>("streamdata", "userdata.es3", defaultValue: new List<string>());
+        list_completestream = ES3.Load<List<string>>("streamdata", "userdata.es3", defaultValue: new List<string>());
     }
     void LoadData_Cam()
     {
         if (ES3.KeyExists("nowcamera") == false)
         {
-            if (DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("nowcamera에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
+            //if (DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("nowcamera에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
             
         }
         m_nowCam = ES3.Load<string>("nowcamera", "userdata.es3", defaultValue: "C013001");
@@ -91,7 +114,7 @@ public class UserData : MonoBehaviour
     {
         if (ES3.KeyExists("optiondata") == false)
         {
-            if (DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("inventorydata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
+            //if (DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("inventorydata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
         }
         m_optiondata = ES3.Load<OptionData>("optiondata", "optiondata.es3", defaultValue: new OptionData());
     }
