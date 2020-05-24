@@ -10,7 +10,7 @@ public class DevDescriptionManager : MonoBehaviour
         if(singleton == null)
         {
             singleton = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {

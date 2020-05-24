@@ -11,14 +11,18 @@ public class CameraManager : MonoBehaviour
         if(singleton == null)
         {
             singleton = this;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
         }
+        /*
         else
         {
             DestroyImmediate(this);
             return;
         }
+        */
     }
+
+
 
     private void Start()
     {
@@ -27,6 +31,8 @@ public class CameraManager : MonoBehaviour
         //InitCameraList();
         //InitCamera();
     }
+    
+
     [Header("+ 초기화 정보")]
     public GameObject m_cameraParent;
     public List<CameraObj> list_camobj;

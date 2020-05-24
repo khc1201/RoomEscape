@@ -30,7 +30,6 @@ public class UserData : MonoBehaviour
     {
         SaveData();
     }
-
     public List<string> list_completestream;
     public OptionData m_optiondata;
     public string m_nowCam;
@@ -43,7 +42,7 @@ public class UserData : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
 
-                    StartCoroutine(DelayInit());
+        StartCoroutine(DelayInit());
     }
 
     public void SetNowCam(string target)
@@ -62,7 +61,7 @@ public class UserData : MonoBehaviour
     }
     IEnumerator DelayInit()
     {
-        yield return new WaitForEndOfFrame();
+        yield return DefaultData.singleton.waitForEndofFrame;
         
         InitData();
         yield return null;
@@ -75,7 +74,7 @@ public class UserData : MonoBehaviour
             case "MainScene":
                 {
                     if (StringDataManager.singleton.isLoaded == false) StringDataManager.singleton.LoadStringData();
-                    
+                    SaveData();
                     break;
                 }
             case "GameScene":
@@ -92,20 +91,31 @@ public class UserData : MonoBehaviour
     void LoadData_Stream()
     {
         list_completestream = new List<string>();
-
+        
+        /*
+         * 2020.05.24 에서 주석 처리됨
+         *  이상한 구간... ES3.KeyExists 에서 키는 불러오고 있는데, 아래의 조건을 만족하고 있었음.
         if  (ES3.KeyExists("streamdata") == false)
         {
-            //if(DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("streamdata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
+                Debug.Log("streamdata에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
         }
+        */
         list_completestream = ES3.Load<List<string>>("streamdata", "userdata.es3", defaultValue: new List<string>());
     }
     void LoadData_Cam()
     {
+        /*
+         * 2020.05.24 에서 주석 처리됨
+         *  이상한 구간... ES3.KeyExists 에서 키는 불러오고 있는데, 아래의 조건을 만족하고 있었음.
+        
         if (ES3.KeyExists("nowcamera") == false)
         {
-            //if (DevDescriptionManager.singleton.m_isFortestConsoleShow) Debug.Log("nowcamera에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
-            
+            Debug.Log("nowcamera에 저장된 데이터가 없습니다. 기본 값을 사용합니다.");
+            m_nowCam = "C013001";
+            SaveData_Cam();
+            return;
         }
+        */
         m_nowCam = ES3.Load<string>("nowcamera", "userdata.es3", defaultValue: "C013001");
         
     }
@@ -131,6 +141,8 @@ public class UserData : MonoBehaviour
 
     public void SaveData_Cam()
     {
+        //for test
+        Debug.Log("Save Cam : " + m_nowCam);
         ES3.Save<string>("nowcamera", m_nowCam, "userdata.es3");
     }
 

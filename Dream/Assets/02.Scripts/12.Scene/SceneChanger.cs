@@ -27,6 +27,11 @@ public class SceneChanger : MonoBehaviour
         
 
     }
+
+    public void OnButtonClick_ToMain()
+    {
+        asyncOper = SceneManager.LoadSceneAsync("MainScene");
+    }
     public void OnButtonClick_Option(bool isOptionShow)
     {
         if (isOptionShow)

@@ -34,7 +34,7 @@ public class EventManager : MonoBehaviour
         if (singleton == null)
         {
             singleton = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
             DestroyImmediate(this);

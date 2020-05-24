@@ -10,12 +10,14 @@ public class StreamDataManager : MonoBehaviour
         if (singleton == null)
         {
             singleton = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
+        
         else
         {
             DestroyImmediate(this);
         }
+        
     }
 
     public List<StreamData> list_streamData;
