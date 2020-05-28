@@ -142,7 +142,7 @@ public class UserData : MonoBehaviour
     public void SaveData_Cam()
     {
         //for test
-        Debug.Log("Save Cam : " + m_nowCam);
+        //Debug.Log("Save Cam : " + m_nowCam);
         ES3.Save<string>("nowcamera", m_nowCam, "userdata.es3");
     }
 

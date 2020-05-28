@@ -12,17 +12,48 @@ public class OptionChanger : MonoBehaviour
     public Slider soundSlider;
     private string[] langTexts = { "Str_Language_KOR", "Str_Language_ENG", "Str_Language_CHN", "Str_Language_JPN", "Str_Language_ESP", "Str_Language_6" };
     OptionData optionData;
+    public GameObject moveTarget;
 
     private void OnEnable()
     {
-        if(optionData == null) optionData = UserData.singleton.m_optiondata;
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "MainScene")
+        {
+            OnMoveDown();
+        }
+    }
+
+    public void OnMoveDown()
+    {
+        if (optionData == null) optionData = UserData.singleton.m_optiondata;
 
         soundSlider.value = optionData.sound;
 
         SetLanText();
-        
+
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameScene")
+        {
+            if (moveTarget == null)
+            {
+                Debug.LogError(this.gameObject.name + " 의 moveTarget 이 null 입니다.");
+            }
+
+            moveTarget.transform.localPosition = Vector3.up * 0f;
+        }
     }
 
+    public void OnMoveUp()
+    {
+        moveTarget.transform.localPosition = Vector3.up * 2000f;
+    }
+
+    public void OnOptionPopUpInGameScene()
+    {
+        OnMoveDown();
+    }
+    public void OnOptionQuitInGameScene()
+    {
+        OnMoveUp();
+    }
 
     public void OnSlideValudChange()
     {
