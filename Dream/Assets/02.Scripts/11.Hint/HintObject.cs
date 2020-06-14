@@ -6,7 +6,7 @@ namespace Hint
 {
     public class HintObject : MonoBehaviour
     {
-        public string targetStringDataIndex;
+        //public string targetStringDataIndex;
         public bool isOpenned;
         public bool isNowHint;
         public StreamData StreamDataForShow;
